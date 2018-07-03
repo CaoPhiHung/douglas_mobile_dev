@@ -40,8 +40,8 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
 
         // view
         ArrayList<ListItem> items = new ArrayList<ListItem>();
-        items.add(new ListItem("Title 1", R.drawable.port_1));
-        items.add(new ListItem("Title 2", R.drawable.port_2));
+        items.add(new ListItem("Alaska", R.drawable.port_1));
+        items.add(new ListItem("San Francisco", R.drawable.port_2));
         ListItemAdapter adapter = new ListItemAdapter(view.getContext(), 0, items);
 
         ListView lv = (ListView)view.findViewById(R.id.listPorts);

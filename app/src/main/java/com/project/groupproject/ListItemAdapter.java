@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.project.objects.ListItem;
@@ -33,13 +36,14 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.list_item_layout, null);
 
-        ImageView imageView = view.findViewById(R.id.liImage);
+        view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 400));
         TextView textView = view.findViewById(R.id.liTitle);
+        ImageView image = view.findViewById(R.id.liImage);
 
         ListItem item = items.get(position);
-
-        imageView.setImageResource(item.image);
         textView.setText(item.title);
+        textView.setLetterSpacing(0.1f);
+        image.setImageResource(item.image);
 
         return view;
 
