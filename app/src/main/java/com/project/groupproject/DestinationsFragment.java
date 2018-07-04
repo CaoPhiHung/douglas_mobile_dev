@@ -29,19 +29,12 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.destinations_fragment,container,false);
 
-        btnTEST = (Button) view.findViewById(R.id.btnTEST);
-
-        btnTEST.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "TESTING BUTTON CLICK 2",Toast.LENGTH_SHORT).show();
-            }
-        });
-
         // view
         ArrayList<ListItem> items = new ArrayList<ListItem>();
         items.add(new ListItem("Alaska", R.drawable.port_1));
         items.add(new ListItem("San Francisco", R.drawable.port_2));
+        items.add(new ListItem("New York", R.drawable.port_1));
+        items.add(new ListItem("Houston", R.drawable.port_2));
         ListItemAdapter adapter = new ListItemAdapter(view.getContext(), 0, items);
 
         ListView lv = (ListView)view.findViewById(R.id.listPorts);

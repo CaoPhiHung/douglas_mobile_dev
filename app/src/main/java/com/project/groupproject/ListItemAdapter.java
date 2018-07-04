@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,10 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
+        int[] colors = {R.color.colorBackground1,
+                R.color.colorBackground2,
+                R.color.colorBackground3,
+                R.color.colorBackground4};
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.list_item_layout, null);
 
@@ -42,7 +46,9 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
 
         ListItem item = items.get(position);
         textView.setText(item.title);
-        textView.setLetterSpacing(0.1f);
+        textView.setLetterSpacing(0.2f);
+        textView.setBackgroundResource( colors[position%4] );
+
         image.setImageResource(item.image);
 
         return view;
