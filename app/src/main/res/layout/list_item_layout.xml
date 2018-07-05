@@ -18,13 +18,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackground1"
+        android:fontFamily="@font/roboto_medium"
         android:gravity="center_vertical|center_horizontal"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:text="TextView"
         android:textAllCaps="true"
         android:textColor="#fff"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="24sp" />
 
 </FrameLayout>
