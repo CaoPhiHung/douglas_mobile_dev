@@ -1,4 +1,4 @@
-package com.project.groupproject;
+package com.project.activities;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

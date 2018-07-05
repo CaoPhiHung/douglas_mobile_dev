@@ -1,4 +1,4 @@
-package com.project.groupproject;
+package com.project.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.project.groupproject.R;
 
 /**
  * Created by 300284134 on 6/25/2018.

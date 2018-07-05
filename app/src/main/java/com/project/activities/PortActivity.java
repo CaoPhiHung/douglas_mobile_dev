@@ -1,7 +1,9 @@
-package com.project.groupproject;
+package com.project.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.project.groupproject.R;
 
 public class PortActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.project.groupproject;
+package com.project.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.project.groupproject.R;
 import com.project.objects.ListItem;
 
 import java.util.ArrayList;
