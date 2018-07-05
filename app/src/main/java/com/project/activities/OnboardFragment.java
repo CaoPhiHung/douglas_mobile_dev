@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.project.groupproject.R;
-
 /**
  * Created by 300284134 on 6/25/2018.
  */

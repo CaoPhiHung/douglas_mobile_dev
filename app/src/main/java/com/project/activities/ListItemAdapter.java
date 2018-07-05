@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.project.groupproject.R;
 import com.project.objects.ListItem;
 
 import java.util.ArrayList;

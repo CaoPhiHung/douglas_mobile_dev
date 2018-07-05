@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.project.groupproject.R;
 import com.project.objects.ListItem;
 
 import java.util.ArrayList;
