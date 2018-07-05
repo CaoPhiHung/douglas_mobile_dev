@@ -2,6 +2,7 @@ package com.project.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class PortActivity extends AppCompatActivity {
 
@@ -9,5 +10,11 @@ public class PortActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_port);
+
+        Bundle b = getIntent().getExtras();
+        int id = b.getInt("id");
+
+        TextView tv = findViewById(R.id.txtTest);
+        tv.setText("You have just open port id #" + id);
     }
 }

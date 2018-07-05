@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.project.objects.ListItem;
+import com.project.objects.PortItem;
 
 import java.util.ArrayList;
 
@@ -19,8 +20,6 @@ import java.util.ArrayList;
 public class DestinationsFragment extends android.support.v4.app.Fragment{
     private static final String TAG = "DestinationsFragment";
 
-    private Button btnTEST;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,10 +27,10 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
 
         // view
         ArrayList<ListItem> items = new ArrayList<ListItem>();
-        items.add(new ListItem("Alaska", R.drawable.port_1));
-        items.add(new ListItem("San Francisco", R.drawable.port_2));
-        items.add(new ListItem("New York", R.drawable.port_1));
-        items.add(new ListItem("Houston", R.drawable.port_2));
+        items.add(new PortItem(1,"Alaska", R.drawable.port_1));
+        items.add(new PortItem(2,"San Francisco", R.drawable.port_2));
+        items.add(new PortItem(3,"New York", R.drawable.port_1));
+        items.add(new PortItem(4,"Houston", R.drawable.port_2));
         ListItemAdapter adapter = new ListItemAdapter(view.getContext(), 0, items);
 
         ListView lv = (ListView)view.findViewById(R.id.listPorts);

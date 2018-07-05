@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.objects.ListItem;
 
@@ -44,15 +42,15 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
         TextView textView = view.findViewById(R.id.liTitle);
         ImageView image = view.findViewById(R.id.liImage);
 
-        ListItem item = items.get(position);
+        final ListItem item = items.get(position);
         textView.setText(item.title);
         textView.setLetterSpacing(0.2f);
         textView.setBackgroundResource( colors[position%4] );
 
+        view.setOnClickListener(item.getListener());
+
         image.setImageResource(item.image);
 
         return view;
-
-//        return super.getView(position, convertView, parent);
     }
 }
