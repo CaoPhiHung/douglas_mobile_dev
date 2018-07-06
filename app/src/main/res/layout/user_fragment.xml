@@ -4,20 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textSize="25sp"
-        android:text="Tab4"
-        android:layout_marginTop="40dp"
-        android:id="@+id/textTab4"/>
-
-    <Button
-        android:id="@+id/btnTEST"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="TESTBTN 4" />
-
+    <ListView
+        android:id="@+id/listUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>
