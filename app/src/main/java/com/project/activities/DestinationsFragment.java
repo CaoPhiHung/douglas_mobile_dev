@@ -29,27 +29,25 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.destinations_fragment,container,false);
 
-        // view
-        ArrayList<ListItem> items = new ArrayList<ListItem>();
-        items.add(new PortItem(1,"Alaska", R.drawable.port_1));
-        items.add(new PortItem(2,"San Francisco", R.drawable.port_2));
-        items.add(new PortItem(3,"New York", R.drawable.port_1));
-        items.add(new PortItem(4,"Houston", R.drawable.port_2));
-        ListItemAdapter adapter = new ListItemAdapter(view.getContext(), 0, items);
-
-        ListView lv = (ListView)view.findViewById(R.id.listPorts);
-        lv.setAdapter(adapter);
-
-        // database generate
+        // get from database
         DBHelper dbHelper = new DBHelper(view.getContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        Cursor cursor = db.query(Port.TABLE_NAME, Port.getColumnNames(), null, null, null, null, null);
-        cursor.moveToFirst();
-        ArrayList<Port> ports = new ArrayList<Port>();
-        do {
-            ports.add(Port.convertFromCursor(cursor));
-        } while (cursor.moveToNext());
+        Port[] ports = Port.getPorts(db);
+
+        // view
+        ArrayList<ListItem> items = new ArrayList<ListItem>();
+        int[] images = {R.drawable.port_1, R.drawable.port_2};
+        int count = 0;
+
+        for (Port port : ports){
+            items.add(new PortItem((int)port.id ,port.name, images[count % 2]));
+            count++;
+        }
+        ListItemAdapter adapter = new ListItemAdapter(view.getContext(), 0, items);
+
+        ListView lv = view.findViewById(R.id.listPorts);
+        lv.setAdapter(adapter);
 
         return view;
     }
