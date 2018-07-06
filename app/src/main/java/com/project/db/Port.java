@@ -68,7 +68,8 @@ public class Port {
         return port;
     }
 
-    public static Port[] getPorts(SQLiteDatabase db){
+    public static Port[] getPorts(){
+        SQLiteDatabase db = DBHelper.getDbInstance();
         Cursor cursor = db.query(Port.TABLE_NAME, Port.getColumnNames(), null, null, null, null, null);
         cursor.moveToFirst();
 
@@ -80,5 +81,15 @@ public class Port {
         } while (cursor.moveToNext());
 
         return ports;
+    }
+
+    public static Port getPort(long id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+
+        String[] selectedArgs = {id + ""};
+        Cursor cursor = db.query(Port.TABLE_NAME, Port.getColumnNames(), "id = ?", selectedArgs, null, null, null);
+        cursor.moveToFirst();
+
+        return Port.convertFromCursor(cursor);
     }
 }

@@ -1,11 +1,15 @@
 package com.project.activities;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.project.db.DBHelper;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -29,6 +33,9 @@ public class HomeActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        //
+        DBHelper.initInstance(this);
     }
 
     private void setupViewPager(ViewPager viewPager) {

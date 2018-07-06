@@ -14,6 +14,17 @@ public class DBHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "groupproject";
     static final int DATABASE_VERSION = 2;
 
+    static DBHelper instance;
+
+    public static void initInstance(Context context){
+        // get from database
+        instance = new DBHelper(context);
+    }
+
+    public static SQLiteDatabase getDbInstance(){
+        return instance.getWritableDatabase();
+    }
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

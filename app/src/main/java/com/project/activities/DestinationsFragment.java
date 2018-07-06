@@ -29,11 +29,7 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.destinations_fragment,container,false);
 
-        // get from database
-        DBHelper dbHelper = new DBHelper(view.getContext());
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        Port[] ports = Port.getPorts(db);
+        Port[] ports = Port.getPorts();
 
         // view
         ArrayList<ListItem> items = new ArrayList<ListItem>();
