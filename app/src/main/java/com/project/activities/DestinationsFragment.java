@@ -1,5 +1,7 @@
 package com.project.activities;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.project.db.DBHelper;
+import com.project.db.Port;
 import com.project.objects.ListItem;
 import com.project.objects.PortItem;
 
@@ -35,6 +39,17 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
 
         ListView lv = (ListView)view.findViewById(R.id.listPorts);
         lv.setAdapter(adapter);
+
+        // database generate
+        DBHelper dbHelper = new DBHelper(view.getContext());
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Cursor cursor = db.query(Port.TABLE_NAME, Port.getColumnNames(), null, null, null, null, null);
+        cursor.moveToFirst();
+        ArrayList<Port> ports = new ArrayList<Port>();
+        do {
+            ports.add(Port.convertFromCursor(cursor));
+        } while (cursor.moveToNext());
 
         return view;
     }

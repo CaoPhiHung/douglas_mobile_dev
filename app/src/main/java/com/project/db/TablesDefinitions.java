@@ -18,7 +18,7 @@ public class TablesDefinitions {
             "port_id INTEGER, " +
             "booking_name TEXT, " +
             "booking_date TEXT, " +
-            "FOREIGN KEY (port_id) REFERENCES (port) ON DELETE CASCADE)";
+            "FOREIGN KEY (port_id) REFERENCES port(id) ON DELETE CASCADE)";
 
     static final String PORT_DROP = "DROP TABLE port";
     static final String PORT_BOOKING_DROP = "DROP TABLE port_booking";

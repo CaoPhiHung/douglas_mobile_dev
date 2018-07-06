@@ -4,26 +4,29 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.Date;
+
 /**
  * Created by 300282895 on 7/5/2018.
  */
-public class DBFactory extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "groupproject";
-    static final int DATABASE_VERSION = 1;
+    static final int DATABASE_VERSION = 2;
 
-    public DBFactory(Context context) {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         createTables(db);
+        seed(db);
     }
 
     public void createTables(SQLiteDatabase db){
         String[] tables = {
+                "PRAGMA foreign_keys = 1",
                 TablesDefinitions.PORT,
                 TablesDefinitions.PORT_BOOKING,
         };
@@ -43,11 +46,30 @@ public class DBFactory extends SQLiteOpenHelper {
             db.execSQL(table);
         }
     }
+    static final String PORT = "CREATE TABLE port (id INTEGER PRIMARY KEY, " +
+            "name TEXT, " +
+            "price_children REAL, " +
+            "price_adult REAL, " +
+            "price_group REAL, " +
+            "price_private REAL," +
+            "date INTEGER," +
+            "max_people INTEGER)";
+
+    public void seed(SQLiteDatabase db){
+        long date = Date.valueOf("2018-09-20").getTime();
+
+        db.execSQL("INSERT INTO " + Port.TABLE_NAME + " (name, price_children, price_adult, price_group, price_private, date, max_people) VALUES " +
+                "('Hubbard Glacier, Alaska', 40, 80, 100, 120, "+date+", 50), " +
+                "('Icy Strait Point, Alaska', 45, 85, 105, 125, "+date+", 50), " +
+                "('Juneau, Alaska', 45, 85, 105, 125, "+date+", 50)," +
+                "('Hubbard Glacier, Alaska', 45, 85, 105, 125, "+date+", 50)");
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         dropTables(db);
         createTables(db);
+        seed(db);
     }
 
     @Override
@@ -56,5 +78,6 @@ public class DBFactory extends SQLiteOpenHelper {
 
         dropTables(db);
         createTables(db);
+        seed(db);
     }
 }
