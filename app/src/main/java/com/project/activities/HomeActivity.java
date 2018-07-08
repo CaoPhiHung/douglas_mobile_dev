@@ -34,6 +34,13 @@ public class HomeActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        //Add icons
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_cruise);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_ports);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_onboard);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_room);
+        tabLayout.getTabAt(4).setIcon(R.drawable.ic_user);
+
         //
         DBHelper.initInstance(this);
     }
@@ -41,8 +48,8 @@ public class HomeActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         SectionAdapter adapter = new SectionAdapter(getSupportFragmentManager());
         adapter.addFragment(new CruiseFragment(), "Cruise");
-        adapter.addFragment(new DestinationsFragment(), "Destination");
-        adapter.addFragment(new OnboardFragment(), "Activities");
+        adapter.addFragment(new DestinationsFragment(), "Ports");
+        adapter.addFragment(new OnboardFragment(), "Onboard");
         adapter.addFragment(new RoomFragment(), "Room");
         adapter.addFragment(new UserFragment(), "User");
         viewPager.setAdapter(adapter);
