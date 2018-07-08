@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.project.db.DBHelper;
@@ -38,5 +40,7 @@ public class PortActivity extends AppCompatActivity {
         images.add(R.drawable.landscape1);
         images.add(R.drawable.landscape2);
         slider.setAdapter(new SliderImageAdapter(this, images));
+
+        // spinner
     }
 }
