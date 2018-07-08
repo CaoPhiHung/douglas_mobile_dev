@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.project.db.DBHelper;
@@ -18,13 +19,15 @@ public class HomeActivity extends AppCompatActivity {
     private SectionAdapter mSectionsPageAdapter;
 
     private ViewPager mViewPager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Log.d(TAG, "onCreate: Starting.");
-
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("My Cruise");
         mSectionsPageAdapter = new SectionAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -41,7 +44,39 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout.getTabAt(3).setIcon(R.drawable.ic_room);
         tabLayout.getTabAt(4).setIcon(R.drawable.ic_user);
 
-        //
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        toolbar.setTitle("My Cruise");
+                        break;
+                    case 1:
+                        toolbar.setTitle("Ports Of Call");
+                        break;
+                    case 2:
+                        toolbar.setTitle("Onboard Activities");
+                        break;
+                    case 3:
+                        toolbar.setTitle("Room & Services");
+                        break;
+                    case 4:
+                        toolbar.setTitle("My Account");
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         DBHelper.initInstance(this);
     }
 
