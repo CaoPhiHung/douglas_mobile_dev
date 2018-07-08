@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         adapter.addFragment(new CruiseFragment(), "Cruise");
         adapter.addFragment(new DestinationsFragment(), "Destination");
         adapter.addFragment(new OnboardFragment(), "Activities");
+        adapter.addFragment(new RoomFragment(), "Room");
         adapter.addFragment(new UserFragment(), "User");
         viewPager.setAdapter(adapter);
     }

@@ -13,7 +13,7 @@ import android.widget.Toast;
  * Created by 300284134 on 6/25/2018.
  */
 
-public class OnboardFragment extends Fragment{
+public class RoomFragment extends Fragment{
     private static final String TAG = "OnboardFragment";
 
     private Button btnTEST;
@@ -21,13 +21,13 @@ public class OnboardFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_onboard,container,false);
+        View view = inflater.inflate(R.layout.fragment_room,container,false);
         btnTEST = (Button) view.findViewById(R.id.btnTEST);
 
         btnTEST.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "TESTING BUTTON CLICK 3",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "ROOM BOOKED",Toast.LENGTH_SHORT).show();
             }
         });
 
