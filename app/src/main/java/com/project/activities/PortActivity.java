@@ -115,7 +115,7 @@ public class PortActivity extends AppCompatActivity {
                 if (booking_id == -1){
                     Toast.makeText(PortActivity.this, "Cannot book, please try again", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(PortActivity.this, "You have already booked", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PortActivity.this, "You have successfully booked", Toast.LENGTH_LONG).show();
                 }
             }
         });

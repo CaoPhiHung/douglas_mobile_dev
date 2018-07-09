@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class PortBooking {
 
-    public static final String TABLE_NAME = "port";
+    public static final String TABLE_NAME = "port_booking";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_PORT_ID = "port_id";
     public static final String COLUMN_TYPE = "type";
@@ -117,7 +117,6 @@ public class PortBooking {
     static public PortBooking convertFromCursor(Cursor cursor){
         PortBooking booking = new PortBooking(cursor.getLong(cursor.getColumnIndex(COLUMN_PORT_ID)));
         booking.id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-//        booking.port_id = cursor.getLong(cursor.getColumnIndex(COLUMN_PORT_ID));
         booking.type = cursor.getString(cursor.getColumnIndex(COLUMN_TYPE));
         booking.quantity_adult = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY_ADULT));
         booking.quantity_children = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY_CHILDREN));
