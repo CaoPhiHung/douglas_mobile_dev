@@ -43,10 +43,6 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
         ListView lv = view.findViewById(R.id.listPorts);
         lv.setAdapter(adapter);
 
-        /// test
-        User user = User.getCurrentUser();
-        Room room = Room.findRoom(2);
-
 
         return view;
     }

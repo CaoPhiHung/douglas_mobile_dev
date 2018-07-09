@@ -29,8 +29,11 @@
                 android:id="@+id/portDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
-                android:text="Port View" />
+                android:fontFamily="@font/roboto_light"
+                android:text="Port View"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

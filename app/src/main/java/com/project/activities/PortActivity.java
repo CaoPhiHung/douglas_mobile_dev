@@ -40,7 +40,7 @@ public class PortActivity extends AppCompatActivity {
         this.port = port;
 
         TextView tv = findViewById(R.id.portDescription);
-        tv.setText("You have just open port id #" + port.id  + ", name: " + port.name + ", price adult " + port.price_adult);
+        tv.setText(port.description);
 
         ViewPager slider = (ViewPager) findViewById(R.id.slider);
 
