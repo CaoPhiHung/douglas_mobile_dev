@@ -12,7 +12,7 @@ import java.sql.Date;
 public class DBHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "groupproject";
-    static final int DATABASE_VERSION = 2;
+    static final int DATABASE_VERSION = 5;
 
     static DBHelper instance;
 
@@ -57,14 +57,6 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(table);
         }
     }
-    static final String PORT = "CREATE TABLE port (id INTEGER PRIMARY KEY, " +
-            "name TEXT, " +
-            "price_children REAL, " +
-            "price_adult REAL, " +
-            "price_group REAL, " +
-            "price_private REAL," +
-            "date INTEGER," +
-            "max_people INTEGER)";
 
     public void seed(SQLiteDatabase db){
         long date = Date.valueOf("2018-09-20").getTime();
