@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.project.db.Port;
+import com.project.db.Room;
+import com.project.db.User;
 import com.project.objects.ListItem;
 import com.project.objects.PortItem;
 
@@ -40,6 +42,11 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
 
         ListView lv = view.findViewById(R.id.listPorts);
         lv.setAdapter(adapter);
+
+        /// test
+        User user = User.getCurrentUser();
+        Room room = Room.findRoom(2);
+
 
         return view;
     }
