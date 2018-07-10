@@ -6,12 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.project.objects.ListItem;
-import com.project.objects.PortItem;
 import com.project.objects.UserInfoItem;
 
 import java.util.ArrayList;
@@ -26,7 +23,7 @@ public class UserFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.user_fragment,container,false);
+        View view = inflater.inflate(R.layout.fragment_user,container,false);
 
         ArrayList<ListItem> items = new ArrayList<ListItem>();
         items.add(new UserInfoItem(1,"User Information", R.drawable.port_1));

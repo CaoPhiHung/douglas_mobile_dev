@@ -21,7 +21,7 @@ public class CruiseFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.cruise_fragment,container,false);
+        View view = inflater.inflate(R.layout.fragment_cruise,container,false);
         btnTEST = (Button) view.findViewById(R.id.btnTEST);
 
         btnTEST.setOnClickListener(new View.OnClickListener() {

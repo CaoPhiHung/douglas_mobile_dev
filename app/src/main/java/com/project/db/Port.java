@@ -13,6 +13,7 @@ public class Port {
     public static final String TABLE_NAME = "port";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_PRICE_CHILDREN = "price_children";
     public static final String COLUMN_ADULT = "price_adult";
     public static final String COLUMN_PRIVATE = "price_private";
@@ -21,6 +22,7 @@ public class Port {
     public static final String COLUMN_MAX_PEOPLE = "max_people";
 
     public String name;
+    public String description;
     public long id;
     public double price_children;
     public double price_adult;
@@ -33,6 +35,7 @@ public class Port {
         return new String[]{
                 COLUMN_ID,
                 COLUMN_NAME,
+                COLUMN_DESCRIPTION,
                 COLUMN_PRICE_CHILDREN,
                 COLUMN_ADULT,
                 COLUMN_PRIVATE,
@@ -46,6 +49,7 @@ public class Port {
         ContentValues content = new ContentValues();
         content.put(COLUMN_ID, this.id);
         content.put(COLUMN_NAME, this.name);
+        content.put(COLUMN_DESCRIPTION, this.description);
         content.put(COLUMN_PRICE_CHILDREN, this.price_children);
         content.put(COLUMN_ADULT, this.price_adult);
         content.put(COLUMN_PRIVATE, this.price_private);
@@ -59,6 +63,7 @@ public class Port {
         Port port = new Port();
         port.id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
         port.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+        port.description = cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION));
         port.price_children = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE_CHILDREN));
         port.price_adult = cursor.getDouble(cursor.getColumnIndex(COLUMN_ADULT));
         port.price_private = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRIVATE));

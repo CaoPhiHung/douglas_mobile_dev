@@ -12,7 +12,7 @@ import java.sql.Date;
 public class DBHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "groupproject";
-    static final int DATABASE_VERSION = 2;
+    static final int DATABASE_VERSION = 7;
 
     static DBHelper instance;
 
@@ -38,6 +38,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public void createTables(SQLiteDatabase db){
         String[] tables = {
                 "PRAGMA foreign_keys = 1",
+                TablesDefinitions.USER,
+                TablesDefinitions.ROOM,
+                TablesDefinitions.ROOM_BOOKING,
                 TablesDefinitions.PORT,
                 TablesDefinitions.PORT_BOOKING,
         };
@@ -49,31 +52,42 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void dropTables(SQLiteDatabase db){
         String[] tables = {
-                TablesDefinitions.PORT_DROP,
-                TablesDefinitions.PORT_BOOKING_DROP,
+                TablesDefinitions.DROP_ROOM_BOOKING,
+                TablesDefinitions.DROP_ROOM,
+                TablesDefinitions.DROP_PORT,
+                TablesDefinitions.DROP_PORT_BOOKING,
+                TablesDefinitions.DROP_USER,
         };
 
         for (String table : tables){
             db.execSQL(table);
         }
     }
-    static final String PORT = "CREATE TABLE port (id INTEGER PRIMARY KEY, " +
-            "name TEXT, " +
-            "price_children REAL, " +
-            "price_adult REAL, " +
-            "price_group REAL, " +
-            "price_private REAL," +
-            "date INTEGER," +
-            "max_people INTEGER)";
 
     public void seed(SQLiteDatabase db){
         long date = Date.valueOf("2018-09-20").getTime();
 
-        db.execSQL("INSERT INTO " + Port.TABLE_NAME + " (name, price_children, price_adult, price_group, price_private, date, max_people) VALUES " +
-                "('Hubbard Glacier, Alaska', 40, 80, 100, 120, "+date+", 50), " +
-                "('Icy Strait Point, Alaska', 45, 85, 105, 125, "+date+", 50), " +
-                "('Juneau, Alaska', 45, 85, 105, 125, "+date+", 50)," +
-                "('Hubbard Glacier, Alaska', 45, 85, 105, 125, "+date+", 50)");
+        String desc1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in lectus aliquam, suscipit sem nec, imperdiet nisi. Proin nec vulputate nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
+        String desc2 = "Curabitur sed ornare magna. Quisque consequat metus in orci porta sagittis ut in mauris. Sed ultricies sapien luctus dictum vestibulum. Quisque et mauris interdum, condimentum est et, ornare orci. Suspendisse sodales quis sem sit amet ornare. ";
+        String desc3 = "Fusce at nibh enim. Sed ac tortor ac magna ornare porttitor et sed nisi. Aliquam libero velit, posuere eu lacus in, lobortis interdum metus. Integer nec neque nisi.";
+        String desc4 = "Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque vel molestie nunc. Ut id velit et eros vulputate semper. Nullam scelerisque nibh quis magna imperdiet commodo";
+
+        // add user
+        db.execSQL("INSERT INTO " + User.TABLE_NAME + " (name, phone) VALUES ('Sample User', '123-456-7890'), ('Another User', '987-654-3210')");
+
+        // add rooms
+        db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, price) VALUES " +
+                "('OCEAN 01', " + Room.TYPE_OCEAN_VIEW + ", 500), " +
+                "('CONCIERGE 01', " + Room.TYPE_CONCIERGE + ", 300), " +
+                "('INSIDE 01', " + Room.TYPE_INSIDE + ", 200), " +
+                "('VERANDAH 01', " + Room.TYPE_VERANDAH+ ", 100) ");
+
+        // add port
+        db.execSQL("INSERT INTO " + Port.TABLE_NAME + " (name, description, price_children, price_adult, price_group, price_private, date, max_people) VALUES " +
+                "('Hubbard Glacier, Alaska', '" + desc1 + "', 40, 80, 100, 120, "+date+", 50), " +
+                "('Icy Strait Point, Alaska', '" +desc2 + "', 45, 85, 105, 125, "+date+", 50), " +
+                "('Juneau, Alaska', '" + desc3 + "', 45, 85, 105, 125, "+date+", 50)," +
+                "('Hubbard Glacier, Alaska', '" + desc4 + "', 45, 85, 105, 125, "+date+", 50)");
     }
 
     @Override

@@ -1,17 +1,15 @@
 package com.project.activities;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 
-import com.project.db.DBHelper;
 import com.project.db.Port;
+import com.project.db.Room;
+import com.project.db.User;
 import com.project.objects.ListItem;
 import com.project.objects.PortItem;
 
@@ -27,7 +25,7 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.destinations_fragment,container,false);
+        View view = inflater.inflate(R.layout.fragment_destinations,container,false);
 
         Port[] ports = Port.getPorts();
 
@@ -44,6 +42,7 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
 
         ListView lv = view.findViewById(R.id.listPorts);
         lv.setAdapter(adapter);
+
 
         return view;
     }
