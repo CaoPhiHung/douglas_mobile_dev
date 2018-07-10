@@ -48,13 +48,29 @@ public class TablesDefinitions {
             "room_id INTEGER," +
             "user_id INTEGER," +
             "price REAL," +
+            "booking_date INTEGER, " +
             "FOREIGN KEY (room_id) REFERENCES room(id) ON DELETE CASCADE," +
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE)";
+
+    static final String ACTIVITY = "CREATE TABLE activity (id INTEGER PRIMARY KEY, " +
+            "name TEXT," +
+            "description TEXT," +
+            "max_people INTEGER)";
+
+    static final String ACTIVITY_BOOKING = "CREATE TABLE activity_booking " +
+            "(activity_id INTEGER," +
+            "user_id INTEGER," +
+            "booking_date integer," +
+            "PRIMARY KEY (activity_id, user_id)," +
+            "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE," +
+            "FOREIGN KEY (activity_id) REFERENCES activity(id) ON DELETE CASCADE)";
 
     static final String DROP_PORT = "DROP TABLE IF EXISTS port";
     static final String DROP_PORT_BOOKING = "DROP TABLE IF EXISTS port_booking";
     static final String DROP_ROOM = "DROP TABLE IF EXISTS room";
     static final String DROP_ROOM_BOOKING = "DROP TABLE IF EXISTS room_booking";
     static final String DROP_USER = "DROP TABLE IF EXISTS user";
+    static final String DROP_ACTIVITY = "DROP TABLE IF EXISTS activity";
+    static final String DROP_ACTIVITY_BOOKING = "DROP TABLE IF EXISTS activity_booking";
 
 }
