@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".PortActivity"></activity>
         <activity android:name=".UserInfoActivity"></activity>
+        <activity android:name=".RoomActivity"></activity>
     </application>
 
 </manifest>
