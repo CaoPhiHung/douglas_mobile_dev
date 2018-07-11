@@ -3,15 +3,12 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard 2</string>
     <string name="title_notifications">Notifications</string>
-<<<<<<< HEAD
     <string-array name="room_type">
         <item>Ocean View</item>
         <item>Concierge</item>
         <item>Inside</item>
         <item>Verandah</item>
-=======
-
-    <!-- TODO: Remove or change this placeholder text -->
+    </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ashore">Ashore \n6:00am</string>
     <string-array name="port_booking_type">
@@ -25,6 +22,10 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
->>>>>>> dcf72a69c7d4cc4ebf0d66a463a1b00acb36e6e0
+    </string-array>
+    <string-array name="room_size">
+        <item>Single</item>
+        <item>Double</item>
+        <item>Family</item>
     </string-array>
 </resources>

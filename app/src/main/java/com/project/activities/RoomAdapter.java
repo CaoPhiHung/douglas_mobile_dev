@@ -1,50 +1,55 @@
 package com.project.activities;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.project.db.Room;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by 300284134 on 6/25/2018.
- */
+public class RoomAdapter extends ArrayAdapter<Room> {
 
-public class RoomAdapter extends BaseAdapter {
+    int [] imgSource = {R.drawable.landscape0, R.drawable.landscape1, R.drawable.landscape2};
+    String [] roomNoText = {"Room #1", "Room #2", "Room #3", "aaaaaa"};
+    String [] descText = {"Room #1 desc", "Room #2 desc", "Room #3 desc", "aaaa"};
+    private ArrayList<Room> items;
+    private Context context;
 
-    Activity context;
-
-    public RoomAdapter()
+    public RoomAdapter(Context context, int id, ArrayList<Room> items)
     {
-
+        super(context, id, items);
+        this.items= items;
+        this.context = context;
     }
-
-    @Override
-    public int getCount() {
-        return 0;
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = context.getLayoutInflater();
-        view = inflater.inflate(R.layout.custom_row, null);
 
-        return view;
+        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        View v = inflater.inflate(R.layout.custom_row, null);
+
+//        ImageView img = (ImageView)this.view.findViewById(R.id.pictureId);
+//        img.setImageResource(imgSource[i]);
+
+        TextView roomNo = (TextView)v.findViewById(R.id.txtTitle);
+        roomNo.setText(roomNoText[i]);
+
+        TextView roomDesc = (TextView)v.findViewById(R.id.txtDesc);
+        roomDesc.setText(descText[i]);
+
+//        TextView roomPrice = (TextView)this.view.findViewById(R.id.txtPrice);
+//        roomPrice.setText("Description");
+//
+//        Button bookButton = (Button)this.view.findViewById(R.id.btnBook);
+//        view = this.view;
+        return v;
     }
 }
