@@ -23,7 +23,6 @@ public class PortBooking {
     public static final String COLUMN_PRICE_SUBTOTAL = "price_subtotal";
     public static final String COLUMN_PRICE_TAX = "price_tax";
     public static final String COLUMN_PRICE_TOTAL = "price_total";
-    public static final String COLUMN_BOOKING_NAME = "booking_name";
     public static final String COLUMN_BOOKING_DATE = "booking_date";
 
 
@@ -41,7 +40,6 @@ public class PortBooking {
     public double price_subtotal;
     public double price_tax;
     public double price_total;
-    public String booking_name;
     public long booking_date;
 
     static public String[] getColumns(){
@@ -60,7 +58,6 @@ public class PortBooking {
                 COLUMN_PRICE_SUBTOTAL,
                 COLUMN_PRICE_TAX,
                 COLUMN_PRICE_TOTAL,
-                COLUMN_BOOKING_NAME,
                 COLUMN_BOOKING_DATE
         };
     }
@@ -86,7 +83,6 @@ public class PortBooking {
         content.put(COLUMN_PRICE_SUBTOTAL, this.price_subtotal);
         content.put(COLUMN_PRICE_TAX, this.price_tax);
         content.put(COLUMN_PRICE_TOTAL, this.price_total);
-        content.put(COLUMN_BOOKING_NAME, this.booking_name);
         content.put(COLUMN_BOOKING_DATE, this.booking_date);
 
         return content;
@@ -129,6 +125,7 @@ public class PortBooking {
         booking.price_subtotal = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE_SUBTOTAL));
         booking.price_tax = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE_SUBTOTAL));
         booking.price_total = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE_TOTAL));
+        booking.booking_date = cursor.getLong(cursor.getColumnIndex(COLUMN_BOOKING_DATE));
         return booking;
     }
 }

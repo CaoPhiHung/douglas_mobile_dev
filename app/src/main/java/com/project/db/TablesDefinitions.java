@@ -7,6 +7,8 @@ package com.project.db;
 public class TablesDefinitions {
     static final String USER = "CREATE TABLE user (id INTEGER PRIMARY KEY, " +
             "name TEXT, " +
+            "username TEXT, " +
+            "password TEXT, " +
             "phone TEXT)";
 
     static final String PORT = "CREATE TABLE port (id INTEGER PRIMARY KEY, " +
@@ -34,7 +36,6 @@ public class TablesDefinitions {
             "price_subtotal REAL, " +
             "price_tax REAL, " +
             "price_total REAL, " +
-            "booking_name TEXT, " +
             "booking_date INTEGER, " +
             "FOREIGN KEY (port_id) REFERENCES port(id) ON DELETE CASCADE," +
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE)";
