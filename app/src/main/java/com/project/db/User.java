@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.security.MessageDigest;
+
 public class User {
 
     static public String TABLE_NAME = "user";
@@ -19,6 +21,7 @@ public class User {
     public String name;
     public String username;
     public String password;
+    public String password_confirm;
     public String phone;
 
     static public User getCurrentUser(){
@@ -59,6 +62,22 @@ public class User {
         };
     }
 
+    public long save(){
+        ContentValues data = toContentValues();
+        SQLiteDatabase db = DBHelper.getDbInstance();
+
+        if (this.id == 0){
+            data.remove(COLUMN_ID);
+            long id = db.insert(TABLE_NAME, null, data);
+            if (id != -1){
+                this.id = id;
+            }
+            return id;
+        } else {
+            return db.update(TABLE_NAME, data, "id = ?", new String[] { String.valueOf(this.id) });
+        }
+    }
+
     static User findUser(long id){
         SQLiteDatabase db = DBHelper.getDbInstance();
 
@@ -66,6 +85,47 @@ public class User {
         Cursor cursor = db.query(TABLE_NAME, getColumnNames(), "id = ?", selectedArgs, null, null, null);
         cursor.moveToFirst();
 
-        return convertFromCursor(cursor);
+        if (cursor.getCount() == 0)
+            return null;
+        else
+            return convertFromCursor(cursor);
+    }
+
+    static User findByUsername(String username){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+
+        String[] selectedArgs = { username };
+        Cursor cursor = db.query(TABLE_NAME, getColumnNames(), "username = ?", selectedArgs, null, null, null);
+        cursor.moveToFirst();
+
+        if (cursor.getCount() == 0)
+            return null;
+        else
+            return convertFromCursor(cursor);
+    }
+
+    /**
+     * helper methods
+     */
+    public boolean verifyPasswordConfirm(){
+        return password == password_confirm;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public void register() throws Exception {
+        if (!password_confirm.contentEquals(password)){
+            throw new Exception("Password confirmation has to be matched");
+        }
+
+        User oldUser = findByUsername(username);
+        if (oldUser != null)
+            throw new Exception("This username has been used. Please choose another one");
+
+        String hashedPassword = MessageDigest.getInstance("SHA-256").digest(password.getBytes()).toString();
+
+        save();
     }
 }

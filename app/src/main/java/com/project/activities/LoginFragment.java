@@ -1,6 +1,7 @@
 package com.project.activities;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 //import com.project.groupproject.R;
 
@@ -31,12 +33,22 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         final Context context = view.getContext();
 
+        final LoginActivity loginActivity = ((LoginActivity)getActivity());
+
         Button btn = view.findViewById(R.id.btnLogin);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, HomeActivity.class);
                 startActivity(i);
+            }
+        });
+
+        TextView btnRegister = view.findViewById(R.id.linkChangeToRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginActivity.switchScreen();
             }
         });
 

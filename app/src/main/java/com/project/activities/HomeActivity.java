@@ -76,8 +76,6 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-        DBHelper.initInstance(this);
     }
 
     private void setupViewPager(ViewPager viewPager) {

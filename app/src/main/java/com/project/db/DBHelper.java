@@ -12,7 +12,7 @@ import java.sql.Date;
 public class DBHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "groupproject";
-    static final int DATABASE_VERSION = 8;
+    static final int DATABASE_VERSION = 9;
 
     static DBHelper instance;
 
@@ -73,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String desc4 = "Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque vel molestie nunc. Ut id velit et eros vulputate semper. Nullam scelerisque nibh quis magna imperdiet commodo";
 
         // add user
-        db.execSQL("INSERT INTO " + User.TABLE_NAME + " (name, phone) VALUES ('Sample User', '123-456-7890'), ('Another User', '987-654-3210')");
+        db.execSQL("INSERT INTO " + User.TABLE_NAME + " (name, username, password, phone) VALUES ('Sample User', 'toan', '123456', '123-456-7890')");
 
         // add rooms
         db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, price) VALUES " +
