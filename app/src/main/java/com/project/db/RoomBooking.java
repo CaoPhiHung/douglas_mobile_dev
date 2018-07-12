@@ -10,6 +10,8 @@ public class RoomBooking {
     static public String COLUMN_ROOM_ID = "room_id";
     static public String COLUMN_USER_ID = "user_id";
     static public String COLUMN_PRICE = "price";
+    static public String COLUMN_NO_ADULT = "number_adult";
+    static public String COLUMN_NO_CHILDREN = "number_children";
     static public String COLUMN_BOOKING_DATE = "booking_date";
     /*
      "room_id INTEGER," +
@@ -18,7 +20,7 @@ public class RoomBooking {
             "booking_date INTEGER, " +
      */
 
-    long id, room_id, user_id, booking_date;
+    long id, room_id, user_id, booking_date, number_adult, number_children;
     double price;
 
     public ContentValues toContentValues() {
@@ -28,6 +30,8 @@ public class RoomBooking {
         data.put(COLUMN_USER_ID, this.user_id);
         data.put(COLUMN_PRICE, this.price);
         data.put(COLUMN_BOOKING_DATE, this.booking_date);
+        data.put(COLUMN_NO_ADULT, this.number_adult);
+        data.put(COLUMN_NO_CHILDREN, this.number_children);
         return data;
     }
 
@@ -39,7 +43,8 @@ public class RoomBooking {
         booking.user_id = cursor.getLong(cursor.getColumnIndex(COLUMN_USER_ID));
         booking.price = cursor.getInt(cursor.getColumnIndex(COLUMN_PRICE));
         booking.booking_date = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_DATE));
-
+        booking.number_adult = cursor.getInt(cursor.getColumnIndex(COLUMN_NO_ADULT));
+        booking.number_children = cursor.getInt(cursor.getColumnIndex(COLUMN_NO_CHILDREN));
         return booking;
     }
 
@@ -49,7 +54,9 @@ public class RoomBooking {
                 COLUMN_USER_ID,
                 COLUMN_ROOM_ID,
                 COLUMN_PRICE,
-                COLUMN_BOOKING_DATE
+                COLUMN_BOOKING_DATE,
+                COLUMN_NO_ADULT,
+                COLUMN_NO_CHILDREN
         };
     }
 
