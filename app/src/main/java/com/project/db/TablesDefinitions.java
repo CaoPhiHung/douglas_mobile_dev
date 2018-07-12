@@ -41,12 +41,18 @@ public class TablesDefinitions {
 
     static final String ROOM = "CREATE TABLE room (id INTEGER PRIMARY KEY, " +
             "name TEXT," +
+            "desc TEXT," +
             "type INTEGER," +
+            "deck INTEGER," +
+            "max_adult INTEGER," +
+            "max_children INTEGER," +
             "price REAL)";
 
     static final String ROOM_BOOKING = "CREATE TABLE room_booking (id INTEGER PRIMARY KEY, " +
             "room_id INTEGER," +
             "user_id INTEGER," +
+            "number_adult INTEGER," +
+            "number_children INTEGER," +
             "price REAL," +
             "booking_date INTEGER, " +
             "FOREIGN KEY (room_id) REFERENCES room(id) ON DELETE CASCADE," +
