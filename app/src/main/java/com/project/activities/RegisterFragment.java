@@ -2,7 +2,9 @@ package com.project.activities;
 
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.db.User;
+
+import java.security.MessageDigest;
 
 //import com.project.groupproject.R;
 
@@ -57,6 +61,8 @@ public class RegisterFragment extends Fragment {
 
                 try{
                     newUser.register();
+                    Toast.makeText(view.getContext(), "You already register, please log in to continue", Toast.LENGTH_LONG).show();
+                    la.switchScreen();
                 } catch (Exception ex){
                     Toast.makeText(view.getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
                 }

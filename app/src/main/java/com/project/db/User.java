@@ -25,9 +25,6 @@ public class User {
     public String phone;
 
     static public User getCurrentUser(){
-        if (currentUser == null){
-            currentUser = findUser(1);
-        }
         return currentUser;
     }
 
@@ -35,8 +32,8 @@ public class User {
         ContentValues data = new ContentValues();
         data.put(COLUMN_ID, this.id);
         data.put(COLUMN_NAME, this.name);
-        data.put(COLUMN_USERNAME, this.name);
-        data.put(COLUMN_PASSWORD, this.name);
+        data.put(COLUMN_USERNAME, this.username);
+        data.put(COLUMN_PASSWORD, this.password);
         data.put(COLUMN_PHONE, this.phone);
         return data;
     }
@@ -116,7 +113,7 @@ public class User {
      * @return
      */
     public void register() throws Exception {
-        if (!password_confirm.contentEquals(password)){
+        if (!password_confirm.equals(password)){
             throw new Exception("Password confirmation has to be matched");
         }
 
@@ -124,8 +121,22 @@ public class User {
         if (oldUser != null)
             throw new Exception("This username has been used. Please choose another one");
 
-        String hashedPassword = MessageDigest.getInstance("SHA-256").digest(password.getBytes()).toString();
-
         save();
+    }
+
+    /**
+     *
+     * @param username
+     * @param password
+     */
+    public static void login(String username, String password) throws Exception {
+        User user = findByUsername(username);
+        if (user == null)
+            throw new Exception("User is not existed");
+
+        if (!user.password.equals(password))
+            throw new Exception("Password is incorrect");
+
+        currentUser = user;
     }
 }

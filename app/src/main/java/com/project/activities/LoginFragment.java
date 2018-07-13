@@ -10,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.project.db.User;
 
 //import com.project.groupproject.R;
 
@@ -34,13 +38,22 @@ public class LoginFragment extends Fragment {
         final Context context = view.getContext();
 
         final LoginActivity loginActivity = ((LoginActivity)getActivity());
+        final EditText textUsername = (EditText)view.findViewById(R.id.txtUserName);
+        final EditText textPassword = (EditText)view.findViewById(R.id.txtPassword);
 
         Button btn = view.findViewById(R.id.btnLogin);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, HomeActivity.class);
-                startActivity(i);
+                try{
+                    User.login(textUsername.getText().toString(), textPassword.getText().toString());
+
+                    Intent i = new Intent(context, HomeActivity.class);
+                    startActivity(i);
+                } catch (Exception ex){
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
