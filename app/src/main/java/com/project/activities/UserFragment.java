@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.project.objects.ListItem;
-import com.project.objects.UserInfoItem;
+import com.project.db.User;
+import com.project.objects.Info;
 
 import java.util.ArrayList;
 
@@ -25,14 +25,14 @@ public class UserFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user,container,false);
 
-        ArrayList<ListItem> items = new ArrayList<ListItem>();
-        items.add(new UserInfoItem(1,"User Information", R.drawable.port_1));
-        items.add(new UserInfoItem(2,"Room Assignment", R.drawable.port_2));
-        items.add(new UserInfoItem(3,"Room Service", R.drawable.port_1));
+        // list user info
+        ListView lvUser = view.findViewById(R.id.listUserInfo);
+        ListInfoAdapter adaptUserInfo = new ListInfoAdapter(view.getContext(), 0, User.getCurrentUser().getInfoArray());
+        lvUser.setAdapter(adaptUserInfo);
 
-        ListItemAdapter adapter = new ListItemAdapter(view.getContext(), 0, items);
-        ListView lv = (ListView)view.findViewById(R.id.listUserInfo);
-        lv.setAdapter(adapter);
+        // activity
+        ArrayList<Info> infos = new ArrayList<Info>();
+
 
         return view;
     }

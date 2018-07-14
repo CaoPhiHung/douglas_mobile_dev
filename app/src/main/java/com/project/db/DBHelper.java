@@ -43,6 +43,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 TablesDefinitions.ROOM_BOOKING,
                 TablesDefinitions.PORT,
                 TablesDefinitions.PORT_BOOKING,
+                TablesDefinitions.ACTIVITY,
+                TablesDefinitions.ACTIVITY_BOOKING
         };
 
         for (String table : tables){
@@ -56,6 +58,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 TablesDefinitions.DROP_ROOM,
                 TablesDefinitions.DROP_PORT,
                 TablesDefinitions.DROP_PORT_BOOKING,
+                TablesDefinitions.DROP_ACTIVITY_BOOKING,
+                TablesDefinitions.DROP_ACTIVITY,
                 TablesDefinitions.DROP_USER,
         };
 
@@ -88,6 +92,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 "('Icy Strait Point, Alaska', '" +desc2 + "', 45, 85, 105, 125, "+date+", 50), " +
                 "('Juneau, Alaska', '" + desc3 + "', 45, 85, 105, 125, "+date+", 50)," +
                 "('Hubbard Glacier, Alaska', '" + desc4 + "', 45, 85, 105, 125, "+date+", 50)");
+
+        // add activities
+        OnboardActivity.seed();
     }
 
     @Override
