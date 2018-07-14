@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class OnboardActivity {
     static public String TABLE_NAME = "activity";
     static public String COLUMN_ID = "id";
@@ -44,8 +46,7 @@ public class OnboardActivity {
         };
     }
 
-    public static void seed(){
-        SQLiteDatabase db = DBHelper.getDbInstance();
+    public static void seed(SQLiteDatabase db){
 
         db.execSQL("INSERT INTO " + TABLE_NAME + " (name, description, max_people) VALUES " +
                 "('SkyDrive', 'SkyRide is a bit like riding a bike — you’ll never forget it. But SkyRide is also completely unlike riding a bike, because when was the last time you biked around a ship, high above the deck and even higher above the sparkling blue sea? Zip safely around our two-lane suspended course in a pedal-powered go-mobile, in search of your biggest racing victory, a lower-body workout… or simply the greatest view.', 50), " +
@@ -59,18 +60,17 @@ public class OnboardActivity {
      *
      * @return OnboardActivity[]
      */
-    public static OnboardActivity[] getAll(){
+    public static ArrayList<OnboardActivity> getAll(){
         SQLiteDatabase db = DBHelper.getDbInstance();
 
         Cursor cursor = db.query(TABLE_NAME, getColumnNames(), null, null, null, null, null);
         cursor.moveToFirst();
-        OnboardActivity[] activities = new OnboardActivity[cursor.getCount()];
-        int count = 0;
-        do {
-            activities[count] = convertFromCursor(cursor) ;
-            count++;
-        } while (cursor.moveToNext());
-
+        ArrayList<OnboardActivity> activities = new ArrayList<OnboardActivity>();
+        if(cursor.moveToFirst()){
+            while (cursor.moveToNext()){
+                activities.add(convertFromCursor(cursor));
+            }
+        }
         return activities;
     }
 }

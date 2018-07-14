@@ -12,7 +12,7 @@ import java.sql.Date;
 public class DBHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "groupproject";
-    static final int DATABASE_VERSION = 9;
+    static final int DATABASE_VERSION = 12;
 
     static DBHelper instance;
 
@@ -94,7 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "('Hubbard Glacier, Alaska', '" + desc4 + "', 45, 85, 105, 125, "+date+", 50)");
 
         // add activities
-        OnboardActivity.seed();
+        OnboardActivity.seed(db);
     }
 
     @Override
