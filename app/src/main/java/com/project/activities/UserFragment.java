@@ -32,6 +32,21 @@ public class UserFragment extends Fragment{
 
         // activity
         ArrayList<Info> infos = new ArrayList<Info>();
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        infos.add(new Info("Heading 1", "lorem"));
+        ListView lvActivities = view.findViewById(R.id.listActivities);
+        lvActivities.setAdapter(new ListInfoAdapter(view.getContext(), 0, infos));
 
 
         return view;
