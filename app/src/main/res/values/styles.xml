@@ -20,4 +20,17 @@
     <style name="spinner">
         <item name="android:background">@drawable/spinner</item>
     </style>
+
+    <style name="heading">
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">15sp</item>
+        <item name="android:paddingRight">15sp</item>
+        <item name="android:paddingTop">3sp</item>
+        <item name="android:paddingBottom">3sp</item>
+        <item name="android:background">#3d3d3d</item>
+        <item name="android:textColor">#f2f2f2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
 </resources>

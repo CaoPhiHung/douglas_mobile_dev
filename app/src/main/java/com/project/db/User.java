@@ -4,7 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.project.objects.Info;
+
 import java.security.MessageDigest;
+import java.util.ArrayList;
 
 public class User {
 
@@ -102,13 +105,6 @@ public class User {
     }
 
     /**
-     * helper methods
-     */
-    public boolean verifyPasswordConfirm(){
-        return password == password_confirm;
-    }
-
-    /**
      *
      * @return
      */
@@ -138,5 +134,13 @@ public class User {
             throw new Exception("Password is incorrect");
 
         currentUser = user;
+    }
+
+    public ArrayList<Info> getInfoArray(){
+        ArrayList<Info> list = new ArrayList<Info>();
+        list.add(new Info("Name", this.name));
+        list.add(new Info("Username", this.username));
+        list.add(new Info("Phone", this.phone));
+        return list;
     }
 }
