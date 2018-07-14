@@ -12,15 +12,15 @@ import android.widget.TextView;
 public class ListActivityAdapter extends ArrayAdapter {
 
     private final Activity context;
-    private final String[] description;
+    private final String[] actDesc;
     private final int[] actId;
 
-    public ListActivityAdapter(Activity context, String[] itemname, int[] actId) {
-        super(context, R.layout.list_activity_layout, itemname);
+    public ListActivityAdapter(Activity context, String[] description, int[] actId) {
+        super(context, R.layout.list_activity_layout, description);
         // TODO Auto-generated constructor stub
 
         this.context=context;
-        this.description=itemname;
+        this.actDesc=description;
         this.actId=actId;
     }
 
@@ -29,9 +29,9 @@ public class ListActivityAdapter extends ArrayAdapter {
         View rowView=inflater.inflate(R.layout.list_activity_layout, null,false);
 
         ImageView imgView =  rowView.findViewById(R.id.actImg);
-        TextView txtDesc = (TextView) rowView.findViewById(R.id.actDesc);
+        TextView txtDesc = rowView.findViewById(R.id.actDesc);
         imgView.setImageResource(actId[position]);
-        txtDesc.setText(description[position]);
+        txtDesc.setText(actDesc[position]);
 
         return rowView;
 
