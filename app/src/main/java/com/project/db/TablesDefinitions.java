@@ -10,7 +10,7 @@ public class TablesDefinitions {
             "username TEXT, " +
             "password TEXT, " +
             "phone TEXT," +
-            "CONSTRAINT unique_username UNIQUE (username)";
+            "CONSTRAINT unique_username UNIQUE (username))";
 
     static final String PORT = "CREATE TABLE port (id INTEGER PRIMARY KEY, " +
             "name TEXT, " +

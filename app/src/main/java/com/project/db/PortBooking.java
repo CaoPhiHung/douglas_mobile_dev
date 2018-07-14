@@ -128,4 +128,6 @@ public class PortBooking {
         booking.booking_date = cursor.getLong(cursor.getColumnIndex(COLUMN_BOOKING_DATE));
         return booking;
     }
+
+
 }

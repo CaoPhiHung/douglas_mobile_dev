@@ -26,9 +26,10 @@ public class UserFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_user,container,false);
 
         // list user info
+        ArrayList<Info> mainList = new ArrayList<Info>();
+        mainList.add(new Info("User Information"));
+        mainList.addAll(User.getCurrentUser().getInfoArray());
         ListView lvUser = view.findViewById(R.id.listUserInfo);
-        ListInfoAdapter adaptUserInfo = new ListInfoAdapter(view.getContext(), 0, User.getCurrentUser().getInfoArray());
-        lvUser.setAdapter(adaptUserInfo);
 
         // activity
         ArrayList<Info> infos = new ArrayList<Info>();
@@ -41,13 +42,11 @@ public class UserFragment extends Fragment{
         infos.add(new Info("Heading 1", "lorem"));
         infos.add(new Info("Heading 1", "lorem"));
         infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        ListView lvActivities = view.findViewById(R.id.listActivities);
-        lvActivities.setAdapter(new ListInfoAdapter(view.getContext(), 0, infos));
+        mainList.add(new Info("Activites"));
+        mainList.addAll(infos);
 
+        ListInfoAdapter adaptUserInfo = new ListInfoAdapter(view.getContext(), 0, mainList);
+        lvUser.setAdapter(adaptUserInfo);
 
         return view;
     }

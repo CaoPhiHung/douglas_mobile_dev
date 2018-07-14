@@ -28,14 +28,21 @@ public class ListInfoAdapter extends ArrayAdapter<Info> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
         LayoutInflater li = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View view = li.inflate(R.layout.list_item_info, null);
+        Info item = items.get(position);
+        View view;
 
-        TextView heading = view.findViewById(R.id.textHeading);
-        TextView value = view.findViewById(R.id.textValue);
-        heading.setText(items.get(position).heading);
-        value.setText(items.get(position).value);
+        if (item.isHeader){
+            view = li.inflate(R.layout.list_item_header, null);
+            TextView heading = view.findViewById(R.id.textHeading);
+            heading.setText(items.get(position).heading);
+        } else {
+            view = li.inflate(R.layout.list_item_info, null);
+            TextView heading = view.findViewById(R.id.textHeading);
+            TextView value = view.findViewById(R.id.textValue);
+            value.setText(items.get(position).value);
+            heading.setText(items.get(position).heading);
+        }
 
         return view;
     }
