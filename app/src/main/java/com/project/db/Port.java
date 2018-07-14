@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  * Created by 300282895 on 7/5/2018.
@@ -49,7 +50,7 @@ public class Port {
 
     public ContentValues toContentValues(){
         ContentValues content = new ContentValues();
-        content.put(COLUMN_ID, this.id);
+//        content.put(COLUMN_ID, this.id);
         content.put(COLUMN_NAME, this.name);
         content.put(COLUMN_DESCRIPTION, this.description);
         content.put(COLUMN_PRICE_CHILDREN, this.price_children);
@@ -90,7 +91,20 @@ public class Port {
         return ports;
     }
 
-    public static Port getPort(long id){
+    public static ArrayList<Port> getAll() {
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        Cursor cursor = db.query(Port.TABLE_NAME, Port.getColumnNames(), null, null, null, null, null);
+        cursor.moveToFirst();
+
+        ArrayList<Port> ports = new ArrayList<Port>();
+        do {
+            ports.add(Port.convertFromCursor(cursor));
+        } while (cursor.moveToNext());
+
+        return ports;
+    }
+
+    public static Port get(long id){
         SQLiteDatabase db = DBHelper.getDbInstance();
 
         String[] selectedArgs = {id + ""};

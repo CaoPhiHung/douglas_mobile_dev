@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class PortBooking {
@@ -11,6 +12,7 @@ public class PortBooking {
     public static final String TABLE_NAME = "port_booking";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_PORT_ID = "port_id";
+    public static final String COLUMN_USER_ID = "user_id";
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_QUANTITY_ADULT = "quantity_adult";
     public static final String COLUMN_QUANTITY_CHILDREN = "quantity_children";
@@ -25,10 +27,14 @@ public class PortBooking {
     public static final String COLUMN_PRICE_TOTAL = "price_total";
     public static final String COLUMN_BOOKING_DATE = "booking_date";
 
+    public static final int TYPE_REGULAR     = 0;
+    public static final int TYPE_PRIVATE = 1;
+    public static final int TYPE_GROUP = 2;
 
     public long id;
     public long port_id;
-    public String type;
+    public long user_id;
+    public int type;
     public int quantity_adult;
     public int quantity_children;
     public int quantity_group;
@@ -42,10 +48,24 @@ public class PortBooking {
     public double price_total;
     public long booking_date;
 
+    static public String getTypeName(int type){
+        switch (type){
+            case TYPE_GROUP:
+                return "Group";
+            case TYPE_REGULAR:
+                return "Regular";
+            case TYPE_PRIVATE:
+                return "Private";
+            default:
+                return "Unknown";
+        }
+    }
+
     static public String[] getColumns(){
         return new String[]{
                 COLUMN_ID,
                 COLUMN_PORT_ID,
+                COLUMN_USER_ID,
                 COLUMN_TYPE,
                 COLUMN_QUANTITY_ADULT,
                 COLUMN_QUANTITY_CHILDREN,
@@ -62,15 +82,26 @@ public class PortBooking {
         };
     }
 
+    public PortBooking() {
+        this.booking_date = new Date().getTime();
+    }
+
     public PortBooking(long port_id) {
         this.port_id = port_id;
         this.booking_date = new Date().getTime();
+
+        // auto fill price
+        Port port = Port.get(port_id);
+        this.price_group = port.price_group;
+        this.price_private = port.price_private;
+        this.price_children = port.price_children;
+        this.price_adult= port.price_adult;
     }
 
     public ContentValues toContentValues() {
         ContentValues content = new ContentValues();
-        content.put(COLUMN_ID, this.id);
         content.put(COLUMN_PORT_ID, this.port_id);
+        content.put(COLUMN_USER_ID, this.user_id);
         content.put(COLUMN_TYPE, this.type);
         content.put(COLUMN_QUANTITY_ADULT, this.quantity_adult);
         content.put(COLUMN_QUANTITY_CHILDREN, this.quantity_children);
@@ -99,7 +130,6 @@ public class PortBooking {
         SQLiteDatabase db = DBHelper.getDbInstance();
 
         if (this.id == 0){
-            data.remove(COLUMN_ID);
             long id = db.insert(TABLE_NAME, null, data);
             if (id != -1){
                 this.id = id;
@@ -113,7 +143,9 @@ public class PortBooking {
     static public PortBooking convertFromCursor(Cursor cursor){
         PortBooking booking = new PortBooking(cursor.getLong(cursor.getColumnIndex(COLUMN_PORT_ID)));
         booking.id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-        booking.type = cursor.getString(cursor.getColumnIndex(COLUMN_TYPE));
+        booking.port_id = cursor.getLong(cursor.getColumnIndex(COLUMN_PORT_ID));
+        booking.user_id = cursor.getLong(cursor.getColumnIndex(COLUMN_USER_ID));
+        booking.type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
         booking.quantity_adult = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY_ADULT));
         booking.quantity_children = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY_CHILDREN));
         booking.quantity_group = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY_GROUP));
@@ -129,5 +161,57 @@ public class PortBooking {
         return booking;
     }
 
+    static public void seed(SQLiteDatabase db){
+        Cursor cursor = db.query(Port.TABLE_NAME, null, null , null, null, null, null);
+        cursor.moveToFirst();
+        Port port1 = Port.convertFromCursor(cursor);
+        cursor.moveToNext();
+        Port port2 = Port.convertFromCursor(cursor);
 
+
+        PortBooking b1 = new PortBooking();
+        b1.port_id = port1.id;
+        b1.type = TYPE_REGULAR;
+        b1.quantity_adult = 2;
+        b1.quantity_children = 2;
+        b1.quantity_group = 0;
+        b1.quantity_private = 0;
+        b1.price_adult = port1.price_adult;
+        b1.price_children = port1.price_children;
+        b1.price_private = port1.price_private;
+        b1.price_group = port1.price_group;
+        b1.calculate();
+        b1.booking_date = new Date().getTime();
+        db.insert(TABLE_NAME, null, b1.toContentValues());
+
+
+        PortBooking b2 = new PortBooking();
+        b2.port_id = port2.id;
+        b2.type = TYPE_REGULAR;
+        b2.quantity_adult = 2;
+        b2.quantity_children = 2;
+        b2.quantity_group = 0;
+        b2.quantity_private = 0;
+        b2.price_adult = port1.price_adult;
+        b2.price_children = port1.price_children;
+        b2.price_private = port1.price_private;
+        b2.price_group = port1.price_group;
+        b2.calculate();
+        b2.booking_date = new Date().getTime();
+        db.insert(TABLE_NAME, null, b2.toContentValues());
+
+    }
+
+    public ArrayList<PortBooking> getAllByUser(long user_id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        String[] selectedArgs = {String.valueOf(user_id)};
+        Cursor cursor = db.query(TABLE_NAME, getColumns(), "user_id = ?", selectedArgs, null, null, null );
+        cursor.moveToFirst();
+        ArrayList<PortBooking> list = new ArrayList<PortBooking>();
+        while (cursor.moveToNext()){
+            PortBooking pb = PortBooking.convertFromCursor(cursor);
+            list.add(pb);
+        }
+        return list;
+    }
 }

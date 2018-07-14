@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.project.db.PortBooking;
 import com.project.db.User;
 import com.project.objects.Info;
 
@@ -32,6 +33,7 @@ public class UserFragment extends Fragment{
         ListView lvUser = view.findViewById(R.id.listUserInfo);
 
         // activity
+
         ArrayList<Info> infos = new ArrayList<Info>();
         infos.add(new Info("Heading 1", "lorem"));
         infos.add(new Info("Heading 1", "lorem"));
