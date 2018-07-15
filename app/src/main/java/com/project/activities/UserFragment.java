@@ -25,6 +25,7 @@ public class UserFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user,container,false);
+        User currentUser = User.getCurrentUser();
 
         // list user info
         ArrayList<Info> mainList = new ArrayList<Info>();
@@ -33,18 +34,12 @@ public class UserFragment extends Fragment{
         ListView lvUser = view.findViewById(R.id.listUserInfo);
 
         // activity
-
+        ArrayList<PortBooking> portBookings = PortBooking.getAllByUser(currentUser.id);
         ArrayList<Info> infos = new ArrayList<Info>();
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        infos.add(new Info("Heading 1", "lorem"));
-        mainList.add(new Info("Activites"));
+        for (PortBooking pb : portBookings){
+            infos.add(new Info(pb.port.name, String.format("$%.2f", pb.price_total)));
+        }
+        mainList.add(new Info("Port of calls reservation:"));
         mainList.addAll(infos);
 
         ListInfoAdapter adaptUserInfo = new ListInfoAdapter(view.getContext(), 0, mainList);

@@ -47,6 +47,7 @@ public class PortBooking {
     public double price_tax;
     public double price_total;
     public long booking_date;
+    public Port port;
 
     static public String getTypeName(int type){
         switch (type){
@@ -171,6 +172,7 @@ public class PortBooking {
 
         PortBooking b1 = new PortBooking();
         b1.port_id = port1.id;
+        b1.user_id = 1;
         b1.type = TYPE_REGULAR;
         b1.quantity_adult = 2;
         b1.quantity_children = 2;
@@ -187,10 +189,11 @@ public class PortBooking {
 
         PortBooking b2 = new PortBooking();
         b2.port_id = port2.id;
-        b2.type = TYPE_REGULAR;
-        b2.quantity_adult = 2;
-        b2.quantity_children = 2;
-        b2.quantity_group = 0;
+        b2.user_id = 1;
+        b2.type = TYPE_GROUP;
+        b2.quantity_adult = 0;
+        b2.quantity_children = 0;
+        b2.quantity_group = 1;
         b2.quantity_private = 0;
         b2.price_adult = port1.price_adult;
         b2.price_children = port1.price_children;
@@ -202,16 +205,28 @@ public class PortBooking {
 
     }
 
-    public ArrayList<PortBooking> getAllByUser(long user_id){
+    public static ArrayList<PortBooking> getAllByUser(long user_id){
         SQLiteDatabase db = DBHelper.getDbInstance();
         String[] selectedArgs = {String.valueOf(user_id)};
-        Cursor cursor = db.query(TABLE_NAME, getColumns(), "user_id = ?", selectedArgs, null, null, null );
+
+//        Cursor cursor = db.query(TABLE_NAME, getColumns(), "user_id = ?", selectedArgs, null, null, null );
+//        cursor.moveToFirst();
+
+        String query = String.format("SELECT t1.*, t2.name as port_name FROM %s t1 JOIN %s t2 ON t1.port_id = t2.id where t1.user_id = ?", TABLE_NAME, Port.TABLE_NAME );
+
+        Cursor cursor = db.rawQuery(query, new String[]{ String.valueOf(user_id) });
         cursor.moveToFirst();
+
         ArrayList<PortBooking> list = new ArrayList<PortBooking>();
-        while (cursor.moveToNext()){
+
+        do {
             PortBooking pb = PortBooking.convertFromCursor(cursor);
+            pb.port = new Port();
+            pb.port.id = pb.port_id;
+            pb.port.name = cursor.getString(cursor.getColumnIndex( "port_name" ));
             list.add(pb);
-        }
+        } while (cursor.moveToNext());
+
         return list;
     }
 }

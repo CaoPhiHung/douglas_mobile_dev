@@ -12,15 +12,9 @@ import java.sql.Date;
 public class DBHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "groupproject";
-    static final int DATABASE_VERSION = 13;
+    static final int DATABASE_VERSION = 18;
 
     static DBHelper instance;
-
-//    SQLiteDatabase db;
-//
-//    public SQLiteDatabase getDb() {
-//        return db;
-//    }
 
     public static void initInstance(Context context){
         // get from database
