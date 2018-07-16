@@ -28,7 +28,7 @@ public class OnboardFragment extends Fragment{
 
         ArrayList<OnboardActivity> onboardActivitiesList = OnboardActivity.getAll();
 
-        Toast.makeText(null, "Size: " + onboardActivitiesList.size(), Toast.LENGTH_LONG).show();
+        Toast.makeText(view.getContext(), "Size: " + onboardActivitiesList.size(), Toast.LENGTH_LONG).show();
 
 
         return view;
