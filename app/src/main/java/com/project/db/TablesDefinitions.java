@@ -24,7 +24,7 @@ public class TablesDefinitions {
 
     static final String PORT_BOOKING = "CREATE TABLE port_booking (id INTEGER PRIMARY KEY, " +
             "port_id INTEGER, " +
-            "user_id INTEGER" +
+            "user_id INTEGER," +
             "type INTEGER, " +
             "quantity_adult INTEGER, " +
             "quantity_children INTEGER, " +

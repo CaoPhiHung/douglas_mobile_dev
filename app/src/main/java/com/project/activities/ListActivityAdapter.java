@@ -26,7 +26,7 @@ public class ListActivityAdapter extends ArrayAdapter {
 
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.list_activity_layout, null,false);
+        View rowView = inflater.inflate(R.layout.list_activity_layout, null,false);
 
         ImageView imgView =  rowView.findViewById(R.id.actImg);
         TextView txtDesc = rowView.findViewById(R.id.actDesc);
