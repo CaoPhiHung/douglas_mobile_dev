@@ -17,7 +17,7 @@ public class Invoice {
     static public String COLUMN_TAX = "tax";
     static public String COLUMN_TOTAL = "total";
 
-    static public double TAX_AMOUNT = 0.12;
+    static public double TAX_PERCENTAGE = 0.12;
 
     public long id;
     public long user_id;
@@ -65,8 +65,25 @@ public class Invoice {
         };
     }
 
-    public void calculate(){
+    public void save(){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        if (id == 0){ // insert
+            long id = db.insert(TABLE_NAME, null, toContentValues());
+            this.id = id;
+        } else {
+            db.update(TABLE_NAME, toContentValues(), "id = ?", new String[] {String.valueOf(id)} );
+        }
+    }
 
+    public void calculate(){
+        subtotal = 0;
+        for (InvoiceItem item: invoiceItems){
+            subtotal += item.price;
+        }
+
+        tax = TAX_PERCENTAGE * subtotal;
+        total = subtotal + tax;
+        save();
     }
 
     public void generateInvoiceItem(String name, double price){
