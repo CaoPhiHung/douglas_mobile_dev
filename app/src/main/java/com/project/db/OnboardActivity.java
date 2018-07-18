@@ -73,4 +73,9 @@ public class OnboardActivity {
         }
         return activities;
     }
+
+    public  void save(){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        db.insert(TABLE_NAME, null, toContentValues());
+    }
 }
