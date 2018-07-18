@@ -12,7 +12,7 @@ public class Room {
     static public String COLUMN_DECK = "deck";
     static public String COLUMN_MAX_ADULT = "max_adult";
     static public String COLUMN_MAX_CHILDREN = "max_children";
-    static public String COLUMN_DESC = "description";
+    static public String COLUMN_DESC = "desc";
     static public String COLUMN_TYPE = "type";
     static public String COLUMN_PRICE = "price";
 

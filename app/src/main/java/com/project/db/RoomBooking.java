@@ -2,6 +2,10 @@ package com.project.db;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class RoomBooking {
 
@@ -25,7 +29,6 @@ public class RoomBooking {
 
     public ContentValues toContentValues() {
         ContentValues data = new ContentValues();
-        data.put(COLUMN_ID, this.id);
         data.put(COLUMN_ROOM_ID, this.room_id);
         data.put(COLUMN_USER_ID, this.user_id);
         data.put(COLUMN_PRICE, this.price);
@@ -61,8 +64,70 @@ public class RoomBooking {
     }
 
     // TODO: implement body of this method
-    public static RoomBooking[] findByUserId(long user_id){
-        RoomBooking[] $bookings = new RoomBooking[1];
-        return $bookings;
+    public static ArrayList<RoomBooking> findByUserId(long user_id){
+        ArrayList<RoomBooking> bookings = new ArrayList<RoomBooking>();
+
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        Cursor cursor = db.query(TABLE_NAME, RoomBooking.getColumnNames(), "user_id = ?", new String[] { String.valueOf(user_id) }, null, null, null);
+        cursor.moveToFirst();
+
+        do {
+            bookings.add(RoomBooking.convertFromCursor(cursor));
+        } while (cursor.moveToNext());
+
+        return bookings;
+    }
+
+    public static void seed(SQLiteDatabase db){
+        Cursor cursor = db.query(Room.TABLE_NAME, Room.getColumnNames(), null, null, null, null, null);
+        cursor.moveToFirst();
+        ArrayList<Room> rooms = new ArrayList<Room>();
+        do {
+            rooms.add(Room.convertFromCursor(cursor));
+        } while (cursor.moveToNext());
+
+        Cursor userCursor = db.query(User.TABLE_NAME, User.getColumnNames(), "id = ?", new String[] { "1" }, null, null, null);
+        userCursor.moveToFirst();
+        User currentUser = User.convertFromCursor(userCursor);
+
+        cursor = db.query(Invoice.TABLE_NAME, Invoice.getColumnNames(), "user_id = 1", null, null, null, null);
+        cursor.moveToFirst();
+        Invoice invoice = Invoice.convertFromCursor(cursor);
+
+        Room r1 = rooms.get(0);
+        Room r2 = rooms.get(1);
+        RoomBooking b1 = new RoomBooking();
+        b1.user_id = currentUser.id;
+        b1.room_id = r1.id;
+        b1.price = r1.price;
+        b1.booking_date = new Date().getTime();
+        b1.number_adult = 2;
+        b1.number_children = 0;
+        ContentValues b1Values = b1.toContentValues();
+        db.insert(TABLE_NAME, null, b1Values);
+
+        //
+        InvoiceItem ii1 = new InvoiceItem();
+        ii1.invoice_id = invoice.id;
+        ii1.name = "Room: " + r1.name;
+        ii1.price = b1.price;
+        db.insert(InvoiceItem.TABLE_NAME, null, ii1.toContentValues());
+
+
+        RoomBooking b2 = new RoomBooking();
+        b2.user_id = currentUser.id;
+        b2.room_id = r2.id;
+        b2.price = r2.price;
+        b2.booking_date = new Date().getTime();
+        b2.number_adult = 2;
+        b2.number_children = 0;
+        ContentValues b2Values = b2.toContentValues();
+        db.insert(TABLE_NAME, null, b2Values);
+
+        InvoiceItem ii2 = new InvoiceItem();
+        ii2.invoice_id = invoice.id;
+        ii2.name = "Room: " + r2.name;
+        ii2.price = r2.price;
+        db.insert(InvoiceItem.TABLE_NAME, null, ii2.toContentValues());
     }
 }

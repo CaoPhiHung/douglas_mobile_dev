@@ -22,9 +22,6 @@ public class PortBooking {
     public static final String COLUMN_PRICE_CHILDREN = "price_children";
     public static final String COLUMN_PRICE_GROUP = "price_group";
     public static final String COLUMN_PRICE_PRIVATE = "price_private";
-    public static final String COLUMN_PRICE_SUBTOTAL = "price_subtotal";
-    public static final String COLUMN_PRICE_TAX = "price_tax";
-    public static final String COLUMN_PRICE_TOTAL = "price_total";
     public static final String COLUMN_BOOKING_DATE = "booking_date";
 
     public static final int TYPE_REGULAR     = 0;
@@ -43,9 +40,6 @@ public class PortBooking {
     public double price_adult;
     public double price_private;
     public double price_group;
-    public double price_subtotal;
-    public double price_tax;
-    public double price_total;
     public long booking_date;
     public Port port;
 
@@ -76,9 +70,6 @@ public class PortBooking {
                 COLUMN_PRICE_CHILDREN,
                 COLUMN_PRICE_GROUP,
                 COLUMN_PRICE_PRIVATE,
-                COLUMN_PRICE_SUBTOTAL,
-                COLUMN_PRICE_TAX,
-                COLUMN_PRICE_TOTAL,
                 COLUMN_BOOKING_DATE
         };
     }
@@ -112,18 +103,9 @@ public class PortBooking {
         content.put(COLUMN_PRICE_CHILDREN, this.price_children);
         content.put(COLUMN_PRICE_GROUP, this.price_group);
         content.put(COLUMN_PRICE_PRIVATE, this.price_private);
-        content.put(COLUMN_PRICE_SUBTOTAL, this.price_subtotal);
-        content.put(COLUMN_PRICE_TAX, this.price_tax);
-        content.put(COLUMN_PRICE_TOTAL, this.price_total);
         content.put(COLUMN_BOOKING_DATE, this.booking_date);
 
         return content;
-    }
-
-    public void calculate(){
-        this.price_subtotal = (quantity_adult * price_adult) + (quantity_children * price_children) + (quantity_group * price_group) + (quantity_private * price_private);
-        this.price_tax = 0.12;
-        this.price_total = price_subtotal * (price_tax + 1);
     }
 
     public long save(){
@@ -141,6 +123,10 @@ public class PortBooking {
         }
     }
 
+    public double getTotalPrice(){
+        return (price_adult * quantity_adult) + (price_children * quantity_children) + (price_group * quantity_group) + (price_private * quantity_private);
+    }
+
     static public PortBooking convertFromCursor(Cursor cursor){
         PortBooking booking = new PortBooking(cursor.getLong(cursor.getColumnIndex(COLUMN_PORT_ID)));
         booking.id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
@@ -155,9 +141,6 @@ public class PortBooking {
         booking.price_children = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE_CHILDREN));
         booking.price_private = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE_PRIVATE));
         booking.price_group = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE_GROUP));
-        booking.price_subtotal = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE_SUBTOTAL));
-        booking.price_tax = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE_SUBTOTAL));
-        booking.price_total = cursor.getDouble(cursor.getColumnIndex(COLUMN_PRICE_TOTAL));
         booking.booking_date = cursor.getLong(cursor.getColumnIndex(COLUMN_BOOKING_DATE));
         return booking;
     }
@@ -169,6 +152,9 @@ public class PortBooking {
         cursor.moveToNext();
         Port port2 = Port.convertFromCursor(cursor);
 
+        cursor = db.query(Invoice.TABLE_NAME, Invoice.getColumnNames(), "user_id = 1", null, null, null, null);
+        cursor.moveToFirst();
+        Invoice invoice = Invoice.convertFromCursor(cursor);
 
         PortBooking b1 = new PortBooking();
         b1.port_id = port1.id;
@@ -182,10 +168,15 @@ public class PortBooking {
         b1.price_children = port1.price_children;
         b1.price_private = port1.price_private;
         b1.price_group = port1.price_group;
-        b1.calculate();
         b1.booking_date = new Date().getTime();
         db.insert(TABLE_NAME, null, b1.toContentValues());
 
+        //
+        InvoiceItem ii1 = new InvoiceItem();
+        ii1.invoice_id = invoice.id;
+        ii1.name = "Port of call: " + port1.name;
+        ii1.price = b1.getTotalPrice();
+        db.insert(InvoiceItem.TABLE_NAME, null, ii1.toContentValues());
 
         PortBooking b2 = new PortBooking();
         b2.port_id = port2.id;
@@ -199,9 +190,14 @@ public class PortBooking {
         b2.price_children = port1.price_children;
         b2.price_private = port1.price_private;
         b2.price_group = port1.price_group;
-        b2.calculate();
         b2.booking_date = new Date().getTime();
         db.insert(TABLE_NAME, null, b2.toContentValues());
+
+        InvoiceItem ii2 = new InvoiceItem();
+        ii2.invoice_id = invoice.id;
+        ii2.name = "Port of call: " + port2.name;
+        ii2.price = b2.getTotalPrice();
+        db.insert(InvoiceItem.TABLE_NAME, null, ii2.toContentValues());
 
     }
 

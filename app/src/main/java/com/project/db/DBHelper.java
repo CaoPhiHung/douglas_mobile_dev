@@ -12,7 +12,7 @@ import java.sql.Date;
 public class DBHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "groupproject";
-    static final int DATABASE_VERSION = 18;
+    static final int DATABASE_VERSION = 22;
 
     static DBHelper instance;
 
@@ -44,7 +44,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 TablesDefinitions.PORT,
                 TablesDefinitions.PORT_BOOKING,
                 TablesDefinitions.ACTIVITY,
-                TablesDefinitions.ACTIVITY_BOOKING
+                TablesDefinitions.ACTIVITY_BOOKING,
+                TablesDefinitions.INVOICE,
+                TablesDefinitions.INVOICE_ITEM,
         };
 
         for (String table : tables){
@@ -60,6 +62,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 TablesDefinitions.DROP_PORT_BOOKING,
                 TablesDefinitions.DROP_ACTIVITY_BOOKING,
                 TablesDefinitions.DROP_ACTIVITY,
+                TablesDefinitions.DROP_INVOICE_ITEM,
+                TablesDefinitions.DROP_INVOICE,
                 TablesDefinitions.DROP_USER,
         };
 
@@ -79,6 +83,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 "('CONCIERGE 01', " + Room.TYPE_CONCIERGE + ", 300), " +
                 "('INSIDE 01', " + Room.TYPE_INSIDE + ", 200), " +
                 "('VERANDAH 01', " + Room.TYPE_VERANDAH+ ", 100) ");
+
+        // add invoice
+        Invoice.seed(db);
+
+        // add room booking
+        RoomBooking.seed(db);
 
         // add port
         Port.seed(db);

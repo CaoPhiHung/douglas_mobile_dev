@@ -103,7 +103,6 @@ public class PortActivity extends AppCompatActivity {
                 booking.price_children = port.price_children;
                 booking.price_group = port.price_group;
                 booking.price_private = port.price_private;
-                booking.calculate();
                 long booking_id = booking.save();
                 if (booking_id == -1){
                     Toast.makeText(PortActivity.this, "Cannot book, please try again", Toast.LENGTH_LONG).show();

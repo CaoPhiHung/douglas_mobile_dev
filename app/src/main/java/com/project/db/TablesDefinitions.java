@@ -34,9 +34,6 @@ public class TablesDefinitions {
             "price_children REAL, " +
             "price_group REAL, " +
             "price_private REAL, " +
-            "price_subtotal REAL, " +
-            "price_tax REAL, " +
-            "price_total REAL, " +
             "booking_date INTEGER, " +
             "FOREIGN KEY (port_id) REFERENCES port(id) ON DELETE CASCADE," +
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE)";
@@ -73,6 +70,22 @@ public class TablesDefinitions {
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE," +
             "FOREIGN KEY (activity_id) REFERENCES activity(id) ON DELETE CASCADE)";
 
+    static final String INVOICE = "CREATE TABLE invoice " +
+            "(id INTEGER PRIMARY KEY," +
+            "user_id INTEGER," +
+            "date integer," +
+            "subtotal REAL," +
+            "tax REAL," +
+            "total REAL," +
+            "FOREIGN KEY (user_id) REFERENCES user(id))";
+
+    static final String INVOICE_ITEM = "CREATE TABLE invoice_item " +
+            "(id INTEGER PRIMARY KEY," +
+            "invoice_id INTEGER," +
+            "name TEXT," +
+            "price REAL," +
+            "FOREIGN KEY (invoice_id) REFERENCES invoice(id))";
+
     static final String DROP_PORT = "DROP TABLE IF EXISTS port";
     static final String DROP_PORT_BOOKING = "DROP TABLE IF EXISTS port_booking";
     static final String DROP_ROOM = "DROP TABLE IF EXISTS room";
@@ -80,5 +93,7 @@ public class TablesDefinitions {
     static final String DROP_USER = "DROP TABLE IF EXISTS user";
     static final String DROP_ACTIVITY = "DROP TABLE IF EXISTS activity";
     static final String DROP_ACTIVITY_BOOKING = "DROP TABLE IF EXISTS activity_booking";
+    static final String DROP_INVOICE_ITEM = "DROP TABLE IF EXISTS invoice_item";
+    static final String DROP_INVOICE = "DROP TABLE IF EXISTS invoice";
 
 }

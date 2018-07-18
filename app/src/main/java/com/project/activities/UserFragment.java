@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.project.db.Invoice;
 import com.project.db.PortBooking;
+import com.project.db.RoomBooking;
 import com.project.db.User;
 import com.project.objects.Info;
 
@@ -36,13 +38,16 @@ public class UserFragment extends Fragment{
         ListView lvUser = view.findViewById(R.id.listUserInfo);
 
         // activity
-        ArrayList<PortBooking> portBookings = PortBooking.getAllByUser(currentUser.id);
-        ArrayList<Info> infos = new ArrayList<Info>();
-        for (PortBooking pb : portBookings){
-            infos.add(new Info(pb.port.name, String.format("$%.2f", pb.price_total)));
-        }
-        mainList.add(new Info("Port of calls reservation:"));
-        mainList.addAll(infos);
+//        ArrayList<PortBooking> portBookings = PortBooking.getAllByUser(currentUser.id);
+//        ArrayList<Info> infos = new ArrayList<Info>();
+//        for (PortBooking pb : portBookings){
+//            infos.add(new Info(pb.port.name, String.format("$%.2f", pb.price_total)));
+//        }
+//        mainList.add(new Info("Port of calls reservation:"));
+//        mainList.addAll(infos);
+
+        // room booking
+        ArrayList<RoomBooking> roomBookings = RoomBooking.findByUserId(currentUser.id);
 
         ListInfoAdapter adaptUserInfo = new ListInfoAdapter(view.getContext(), 0, mainList);
         lvUser.setAdapter(adaptUserInfo);
