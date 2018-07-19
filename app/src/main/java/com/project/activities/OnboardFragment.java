@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.db.OnboardActivity;
@@ -27,12 +29,23 @@ public class OnboardFragment extends Fragment{
 
 
         ArrayList<OnboardActivity> onboardActivitiesList = OnboardActivity.getAll();
+        int[] images = {R.drawable.act1, R.drawable.act2,R.drawable.act3};
+        String[] description ={"abcasas aaa","def","asasdsdfsdf"};
+        int count = 0;
+        onboardActivitiesList = OnboardActivity.getAll();
+
+
+        ListActivityAdapter adapter = new ListActivityAdapter(view.getContext(), description, images);
+
+        ListView listView = view.findViewById(R.id.listActivities100);
+        listView.setAdapter(adapter);
 
 //        OnboardActivity oa = new OnboardActivity();
 //        oa.save();
 
-        onboardActivitiesList = OnboardActivity.getAll();
         Toast.makeText(view.getContext(), "Size: " + onboardActivitiesList.size(), Toast.LENGTH_LONG).show();
         return view;
+
+
     }
 }
