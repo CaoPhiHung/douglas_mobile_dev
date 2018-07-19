@@ -38,20 +38,16 @@ public class UserFragment extends Fragment{
         // add use info
         mainList.add(new InfoUser(currentUser.name, currentUser.username, currentUser.phone));
 
-
-        // add
-        mainList.add(new Info("User Information"));
-        mainList.addAll(User.getCurrentUser().getInfoArray());
         ListView lvUser = view.findViewById(R.id.listUserInfo);
 
-        // activity
-//        ArrayList<PortBooking> portBookings = PortBooking.getAllByUser(currentUser.id);
-//        ArrayList<Info> infos = new ArrayList<Info>();
-//        for (PortBooking pb : portBookings){
-//            infos.add(new Info(pb.port.name, String.format("$%.2f", pb.price_total)));
-//        }
-//        mainList.add(new Info("Port of calls reservation:"));
-//        mainList.addAll(infos);
+        // Port Of Call
+        ArrayList<PortBooking> portBookings = PortBooking.getAllByUser(currentUser.id);
+        ArrayList<Info> infos = new ArrayList<Info>();
+        for (PortBooking pb : portBookings){
+            infos.add(new Info(pb.port.name, "abc"));
+        }
+        mainList.add(new Info("Port of calls reservation:"));
+        mainList.addAll(infos);
 
         // room booking
         ArrayList<RoomBooking> roomBookings = RoomBooking.findByUserId(currentUser.id);
