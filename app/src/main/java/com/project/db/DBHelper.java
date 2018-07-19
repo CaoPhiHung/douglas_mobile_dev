@@ -12,7 +12,7 @@ import java.sql.Date;
 public class DBHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "groupproject";
-    static final int DATABASE_VERSION = 22;
+    static final int DATABASE_VERSION = 24;
 
     static DBHelper instance;
 
@@ -39,14 +39,14 @@ public class DBHelper extends SQLiteOpenHelper {
         String[] tables = {
                 "PRAGMA foreign_keys = 1",
                 TablesDefinitions.USER,
+                TablesDefinitions.INVOICE,
+                TablesDefinitions.INVOICE_ITEM,
                 TablesDefinitions.ROOM,
                 TablesDefinitions.ROOM_BOOKING,
                 TablesDefinitions.PORT,
                 TablesDefinitions.PORT_BOOKING,
                 TablesDefinitions.ACTIVITY,
                 TablesDefinitions.ACTIVITY_BOOKING,
-                TablesDefinitions.INVOICE,
-                TablesDefinitions.INVOICE_ITEM,
         };
 
         for (String table : tables){

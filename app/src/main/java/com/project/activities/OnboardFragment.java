@@ -43,7 +43,6 @@ public class OnboardFragment extends Fragment{
 //        OnboardActivity oa = new OnboardActivity();
 //        oa.save();
 
-
         Toast.makeText(view.getContext(), "Size: " + onboardActivitiesList.size(), Toast.LENGTH_LONG).show();
         return view;
 

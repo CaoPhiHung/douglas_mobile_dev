@@ -25,6 +25,7 @@ public class TablesDefinitions {
     static final String PORT_BOOKING = "CREATE TABLE port_booking (id INTEGER PRIMARY KEY, " +
             "port_id INTEGER, " +
             "user_id INTEGER," +
+            "invoice_item_id INTEGER," +
             "type INTEGER, " +
             "quantity_adult INTEGER, " +
             "quantity_children INTEGER, " +
@@ -35,6 +36,7 @@ public class TablesDefinitions {
             "price_group REAL, " +
             "price_private REAL, " +
             "booking_date INTEGER, " +
+            "FOREIGN KEY (invoice_item_id) REFERENCES invoice_item(id) ON DELETE CASCADE," +
             "FOREIGN KEY (port_id) REFERENCES port(id) ON DELETE CASCADE," +
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE)";
 
@@ -50,10 +52,12 @@ public class TablesDefinitions {
     static final String ROOM_BOOKING = "CREATE TABLE room_booking (id INTEGER PRIMARY KEY, " +
             "room_id INTEGER," +
             "user_id INTEGER," +
+            "invoice_item_id INTEGER," +
             "number_adult INTEGER," +
             "number_children INTEGER," +
             "price REAL," +
             "booking_date INTEGER, " +
+            "FOREIGN KEY (invoice_item_id) REFERENCES invoice_item(id) ON DELETE CASCADE," +
             "FOREIGN KEY (room_id) REFERENCES room(id) ON DELETE CASCADE," +
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE)";
 
