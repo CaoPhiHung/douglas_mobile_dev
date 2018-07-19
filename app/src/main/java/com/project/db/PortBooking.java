@@ -13,6 +13,7 @@ public class PortBooking {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_PORT_ID = "port_id";
     public static final String COLUMN_USER_ID = "user_id";
+    public static final String COLUMN_INVOICE_ITEM_ID = "invoice_item_id";
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_QUANTITY_ADULT = "quantity_adult";
     public static final String COLUMN_QUANTITY_CHILDREN = "quantity_children";
@@ -31,6 +32,7 @@ public class PortBooking {
     public long id;
     public long port_id;
     public long user_id;
+    public long invoice_item_id;
     public int type;
     public int quantity_adult;
     public int quantity_children;
@@ -61,6 +63,7 @@ public class PortBooking {
                 COLUMN_ID,
                 COLUMN_PORT_ID,
                 COLUMN_USER_ID,
+                COLUMN_INVOICE_ITEM_ID,
                 COLUMN_TYPE,
                 COLUMN_QUANTITY_ADULT,
                 COLUMN_QUANTITY_CHILDREN,
@@ -94,6 +97,7 @@ public class PortBooking {
         ContentValues content = new ContentValues();
         content.put(COLUMN_PORT_ID, this.port_id);
         content.put(COLUMN_USER_ID, this.user_id);
+        content.put(COLUMN_INVOICE_ITEM_ID, this.invoice_item_id);
         content.put(COLUMN_TYPE, this.type);
         content.put(COLUMN_QUANTITY_ADULT, this.quantity_adult);
         content.put(COLUMN_QUANTITY_CHILDREN, this.quantity_children);
@@ -132,6 +136,7 @@ public class PortBooking {
         booking.id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
         booking.port_id = cursor.getLong(cursor.getColumnIndex(COLUMN_PORT_ID));
         booking.user_id = cursor.getLong(cursor.getColumnIndex(COLUMN_USER_ID));
+        booking.invoice_item_id = cursor.getLong(cursor.getColumnIndex(COLUMN_INVOICE_ITEM_ID));
         booking.type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
         booking.quantity_adult = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY_ADULT));
         booking.quantity_children = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY_CHILDREN));
@@ -169,14 +174,18 @@ public class PortBooking {
         b1.price_private = port1.price_private;
         b1.price_group = port1.price_group;
         b1.booking_date = new Date().getTime();
-        db.insert(TABLE_NAME, null, b1.toContentValues());
 
         //
         InvoiceItem ii1 = new InvoiceItem();
         ii1.invoice_id = invoice.id;
         ii1.name = "Port of call: " + port1.name;
         ii1.price = b1.getTotalPrice();
-        db.insert(InvoiceItem.TABLE_NAME, null, ii1.toContentValues());
+        long ii_id1 = db.insert(InvoiceItem.TABLE_NAME, null, ii1.toContentValues());
+        ii1.id = ii_id1;
+
+        //
+        b1.invoice_item_id = ii_id1;
+        db.insert(TABLE_NAME, null, b1.toContentValues());
 
         PortBooking b2 = new PortBooking();
         b2.port_id = port2.id;
@@ -191,14 +200,16 @@ public class PortBooking {
         b2.price_private = port1.price_private;
         b2.price_group = port1.price_group;
         b2.booking_date = new Date().getTime();
-        db.insert(TABLE_NAME, null, b2.toContentValues());
 
         InvoiceItem ii2 = new InvoiceItem();
         ii2.invoice_id = invoice.id;
         ii2.name = "Port of call: " + port2.name;
         ii2.price = b2.getTotalPrice();
-        db.insert(InvoiceItem.TABLE_NAME, null, ii2.toContentValues());
+        long ii_id2 = db.insert(InvoiceItem.TABLE_NAME, null, ii2.toContentValues());
+        ii2.id = ii_id2;
 
+        b2.invoice_item_id = ii_id2;
+        db.insert(TABLE_NAME, null, b2.toContentValues());
     }
 
     public static ArrayList<PortBooking> getAllByUser(long user_id){
