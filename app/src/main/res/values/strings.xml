@@ -28,4 +28,8 @@
         <item>Double</item>
         <item>Family</item>
     </string-array>
+    <string-array name="room_capality">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>
