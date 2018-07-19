@@ -13,6 +13,7 @@ public class RoomBooking {
     static public String COLUMN_ID = "id";
     static public String COLUMN_ROOM_ID = "room_id";
     static public String COLUMN_USER_ID = "user_id";
+    static public String COLUMN_INVOICE_ITEM_ID = "invoice_item_id";
     static public String COLUMN_PRICE = "price";
     static public String COLUMN_NO_ADULT = "number_adult";
     static public String COLUMN_NO_CHILDREN = "number_children";
@@ -25,12 +26,14 @@ public class RoomBooking {
      */
 
     long id, room_id, user_id, booking_date, number_adult, number_children;
+    long invoice_item_id;
     double price;
 
     public ContentValues toContentValues() {
         ContentValues data = new ContentValues();
         data.put(COLUMN_ROOM_ID, this.room_id);
         data.put(COLUMN_USER_ID, this.user_id);
+        data.put(COLUMN_INVOICE_ITEM_ID, this.invoice_item_id);
         data.put(COLUMN_PRICE, this.price);
         data.put(COLUMN_BOOKING_DATE, this.booking_date);
         data.put(COLUMN_NO_ADULT, this.number_adult);
@@ -44,6 +47,7 @@ public class RoomBooking {
         booking.id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
         booking.room_id = cursor.getLong(cursor.getColumnIndex(COLUMN_ROOM_ID));
         booking.user_id = cursor.getLong(cursor.getColumnIndex(COLUMN_USER_ID));
+        booking.invoice_item_id = cursor.getLong(cursor.getColumnIndex(COLUMN_INVOICE_ITEM_ID));
         booking.price = cursor.getInt(cursor.getColumnIndex(COLUMN_PRICE));
         booking.booking_date = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_DATE));
         booking.number_adult = cursor.getInt(cursor.getColumnIndex(COLUMN_NO_ADULT));
@@ -56,6 +60,7 @@ public class RoomBooking {
                 COLUMN_ID,
                 COLUMN_USER_ID,
                 COLUMN_ROOM_ID,
+                COLUMN_INVOICE_ITEM_ID,
                 COLUMN_PRICE,
                 COLUMN_BOOKING_DATE,
                 COLUMN_NO_ADULT,
@@ -103,15 +108,18 @@ public class RoomBooking {
         b1.booking_date = new Date().getTime();
         b1.number_adult = 2;
         b1.number_children = 0;
-        ContentValues b1Values = b1.toContentValues();
-        db.insert(TABLE_NAME, null, b1Values);
 
         //
         InvoiceItem ii1 = new InvoiceItem();
         ii1.invoice_id = invoice.id;
         ii1.name = "Room: " + r1.name;
         ii1.price = b1.price;
-        db.insert(InvoiceItem.TABLE_NAME, null, ii1.toContentValues());
+        long id1 = db.insert(InvoiceItem.TABLE_NAME, null, ii1.toContentValues());
+        ii1.id = id1;
+
+        b1.invoice_item_id = id1;
+        ContentValues b1Values = b1.toContentValues();
+        db.insert(TABLE_NAME, null, b1Values);
 
 
         RoomBooking b2 = new RoomBooking();
@@ -121,13 +129,16 @@ public class RoomBooking {
         b2.booking_date = new Date().getTime();
         b2.number_adult = 2;
         b2.number_children = 0;
-        ContentValues b2Values = b2.toContentValues();
-        db.insert(TABLE_NAME, null, b2Values);
 
         InvoiceItem ii2 = new InvoiceItem();
         ii2.invoice_id = invoice.id;
         ii2.name = "Room: " + r2.name;
         ii2.price = r2.price;
-        db.insert(InvoiceItem.TABLE_NAME, null, ii2.toContentValues());
+        long id2 = db.insert(InvoiceItem.TABLE_NAME, null, ii2.toContentValues());
+        ii2.id = id2;
+
+        b2.id = id2;
+        ContentValues b2Values = b2.toContentValues();
+        db.insert(TABLE_NAME, null, b2Values);
     }
 }
