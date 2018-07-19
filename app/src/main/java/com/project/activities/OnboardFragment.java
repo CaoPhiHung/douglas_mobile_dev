@@ -28,8 +28,8 @@ public class OnboardFragment extends Fragment{
 
         ArrayList<OnboardActivity> onboardActivitiesList = OnboardActivity.getAll();
 
-        OnboardActivity oa = new OnboardActivity();
-        oa.save();
+//        OnboardActivity oa = new OnboardActivity();
+//        oa.save();
 
         onboardActivitiesList = OnboardActivity.getAll();
         Toast.makeText(view.getContext(), "Size: " + onboardActivitiesList.size(), Toast.LENGTH_LONG).show();

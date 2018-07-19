@@ -33,18 +33,16 @@ public class RoomFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.room_layout,container,false);
-        Spinner roomType = (Spinner) view.findViewById(R.id.roomTypeSpinner);
+        View view = inflater.inflate(R.layout.booking2_layout,container,false);
+//        Spinner roomType = (Spinner) view.findViewById(R.id.roomTypeSpinner);
         ListView roomList = (ListView) view.findViewById(R.id.roomList);
 
-        View listView = inflater.inflate(R.layout.custom_row, null);
+//        View listView = inflater.inflate(R.layout.custom_room_book, null);
         ArrayList<Room>  rooms= new ArrayList<Room>();
         rooms.add(new Room());
         rooms.add(new Room());
-        rooms.add(new Room());
-        rooms.add(new Room());
 
-        RoomAdapter roomAdapter = new RoomAdapter(view.getContext(), 0, rooms);
+        BookRoomAdapter roomAdapter = new BookRoomAdapter(view.getContext(), 0, rooms);
         roomList.setAdapter(roomAdapter);
         return view;
 
