@@ -88,7 +88,7 @@ public class TablesDefinitions {
             "invoice_id INTEGER," +
             "name TEXT," +
             "price REAL," +
-            "FOREIGN KEY (invoice_item_id) REFERENCES invoice(id))";
+            "FOREIGN KEY (invoice_id) REFERENCES invoice(id))";
 
     static final String DROP_PORT = "DROP TABLE IF EXISTS port";
     static final String DROP_PORT_BOOKING = "DROP TABLE IF EXISTS port_booking";

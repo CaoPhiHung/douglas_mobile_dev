@@ -15,6 +15,7 @@ import com.project.db.PortBooking;
 import com.project.db.RoomBooking;
 import com.project.db.User;
 import com.project.objects.Info;
+import com.project.objects.InfoUser;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,12 @@ public class UserFragment extends Fragment{
 
         // list user info
         ArrayList<Info> mainList = new ArrayList<Info>();
+
+        // add use info
+        mainList.add(new InfoUser(currentUser.name, currentUser.username, currentUser.phone));
+
+
+        // add
         mainList.add(new Info("User Information"));
         mainList.addAll(User.getCurrentUser().getInfoArray());
         ListView lvUser = view.findViewById(R.id.listUserInfo);
@@ -51,16 +58,6 @@ public class UserFragment extends Fragment{
 
         ListInfoAdapter adaptUserInfo = new ListInfoAdapter(view.getContext(), 0, mainList);
         lvUser.setAdapter(adaptUserInfo);
-
-        // button view Invoice
-        Button btn = view.findViewById(R.id.btnInvoice);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(view.getContext(), InvoiceActivity.class);
-                startActivity(i);
-            }
-        });
 
         return view;
     }
