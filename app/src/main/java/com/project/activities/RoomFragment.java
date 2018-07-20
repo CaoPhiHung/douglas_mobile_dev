@@ -36,6 +36,7 @@ public class RoomFragment extends Fragment{
 =======
         View view = inflater.inflate(R.layout.booking2_layout,container,false);
 //        Spinner roomType = (Spinner) view.findViewById(R.id.roomTypeSpinner);
+        ListView roomList = (ListView) view.findViewById(R.id.roomList);
 
 //        View listView = inflater.inflate(R.layout.custom_room_book, null);
         ArrayList<Room>  rooms= new ArrayList<Room>();
