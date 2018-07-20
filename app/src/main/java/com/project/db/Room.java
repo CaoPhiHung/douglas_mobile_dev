@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class Room {
 
     static public String TABLE_NAME = "room";
@@ -76,6 +78,16 @@ public class Room {
         };
     }
 
+    public static  void seed(SQLiteDatabase db){
+
+        db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, price) VALUES " +
+                "('OCEAN 01', " + Room.TYPE_OCEAN_VIEW + ", 500), " +
+                "('CONCIERGE 01', " + Room.TYPE_CONCIERGE + ", 300), " +
+                "('INSIDE 01', " + Room.TYPE_INSIDE + ", 200), " +
+                "('VERANDAH 01', " + Room.TYPE_VERANDAH+ ", 100) ");
+
+    }
+
     static public Room findRoom(long id) {
         SQLiteDatabase db = DBHelper.getDbInstance();
 
@@ -84,5 +96,19 @@ public class Room {
         cursor.moveToFirst();
 
         return convertFromCursor(cursor);
+    }
+
+    static public ArrayList<Room> getAllAvailabelRoom() {
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        ArrayList<Room> availabel_rooms = new ArrayList<Room>();
+        Cursor cursor = db.query(TABLE_NAME, getColumnNames(), null, null, null, null, null);
+
+        if (cursor.moveToFirst()){
+            while(cursor.moveToNext()){
+                availabel_rooms.add(convertFromCursor(cursor));
+            }
+        }
+
+        return availabel_rooms;
     }
 }

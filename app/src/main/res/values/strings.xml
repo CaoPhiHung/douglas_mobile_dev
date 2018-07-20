@@ -28,6 +28,12 @@
         <item>Double</item>
         <item>Family</item>
     </string-array>
+
+    <string-array name="decks">
+        <item>Deck #1</item>
+        <item>Deck #2</item>
+        <item>Deck #3</item>
+    </string-array>
     <string-array name="room_capality">
         <item>1</item>
         <item>2</item>

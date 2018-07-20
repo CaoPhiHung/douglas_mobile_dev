@@ -23,27 +23,40 @@ import java.util.ArrayList;
 public class RoomFragment extends Fragment{
     private static final String TAG = "OnboardFragment";
 
-    private Button btnTEST;
-
-    public RoomFragment()
-    {
-
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.booking2_layout,container,false);
+
+        //        View view = inflater.inflate(R.layout.booking2_layout,container,false);
 //        Spinner roomType = (Spinner) view.findViewById(R.id.roomTypeSpinner);
-        ListView roomList = (ListView) view.findViewById(R.id.roomList);
+//        ListView roomList = (ListView) view.findViewById(R.id.roomList);
 
 //        View listView = inflater.inflate(R.layout.custom_room_book, null);
-        ArrayList<Room>  rooms= new ArrayList<Room>();
-        rooms.add(new Room());
-        rooms.add(new Room());
+//        ArrayList<Room>  rooms= new ArrayList<Room>();
+//        rooms.add(new Room());
+//        rooms.add(new Room());
+//        BookRoomAdapter roomAdapter = new BookRoomAdapter(view.getContext(), 0, rooms);
+//        roomList.setAdapter(roomAdapter);
 
-        BookRoomAdapter roomAdapter = new BookRoomAdapter(view.getContext(), 0, rooms);
+
+        View view = inflater.inflate(R.layout.room_booking_layout,container,false);
+
+        ListView roomList = (ListView) view.findViewById(R.id.available_room);
+
+        View listView = inflater.inflate(R.layout.custom_row, null);
+        ArrayList<Room>  rooms= Room.getAllAvailabelRoom();
+
+        RoomAdapter roomAdapter = new RoomAdapter(view.getContext(), 0, rooms);
         roomList.setAdapter(roomAdapter);
+
+        Button btnBookNext = (Button)view.findViewById(R.id.btnBookNext);
+        btnBookNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         return view;
 
     }

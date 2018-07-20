@@ -11,8 +11,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.db.Room;
+import com.project.db.User;
 
 import java.util.ArrayList;
 
@@ -36,20 +38,30 @@ public class RoomAdapter extends ArrayAdapter<Room> {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.custom_row, null);
 
-//        ImageView img = (ImageView)this.view.findViewById(R.id.pictureId);
+//        ImageView img = (ImageView) v.findViewById(R.id.pictureId);
 //        img.setImageResource(imgSource[i]);
-
-        TextView roomNo = (TextView)v.findViewById(R.id.txtTitle);
-        roomNo.setText(roomNoText[i]);
-
-        TextView roomDesc = (TextView)v.findViewById(R.id.txtDesc);
-        roomDesc.setText(descText[i]);
-
-//        TextView roomPrice = (TextView)this.view.findViewById(R.id.txtPrice);
-//        roomPrice.setText("Description");
 //
-//        Button bookButton = (Button)this.view.findViewById(R.id.btnBook);
-//        view = this.view;
+        TextView roomNo = (TextView) v.findViewById(R.id.txtTitle);
+        roomNo.setText(this.items.get(i).name);
+//
+//        TextView roomDesc = (TextView) v.findViewById(R.id.txtDesc);
+//        roomDesc.setText(descText[i]);
+//
+        TextView roomPrice = (TextView) v.findViewById(R.id.txtPrice);
+        roomPrice.setText("$" + Double.toString(this.items.get(i).price));
+//
+        final Button bookButton = (Button) v.findViewById(R.id.btnBook);
+        bookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(bookButton.getText() == "Book"){
+                    bookButton.setText("Booked");
+                }else{
+                    bookButton.setText("Book");
+                }
+
+            }
+        });
         return v;
     }
 }
