@@ -14,10 +14,11 @@ public class InfoBooking extends Info {
         super();
     }
 
-    public InfoBooking(String heading, int bookingType, long bookingId) {
+    public InfoBooking(String heading, String desc, int bookingType, long bookingId) {
         super();
         this.heading = heading;
         this.type = Info.TYPE_BOOKING;
+        this.value = desc;
         this.bookingType = bookingType;
         this.bookingId = bookingId;
     }

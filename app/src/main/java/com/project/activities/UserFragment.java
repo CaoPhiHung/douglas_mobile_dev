@@ -41,33 +41,53 @@ public class UserFragment extends Fragment{
 
         ListView lvUser = view.findViewById(R.id.listUserInfo);
 
-        // Port Of Call
+
+        /**
+         * List Rooms booked
+         */
+        ArrayList<RoomBooking> roomBookings = RoomBooking.findByUserId(currentUser.id);
+        mainList.add(new Info("Rooms"));
+        for (RoomBooking rb : roomBookings){
+            mainList.add(new InfoBooking(rb.room.name, rb.number_adult + " Adults, " + rb.number_children + " Children", InfoBooking.BOOKING_ROOM, rb.id));
+        }
+
+        /**
+         * List room services
+         */
+        mainList.add(new Info("Services"));
+        mainList.add(new InfoBooking("Service sample 1", "sample description", InfoBooking.BOOKING_SERVICE, 1));
+        mainList.add(new InfoBooking("Service sample 1", "sample description", InfoBooking.BOOKING_SERVICE, 1));
+
+        /**
+         * list ported of call booked
+         */
         ArrayList<PortBooking> portBookings = PortBooking.getAllByUser(currentUser.id);
         ArrayList<Info> infos = new ArrayList<Info>();
 
         mainList.add(new Info("Port of calls reservation:"));
         for (PortBooking pb : portBookings){
-            String label = "";
-            label += pb.port.name;
+            String name = "";
+            String desc = "";
+            name += pb.port.name;
             switch (pb.type){
                 case PortBooking.TYPE_GROUP:
-                    label += "\n" + "Group Tour";
+                    desc += "Group Tour";
                     break;
                 case PortBooking.TYPE_PRIVATE:
-                    label += "\n" + "Private Tour";
+                    desc += "Private Tour";
                     break;
                 default:
                 case PortBooking.TYPE_REGULAR:
-                    label += "\n" + "Regular Tour";
+                    desc += "Regular Tour";
                     break;
             }
 
-            mainList.add(new InfoBooking(label, InfoBooking.BOOKING_PORT, pb.id));
+            mainList.add(new InfoBooking(name, desc, InfoBooking.BOOKING_PORT, pb.id));
         }
 
-        // room booking
-        ArrayList<RoomBooking> roomBookings = RoomBooking.findByUserId(currentUser.id);
-
+        /**
+         * set adapter
+         */
         ListInfoAdapter adaptUserInfo = new ListInfoAdapter(view.getContext(), 0, mainList);
         lvUser.setAdapter(adaptUserInfo);
 

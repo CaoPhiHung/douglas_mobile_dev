@@ -20,8 +20,8 @@ public class RoomBooking {
     static public String COLUMN_NO_CHILDREN = "number_children";
     static public String COLUMN_CHILDREN_NAMES = "children_names";
     static public String COLUMN_BOOKING_DATE = "booking_date";
-    static public Room room;
 
+    public Room room;
 
     /*
      "room_id INTEGER," +
@@ -30,10 +30,10 @@ public class RoomBooking {
             "booking_date INTEGER, " +
      */
 
-    long id, room_id, user_id, booking_date, number_adult, number_children;
-    long invoice_item_id;
-    double price;
-    String adult_names, children_names;
+    public long id, room_id, user_id, booking_date, number_adult, number_children;
+    public long invoice_item_id;
+    public double price;
+    public String adult_names, children_names;
 
     public ContentValues toContentValues() {
         
@@ -92,7 +92,9 @@ public class RoomBooking {
         cursor.moveToFirst();
 
         do {
-            bookings.add(RoomBooking.convertFromCursor(cursor));
+            RoomBooking booking =RoomBooking.convertFromCursor(cursor);
+            booking.room = Room.findRoom(booking.room_id);
+            bookings.add(booking);
         } while (cursor.moveToNext());
 
         return bookings;

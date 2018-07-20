@@ -51,6 +51,9 @@ public class ListInfoAdapter extends ArrayAdapter<Info> {
             final InfoBooking infoBooking = (InfoBooking) items.get(position);
             heading = view.findViewById(R.id.textHeading);
             heading.setText( infoBooking.heading );
+
+            ((TextView)view.findViewById(R.id.textDesc)).setText(infoBooking.value);
+
             // event
             Button btn = view.findViewById(R.id.btnCancel);
             btn.setOnClickListener(new View.OnClickListener() {
