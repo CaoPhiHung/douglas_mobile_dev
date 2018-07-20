@@ -55,7 +55,9 @@ public class TablesDefinitions {
             "user_id INTEGER," +
             "invoice_item_id INTEGER," +
             "number_adult INTEGER," +
+            "adult_names TEXT," +
             "number_children INTEGER," +
+            "children_names TEXT," +
             "price REAL," +
             "booking_date INTEGER, " +
             "FOREIGN KEY (invoice_item_id) REFERENCES invoice_item(id) ON DELETE CASCADE," +

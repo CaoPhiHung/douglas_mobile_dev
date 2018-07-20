@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.db.Room;
 import com.project.db.User;
@@ -49,10 +50,15 @@ public class RoomAdapter extends ArrayAdapter<Room> {
         TextView roomPrice = (TextView) v.findViewById(R.id.txtPrice);
         roomPrice.setText("$" + Double.toString(this.items.get(i).price));
 //
-        Button bookButton = (Button) v.findViewById(R.id.btnBook);
-        v.setOnClickListener(new View.OnClickListener() {
+        final Button bookButton = (Button) v.findViewById(R.id.btnBook);
+        bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(bookButton.getText() == "Book"){
+                    bookButton.setText("Booked");
+                }else{
+                    bookButton.setText("Book");
+                }
 
             }
         });
