@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.project.objects.Info;
+import com.project.objects.InfoBooking;
 import com.project.objects.InfoUser;
 
 import java.util.ArrayList;
@@ -35,17 +36,33 @@ public class ListInfoAdapter extends ArrayAdapter<Info> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater li = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         Info item = items.get(position);
         View view;
         TextView heading;
         TextView value;
+        final ListInfoAdapter instance = this;
 
         if (item.type == Info.TYPE_USER_INFO){
             view = initUserInfo(li, position);
-        } else if (item.type == Info.TYPE_HEADING) {
+        } else if (item.type == Info.TYPE_BOOKING){
+            view = li.inflate(R.layout.list_item_booking, null);
+            final InfoBooking infoBooking = (InfoBooking) items.get(position);
+            heading = view.findViewById(R.id.textHeading);
+            heading.setText( infoBooking.heading );
+            // event
+            Button btn = view.findViewById(R.id.btnCancel);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    infoBooking.cancel();
+                    items.remove(position);
+                    instance.notifyDataSetChanged();
+                }
+            });
 
+        } else if (item.type == Info.TYPE_HEADING) {
             view = li.inflate(R.layout.list_item_header, null);
             heading = view.findViewById(R.id.textHeading);
             heading.setText(items.get(position).heading);

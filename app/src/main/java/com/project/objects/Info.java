@@ -4,10 +4,10 @@ public class Info {
     public static final int TYPE_USER_INFO = 1;
     public static final int TYPE_HEADING = 2;
     public static final int TYPE_INFO = 3;
+    public static final int TYPE_BOOKING = 4;
 
     public String heading;
     public String value;
-    public boolean isHeader;
     public int type = TYPE_INFO;
 
     public Info(){
@@ -23,6 +23,5 @@ public class Info {
         this.heading = heading;
         this.value = "";
         this.type = TYPE_HEADING;
-        this.isHeader = true;
     }
 }

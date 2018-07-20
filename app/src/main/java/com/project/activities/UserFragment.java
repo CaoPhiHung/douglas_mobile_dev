@@ -15,6 +15,7 @@ import com.project.db.PortBooking;
 import com.project.db.RoomBooking;
 import com.project.db.User;
 import com.project.objects.Info;
+import com.project.objects.InfoBooking;
 import com.project.objects.InfoUser;
 
 import java.util.ArrayList;
@@ -43,11 +44,26 @@ public class UserFragment extends Fragment{
         // Port Of Call
         ArrayList<PortBooking> portBookings = PortBooking.getAllByUser(currentUser.id);
         ArrayList<Info> infos = new ArrayList<Info>();
-        for (PortBooking pb : portBookings){
-            infos.add(new Info(pb.port.name, "abc"));
-        }
+
         mainList.add(new Info("Port of calls reservation:"));
-        mainList.addAll(infos);
+        for (PortBooking pb : portBookings){
+            String label = "";
+            label += pb.port.name;
+            switch (pb.type){
+                case PortBooking.TYPE_GROUP:
+                    label += "\n" + "Group Tour";
+                    break;
+                case PortBooking.TYPE_PRIVATE:
+                    label += "\n" + "Private Tour";
+                    break;
+                default:
+                case PortBooking.TYPE_REGULAR:
+                    label += "\n" + "Regular Tour";
+                    break;
+            }
+
+            mainList.add(new InfoBooking(label, InfoBooking.BOOKING_PORT, pb.id));
+        }
 
         // room booking
         ArrayList<RoomBooking> roomBookings = RoomBooking.findByUserId(currentUser.id);
