@@ -12,7 +12,11 @@ import java.sql.Date;
 public class DBHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "groupproject";
+<<<<<<< HEAD
     static final int DATABASE_VERSION = 14;
+=======
+    static final int DATABASE_VERSION = 24;
+>>>>>>> b30fb34e6f5689192380184d6169a8888bd12b81
 
     static DBHelper instance;
 
@@ -39,10 +43,14 @@ public class DBHelper extends SQLiteOpenHelper {
         String[] tables = {
                 "PRAGMA foreign_keys = 1",
                 TablesDefinitions.USER,
+                TablesDefinitions.INVOICE,
+                TablesDefinitions.INVOICE_ITEM,
                 TablesDefinitions.ROOM,
                 TablesDefinitions.ROOM_BOOKING,
                 TablesDefinitions.PORT,
                 TablesDefinitions.PORT_BOOKING,
+                TablesDefinitions.ACTIVITY,
+                TablesDefinitions.ACTIVITY_BOOKING,
         };
 
         for (String table : tables){
@@ -56,6 +64,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 TablesDefinitions.DROP_ROOM,
                 TablesDefinitions.DROP_PORT,
                 TablesDefinitions.DROP_PORT_BOOKING,
+                TablesDefinitions.DROP_ACTIVITY_BOOKING,
+                TablesDefinitions.DROP_ACTIVITY,
+                TablesDefinitions.DROP_INVOICE_ITEM,
+                TablesDefinitions.DROP_INVOICE,
                 TablesDefinitions.DROP_USER,
         };
 
@@ -65,12 +77,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void seed(SQLiteDatabase db){
-        long date = Date.valueOf("2018-09-20").getTime();
-
-        String desc1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in lectus aliquam, suscipit sem nec, imperdiet nisi. Proin nec vulputate nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
-        String desc2 = "Curabitur sed ornare magna. Quisque consequat metus in orci porta sagittis ut in mauris. Sed ultricies sapien luctus dictum vestibulum. Quisque et mauris interdum, condimentum est et, ornare orci. Suspendisse sodales quis sem sit amet ornare. ";
-        String desc3 = "Fusce at nibh enim. Sed ac tortor ac magna ornare porttitor et sed nisi. Aliquam libero velit, posuere eu lacus in, lobortis interdum metus. Integer nec neque nisi.";
-        String desc4 = "Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque vel molestie nunc. Ut id velit et eros vulputate semper. Nullam scelerisque nibh quis magna imperdiet commodo";
 
         // add user
         db.execSQL("INSERT INTO " + User.TABLE_NAME + " (name, username, password, phone) VALUES ('Sample User', 'toan', '123456', '123-456-7890')");
@@ -83,12 +89,18 @@ public class DBHelper extends SQLiteOpenHelper {
 //                "('INSIDE 01', " + Room.TYPE_INSIDE + ", 200), " +
 //                "('VERANDAH 01', " + Room.TYPE_VERANDAH+ ", 100) ");
 
+        // add invoice
+        Invoice.seed(db);
+
+        // add room booking
+        RoomBooking.seed(db);
+
         // add port
-        db.execSQL("INSERT INTO " + Port.TABLE_NAME + " (name, description, price_children, price_adult, price_group, price_private, date, max_people) VALUES " +
-                "('Hubbard Glacier, Alaska', '" + desc1 + "', 40, 80, 100, 120, "+date+", 50), " +
-                "('Icy Strait Point, Alaska', '" +desc2 + "', 45, 85, 105, 125, "+date+", 50), " +
-                "('Juneau, Alaska', '" + desc3 + "', 45, 85, 105, 125, "+date+", 50)," +
-                "('Hubbard Glacier, Alaska', '" + desc4 + "', 45, 85, 105, 125, "+date+", 50)");
+        Port.seed(db);
+        PortBooking.seed(db);
+
+        // add activities
+        OnboardActivity.seed(db);
     }
 
     @Override

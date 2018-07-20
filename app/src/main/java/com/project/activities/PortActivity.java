@@ -1,15 +1,10 @@
 package com.project.activities;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -17,7 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.project.db.DBHelper;
 import com.project.db.Port;
 import com.project.db.PortBooking;
 
@@ -36,7 +30,7 @@ public class PortActivity extends AppCompatActivity {
         int id = b.getInt("id");
 
         // get from database
-        final Port port = Port.getPort(id);
+        final Port port = Port.get(id);
         this.port = port;
 
         TextView tv = findViewById(R.id.portDescription);
@@ -104,12 +98,11 @@ public class PortActivity extends AppCompatActivity {
                     default:
                         booking.quantity_private = Integer.parseInt(spinnerPrivate.getSelectedItem().toString());
                 }
-                booking.type = spinnerType.getSelectedItem().toString();
+                booking.type = spinnerType.getSelectedItemPosition();
                 booking.price_adult = port.price_adult;
                 booking.price_children = port.price_children;
                 booking.price_group = port.price_group;
                 booking.price_private = port.price_private;
-                booking.calculate();
                 long booking_id = booking.save();
                 if (booking_id == -1){
                     Toast.makeText(PortActivity.this, "Cannot book, please try again", Toast.LENGTH_LONG).show();

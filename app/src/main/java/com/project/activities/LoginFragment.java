@@ -14,7 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.project.db.Invoice;
 import com.project.db.User;
+import com.project.objects.ProjectException;
 
 //import com.project.groupproject.R;
 
@@ -45,14 +47,20 @@ public class LoginFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
-                    User.login(textUsername.getText().toString(), textPassword.getText().toString());
+            try{
+                User.login(textUsername.getText().toString(), textPassword.getText().toString());
 
-                    Intent i = new Intent(context, HomeActivity.class);
-                    startActivity(i);
-                } catch (Exception ex){
-                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                // create new invoice if user doesn't have one
+                User currentUser = User.getCurrentUser();
+                if (!Invoice.hasInvoice(currentUser.id)){
+                    Invoice.generate(currentUser.id);
                 }
+
+                Intent i = new Intent(context, HomeActivity.class);
+                startActivity(i);
+            } catch (ProjectException ex){
+                Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+            }
 
             }
         });

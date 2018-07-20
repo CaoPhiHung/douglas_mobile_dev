@@ -26,14 +26,24 @@ public class RoomFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+<<<<<<< HEAD
         View view = inflater.inflate(R.layout.room_booking_layout,container,false);
 
         ListView roomList = (ListView) view.findViewById(R.id.available_room);
 
         View listView = inflater.inflate(R.layout.custom_row, null);
         ArrayList<Room>  rooms= Room.getAllAvailabelRoom();
+=======
+        View view = inflater.inflate(R.layout.booking2_layout,container,false);
+//        Spinner roomType = (Spinner) view.findViewById(R.id.roomTypeSpinner);
 
-        RoomAdapter roomAdapter = new RoomAdapter(view.getContext(), 0, rooms);
+//        View listView = inflater.inflate(R.layout.custom_room_book, null);
+        ArrayList<Room>  rooms= new ArrayList<Room>();
+        rooms.add(new Room());
+        rooms.add(new Room());
+>>>>>>> b30fb34e6f5689192380184d6169a8888bd12b81
+
+        BookRoomAdapter roomAdapter = new BookRoomAdapter(view.getContext(), 0, rooms);
         roomList.setAdapter(roomAdapter);
 
         Button btnBookNext = (Button)view.findViewById(R.id.btnBookNext);

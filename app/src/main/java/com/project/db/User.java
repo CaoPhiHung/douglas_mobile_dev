@@ -4,7 +4,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.project.objects.Info;
+import com.project.objects.ProjectException;
+
 import java.security.MessageDigest;
+import java.util.ArrayList;
 
 public class User {
 
@@ -102,24 +106,17 @@ public class User {
     }
 
     /**
-     * helper methods
-     */
-    public boolean verifyPasswordConfirm(){
-        return password == password_confirm;
-    }
-
-    /**
      *
      * @return
      */
-    public void register() throws Exception {
+    public void register() throws ProjectException {
         if (!password_confirm.equals(password)){
-            throw new Exception("Password confirmation has to be matched");
+            throw new ProjectException("Password confirmation has to be matched");
         }
 
         User oldUser = findByUsername(username);
         if (oldUser != null)
-            throw new Exception("This username has been used. Please choose another one");
+            throw new ProjectException("This username has been used. Please choose another one");
 
         save();
     }
@@ -129,14 +126,24 @@ public class User {
      * @param username
      * @param password
      */
-    public static void login(String username, String password) throws Exception {
+    public static void login(String username, String password) throws ProjectException {
         User user = findByUsername(username);
         if (user == null)
-            throw new Exception("User is not existed");
+            throw new ProjectException("User is not existed");
 
         if (!user.password.equals(password))
-            throw new Exception("Password is incorrect");
+            throw new ProjectException("Password is incorrect");
 
         currentUser = user;
     }
+
+    public ArrayList<Info> getInfoArray(){
+        ArrayList<Info> list = new ArrayList<Info>();
+        list.add(new Info("Name", this.name));
+        list.add(new Info("Username", this.username));
+        list.add(new Info("Phone", this.phone));
+        return list;
+    }
+
+
 }
