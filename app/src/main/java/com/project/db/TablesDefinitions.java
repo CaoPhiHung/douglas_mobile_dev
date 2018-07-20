@@ -45,6 +45,7 @@ public class TablesDefinitions {
             "desc TEXT," +
             "type INTEGER," +
             "deck INTEGER," +
+            "description TEXT," +
             "max_adult INTEGER," +
             "max_children INTEGER," +
             "price REAL)";
