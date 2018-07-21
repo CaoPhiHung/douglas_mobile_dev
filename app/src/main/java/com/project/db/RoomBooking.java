@@ -16,8 +16,13 @@ public class RoomBooking {
     static public String COLUMN_INVOICE_ITEM_ID = "invoice_item_id";
     static public String COLUMN_PRICE = "price";
     static public String COLUMN_NO_ADULT = "number_adult";
+    static public String COLUMN_ADULT_NAMES = "adult_names";
     static public String COLUMN_NO_CHILDREN = "number_children";
+    static public String COLUMN_CHILDREN_NAMES = "children_names";
     static public String COLUMN_BOOKING_DATE = "booking_date";
+
+    public Room room;
+
     /*
      "room_id INTEGER," +
             "user_id INTEGER," +
@@ -25,11 +30,13 @@ public class RoomBooking {
             "booking_date INTEGER, " +
      */
 
-    long id, room_id, user_id, booking_date, number_adult, number_children;
-    long invoice_item_id;
-    double price;
+    public long id, room_id, user_id, booking_date, number_adult, number_children;
+    public long invoice_item_id;
+    public double price;
+    public String adult_names, children_names;
 
     public ContentValues toContentValues() {
+        
         ContentValues data = new ContentValues();
         data.put(COLUMN_ROOM_ID, this.room_id);
         data.put(COLUMN_USER_ID, this.user_id);
@@ -37,7 +44,10 @@ public class RoomBooking {
         data.put(COLUMN_PRICE, this.price);
         data.put(COLUMN_BOOKING_DATE, this.booking_date);
         data.put(COLUMN_NO_ADULT, this.number_adult);
+        data.put(COLUMN_ADULT_NAMES, this.adult_names);
         data.put(COLUMN_NO_CHILDREN, this.number_children);
+        data.put(COLUMN_CHILDREN_NAMES, this.children_names);
+        data.put(COLUMN_NO_ADULT, this.number_adult);
         return data;
     }
 
@@ -51,7 +61,10 @@ public class RoomBooking {
         booking.price = cursor.getInt(cursor.getColumnIndex(COLUMN_PRICE));
         booking.booking_date = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKING_DATE));
         booking.number_adult = cursor.getInt(cursor.getColumnIndex(COLUMN_NO_ADULT));
+        booking.adult_names = cursor.getString(cursor.getColumnIndex(COLUMN_ADULT_NAMES));
         booking.number_children = cursor.getInt(cursor.getColumnIndex(COLUMN_NO_CHILDREN));
+        booking.children_names = cursor.getString(cursor.getColumnIndex(COLUMN_CHILDREN_NAMES));
+        booking.room = Room.findRoom(booking.room_id);
         return booking;
     }
 
@@ -64,7 +77,9 @@ public class RoomBooking {
                 COLUMN_PRICE,
                 COLUMN_BOOKING_DATE,
                 COLUMN_NO_ADULT,
-                COLUMN_NO_CHILDREN
+                COLUMN_ADULT_NAMES,
+                COLUMN_NO_CHILDREN,
+                COLUMN_CHILDREN_NAMES
         };
     }
 
@@ -77,7 +92,9 @@ public class RoomBooking {
         cursor.moveToFirst();
 
         do {
-            bookings.add(RoomBooking.convertFromCursor(cursor));
+            RoomBooking booking =RoomBooking.convertFromCursor(cursor);
+            booking.room = Room.findRoom(booking.room_id);
+            bookings.add(booking);
         } while (cursor.moveToNext());
 
         return bookings;
@@ -129,6 +146,8 @@ public class RoomBooking {
         b2.booking_date = new Date().getTime();
         b2.number_adult = 2;
         b2.number_children = 0;
+        b2.adult_names = "";
+        b2.children_names = "";
 
         InvoiceItem ii2 = new InvoiceItem();
         ii2.invoice_id = invoice.id;
