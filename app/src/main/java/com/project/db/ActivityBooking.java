@@ -2,9 +2,12 @@ package com.project.db;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 
 public class ActivityBooking {
-    static public String TABLE_NAME = "activity";
+    static public String TABLE_NAME = "activity_booking";
     static public String COLUMN_USER_ID = "user_id";
     static public String COLUMN_ACTIVITY_ID = "activity_id";
     static public String COLUMN_BOOKING_DATE = "booking_date";
@@ -45,5 +48,21 @@ public class ActivityBooking {
             COLUMN_ACTIVITY_ID,
             COLUMN_BOOKING_DATE
         };
+    }
+
+    public long save(){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        return db.insert(TABLE_NAME, null, toContentValues());
+    }
+
+    public static int getCountByActivityId(long activity_id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+
+        String[] activity_ids = { String.valueOf(activity_id) };
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM activity_booking WHERE activity_id = ?", activity_ids);
+
+        cursor.moveToFirst();
+        int count = cursor.getInt( 0 );
+        return count;
     }
 }

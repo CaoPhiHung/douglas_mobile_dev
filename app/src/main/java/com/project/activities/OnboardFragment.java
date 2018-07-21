@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.db.OnboardActivity;
+import com.project.objects.ActivityItem;
 
 import java.util.ArrayList;
 
@@ -30,12 +31,16 @@ public class OnboardFragment extends Fragment{
 
         ArrayList<OnboardActivity> onboardActivitiesList = OnboardActivity.getAll();
         int[] images = {R.drawable.act1, R.drawable.act2,R.drawable.act3};
-        String[] description ={"abcasas aaa","def","asasdsdfsdf"};
-        int count = 0;
-        onboardActivitiesList = OnboardActivity.getAll();
+        int index=0;
 
+        ArrayList<ActivityItem> activities = new ArrayList<>();
+        
+        for (OnboardActivity value: onboardActivitiesList){
+            activities.add(new ActivityItem(images[index%3], value.description, value.id));
+            index++;
+        }
 
-        ListActivityAdapter adapter = new ListActivityAdapter(view.getContext(), description, images);
+        ListActivityAdapter adapter = new ListActivityAdapter(view.getContext(), activities);
 
         ListView listView = view.findViewById(R.id.listActivities100);
         listView.setAdapter(adapter);
@@ -43,9 +48,8 @@ public class OnboardFragment extends Fragment{
 //        OnboardActivity oa = new OnboardActivity();
 //        oa.save();
 
-        Toast.makeText(view.getContext(), "Size: " + onboardActivitiesList.size(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(view.getContext(), "Size: " + onboardActivitiesList.size(), Toast.LENGTH_LONG).show();
         return view;
-
 
     }
 }
