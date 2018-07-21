@@ -21,6 +21,8 @@
         <activity android:name=".PortActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".HomeActivity" />
+        <activity android:name=".BookingActivity" />
+        <activity android:name=".BookingDetailActivity" />
         <activity android:name=".InvoiceActivity"></activity>
     </application>
 

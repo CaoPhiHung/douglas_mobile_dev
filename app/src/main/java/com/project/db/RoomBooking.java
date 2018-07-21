@@ -3,11 +3,14 @@ package com.project.db;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RoomBooking {
+public class RoomBooking implements Parcelable {
 
     static public String TABLE_NAME = "room_booking";
     static public String COLUMN_ID = "id";
@@ -20,8 +23,7 @@ public class RoomBooking {
     static public String COLUMN_NO_CHILDREN = "number_children";
     static public String COLUMN_CHILDREN_NAMES = "children_names";
     static public String COLUMN_BOOKING_DATE = "booking_date";
-    static public Room room;
-
+    private int mData;
 
     /*
      "room_id INTEGER," +
@@ -30,7 +32,7 @@ public class RoomBooking {
             "booking_date INTEGER, " +
      */
 
-    long id, room_id, user_id, booking_date, number_adult, number_children;
+    public long id, room_id, user_id, booking_date, number_adult, number_children;
     long invoice_item_id;
     double price;
     String adult_names, children_names;
@@ -64,7 +66,6 @@ public class RoomBooking {
         booking.adult_names = cursor.getString(cursor.getColumnIndex(COLUMN_ADULT_NAMES));
         booking.number_children = cursor.getInt(cursor.getColumnIndex(COLUMN_NO_CHILDREN));
         booking.children_names = cursor.getString(cursor.getColumnIndex(COLUMN_CHILDREN_NAMES));
-        booking.room = Room.findRoom(booking.room_id);
         return booking;
     }
 
@@ -123,6 +124,7 @@ public class RoomBooking {
         b1.booking_date = new Date().getTime();
         b1.number_adult = 2;
         b1.number_children = 0;
+//        b1.room = Room.findRoom(b1.room_id);
 
         //
         InvoiceItem ii1 = new InvoiceItem();
@@ -146,6 +148,7 @@ public class RoomBooking {
         b2.number_children = 0;
         b2.adult_names = "";
         b2.children_names = "";
+//        b2.room = Room.findRoom(b2.room_id);
 
         InvoiceItem ii2 = new InvoiceItem();
         ii2.invoice_id = invoice.id;
@@ -158,4 +161,30 @@ public class RoomBooking {
         ContentValues b2Values = b2.toContentValues();
         db.insert(TABLE_NAME, null, b2Values);
     }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(mData);
+    }
+
+    public RoomBooking(Parcel in) {
+        mData = in.readInt();
+    }
+
+    public RoomBooking() {
+    }
+
+    public static final Parcelable.Creator<RoomBooking> CREATOR = new Parcelable.Creator<RoomBooking>() {
+        public RoomBooking createFromParcel(Parcel in) {
+            return new RoomBooking(in);
+        }
+
+        public RoomBooking[] newArray(int size) {
+            return new RoomBooking[size];
+        }
+    };
+
 }

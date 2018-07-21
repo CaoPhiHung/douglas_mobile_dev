@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.project.db.Room;
+import com.project.db.RoomBooking;
+import com.project.db.User;
 
 import java.util.ArrayList;
 
@@ -45,15 +49,21 @@ public class RoomFragment extends Fragment{
 
         View listView = inflater.inflate(R.layout.custom_row, null);
         ArrayList<Room>  rooms= Room.getAllAvailabelRoom();
+        final ArrayList<RoomBooking>  roomBookings= RoomBooking.findByUserId(User.getCurrentUser().id);
 
-        RoomAdapter roomAdapter = new RoomAdapter(view.getContext(), 0, rooms);
+        RoomAdapter roomAdapter = new RoomAdapter(view.getContext(), 0, rooms, roomBookings);
         roomList.setAdapter(roomAdapter);
 
         Button btnBookNext = (Button)view.findViewById(R.id.btnBookNext);
         btnBookNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                BookingDetailFragment bookingDetailFragment = new BookingDetailFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.roombookinglayout, bookingDetailFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

@@ -56,6 +56,7 @@ public class LoginFragment extends Fragment {
                     Invoice.generate(currentUser.id);
                 }
 
+//                Intent i = new Intent(context, BookingActivity.class);
                 Intent i = new Intent(context, HomeActivity.class);
                 startActivity(i);
             } catch (ProjectException ex){

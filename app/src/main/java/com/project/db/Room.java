@@ -102,12 +102,11 @@ public class Room {
         SQLiteDatabase db = DBHelper.getDbInstance();
         ArrayList<Room> availabel_rooms = new ArrayList<Room>();
         Cursor cursor = db.query(TABLE_NAME, getColumnNames(), null, null, null, null, null);
+        cursor.moveToFirst();
 
-        if (cursor.moveToFirst()){
-            while(cursor.moveToNext()){
-                availabel_rooms.add(convertFromCursor(cursor));
-            }
-        }
+        do{
+            availabel_rooms.add(convertFromCursor(cursor));
+        }while (cursor.moveToNext());
 
         return availabel_rooms;
     }
