@@ -236,4 +236,10 @@ public class PortBooking {
 
         return list;
     }
+
+    public static void delete(long id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+
+        int result = db.delete(TABLE_NAME, "id = ?", new String[] {String.valueOf(id)});
+    }
 }

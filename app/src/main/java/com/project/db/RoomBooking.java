@@ -23,7 +23,12 @@ public class RoomBooking implements Parcelable {
     static public String COLUMN_NO_CHILDREN = "number_children";
     static public String COLUMN_CHILDREN_NAMES = "children_names";
     static public String COLUMN_BOOKING_DATE = "booking_date";
+<<<<<<< HEAD
     private int mData;
+=======
+
+    public Room room;
+>>>>>>> d796e8d6c883a97d26fdf2546e4af1689974627a
 
     /*
      "room_id INTEGER," +
@@ -33,9 +38,15 @@ public class RoomBooking implements Parcelable {
      */
 
     public long id, room_id, user_id, booking_date, number_adult, number_children;
+<<<<<<< HEAD
     long invoice_item_id;
     double price;
     String adult_names, children_names;
+=======
+    public long invoice_item_id;
+    public double price;
+    public String adult_names, children_names;
+>>>>>>> d796e8d6c883a97d26fdf2546e4af1689974627a
 
     public ContentValues toContentValues() {
         
@@ -93,7 +104,9 @@ public class RoomBooking implements Parcelable {
         cursor.moveToFirst();
 
         do {
-            bookings.add(RoomBooking.convertFromCursor(cursor));
+            RoomBooking booking =RoomBooking.convertFromCursor(cursor);
+            booking.room = Room.findRoom(booking.room_id);
+            bookings.add(booking);
         } while (cursor.moveToNext());
 
         return bookings;
