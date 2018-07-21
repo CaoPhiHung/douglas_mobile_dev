@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.project.db.DBHelper;
 
@@ -78,13 +79,36 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        SectionAdapter adapter = new SectionAdapter(getSupportFragmentManager());
+    private void setupViewPager(final ViewPager viewPager) {
+        final SectionAdapter adapter = new SectionAdapter(getSupportFragmentManager());
         adapter.addFragment(new CruiseFragment(), "Cruise");
         adapter.addFragment(new DestinationsFragment(), "Ports");
         adapter.addFragment(new OnboardFragment(), "Onboard");
         adapter.addFragment(new RoomFragment(), "Room");
-        adapter.addFragment(new UserFragment(), "User");
+
+        final UserFragment userFragment = new UserFragment();
+        adapter.addFragment(userFragment, "User");
+
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+//                Toast.makeText(HomeActivity.this, String.valueOf(position), Toast.LENGTH_LONG).show();
+                // refresh here
+                if (position == 4){
+                    userFragment.initItems();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 }

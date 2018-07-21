@@ -151,22 +151,6 @@
                         android:entries="@array/quantity" />
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/textName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:hint="Name"
-                    android:inputType="textPersonName" />
-
-                <EditText
-                    android:id="@+id/textPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Phone"
-                    android:inputType="textPersonName" />
-
                 <Button
                     android:id="@+id/btnBook"
                     android:layout_width="match_parent"

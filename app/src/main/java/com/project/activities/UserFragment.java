@@ -27,10 +27,23 @@ import java.util.ArrayList;
 public class UserFragment extends Fragment{
     private static final String TAG = "UserFragment";
 
+    private ListInfoAdapter adaptUserInfo;
+    private View view;
+
+    public ListInfoAdapter getAdaptUserInfo() {
+        return adaptUserInfo;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_user,container,false);
+        this.view = view;
+        initItems();
+        return view;
+    }
+
+    public void initItems(){
         User currentUser = User.getCurrentUser();
 
         // list user info
@@ -88,9 +101,7 @@ public class UserFragment extends Fragment{
         /**
          * set adapter
          */
-        ListInfoAdapter adaptUserInfo = new ListInfoAdapter(view.getContext(), 0, mainList);
+        adaptUserInfo = new ListInfoAdapter(view.getContext(), 0, mainList);
         lvUser.setAdapter(adaptUserInfo);
-
-        return view;
     }
 }

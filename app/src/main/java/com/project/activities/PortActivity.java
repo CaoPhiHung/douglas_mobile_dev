@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.project.db.Port;
 import com.project.db.PortBooking;
+import com.project.db.User;
 
 import java.util.ArrayList;
 
@@ -54,7 +55,6 @@ public class PortActivity extends AppCompatActivity {
         final LinearLayout groupChildren = findViewById(R.id.groupChildren);
         final LinearLayout groupGroup = findViewById(R.id.groupGroup);
         final LinearLayout groupPrivate = findViewById(R.id.groupPrivate);
-        final EditText txtName = findViewById(R.id.textName);
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -91,14 +91,17 @@ public class PortActivity extends AppCompatActivity {
                     case 0:
                         booking.quantity_adult = Integer.parseInt(spinnerAdult.getSelectedItem().toString());
                         booking.quantity_children = Integer.parseInt(spinnerChildren.getSelectedItem().toString());
+                        booking.type = PortBooking.TYPE_REGULAR;
                         break;
                     case 1:
                         booking.quantity_group = Integer.parseInt(spinnerGroup.getSelectedItem().toString());
+                        booking.type = PortBooking.TYPE_GROUP;
                         break;
                     default:
                         booking.quantity_private = Integer.parseInt(spinnerPrivate.getSelectedItem().toString());
+                        booking.type = PortBooking.TYPE_PRIVATE;
                 }
-                booking.type = spinnerType.getSelectedItemPosition();
+                booking.user_id = User.getCurrentUser().id;
                 booking.price_adult = port.price_adult;
                 booking.price_children = port.price_children;
                 booking.price_group = port.price_group;
@@ -108,6 +111,7 @@ public class PortActivity extends AppCompatActivity {
                     Toast.makeText(PortActivity.this, "Cannot book, please try again", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(PortActivity.this, "You have successfully booked", Toast.LENGTH_LONG).show();
+                    finish();
                 }
             }
         });
