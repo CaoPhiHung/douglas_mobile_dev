@@ -12,9 +12,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.project.db.Invoice;
+import com.project.db.InvoiceItem;
 import com.project.db.Port;
 import com.project.db.PortBooking;
 import com.project.db.User;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -36,6 +40,12 @@ public class PortActivity extends AppCompatActivity {
 
         TextView tv = findViewById(R.id.portDescription);
         tv.setText(port.description);
+
+        // update rice
+        ((TextView)findViewById(R.id.txtQtyAdult)).setText(String.format("Adult ($%.2f)", port.price_adult));
+        ((TextView)findViewById(R.id.txtQtyChildren)).setText(String.format("Children ($%.2f)", port.price_children));
+        ((TextView)findViewById(R.id.txtQtyGroup)).setText(String.format("Quantity ($%.2f)", port.price_group));
+        ((TextView)findViewById(R.id.txtQtyPrivate)).setText(String.format("Quantity ($%.2f)", port.price_private));
 
         ViewPager slider = (ViewPager) findViewById(R.id.slider);
 
@@ -106,7 +116,9 @@ public class PortActivity extends AppCompatActivity {
                 booking.price_children = port.price_children;
                 booking.price_group = port.price_group;
                 booking.price_private = port.price_private;
+
                 long booking_id = booking.save();
+
                 if (booking_id == -1){
                     Toast.makeText(PortActivity.this, "Cannot book, please try again", Toast.LENGTH_LONG).show();
                 } else {

@@ -56,6 +56,7 @@ public class RegisterFragment extends Fragment {
                 User newUser = new User();
                 newUser.name = ((EditText)view.findViewById(R.id.textName)).getText().toString();
                 newUser.username = ((EditText)view.findViewById(R.id.textUsername)).getText().toString();
+                newUser.phone = ((EditText)view.findViewById(R.id.textPhone)).getText().toString();
                 newUser.password = ((EditText)view.findViewById(R.id.textPassword)).getText().toString();
                 newUser.password_confirm = ((EditText)view.findViewById(R.id.textPasswordConfirm)).getText().toString();
 

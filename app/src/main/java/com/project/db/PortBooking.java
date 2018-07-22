@@ -113,9 +113,25 @@ public class PortBooking {
     }
 
     public long save(){
-        ContentValues data = toContentValues();
         SQLiteDatabase db = DBHelper.getDbInstance();
+        Invoice invoice = Invoice.getByUser(User.getCurrentUser().id);
+        Port port = Port.get(port_id);
 
+        InvoiceItem invoiceItem;
+
+        if (invoice_item_id == 0){
+            invoiceItem = new InvoiceItem();
+        } else {
+            invoiceItem = InvoiceItem.get(invoice_item_id);
+        }
+
+        invoiceItem.invoice_id = invoice.id;
+        invoiceItem.name = "Port of call: " + port.name;
+        invoiceItem.price = getTotalPrice();
+        invoice.invoiceItems.add(invoiceItem);
+        invoice_item_id = invoiceItem.save();
+
+        ContentValues data = toContentValues();
         if (this.id == 0){
             long id = db.insert(TABLE_NAME, null, data);
             if (id != -1){
@@ -237,9 +253,19 @@ public class PortBooking {
         return list;
     }
 
+    public static PortBooking get(long id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        Cursor cursor = db.query(TABLE_NAME, getColumns(), "id = ? ", new String[] {String.valueOf(id)}, null, null, null, null);
+        cursor.moveToFirst();
+        return convertFromCursor(cursor);
+    }
+
     public static void delete(long id){
         SQLiteDatabase db = DBHelper.getDbInstance();
 
-        int result = db.delete(TABLE_NAME, "id = ?", new String[] {String.valueOf(id)});
+        PortBooking booking = get(id);
+
+        db.delete(InvoiceItem.TABLE_NAME, "id = ?", new String[] {String.valueOf(booking.invoice_item_id)});
+        int result = db.delete(TABLE_NAME, "id = ?", new String[] {String.valueOf(booking.id)});
     }
 }

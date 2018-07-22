@@ -65,13 +65,15 @@ public class Invoice {
         };
     }
 
-    public void save(){
+    public long save(){
         SQLiteDatabase db = DBHelper.getDbInstance();
         if (id == 0){ // insert
             long id = db.insert(TABLE_NAME, null, toContentValues());
             this.id = id;
+            return id;
         } else {
             db.update(TABLE_NAME, toContentValues(), "id = ?", new String[] {String.valueOf(id)} );
+            return id;
         }
     }
 

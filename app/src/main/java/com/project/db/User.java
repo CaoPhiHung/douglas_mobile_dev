@@ -34,7 +34,6 @@ public class User {
 
     public ContentValues toContentValues() {
         ContentValues data = new ContentValues();
-        data.put(COLUMN_ID, this.id);
         data.put(COLUMN_NAME, this.name);
         data.put(COLUMN_USERNAME, this.username);
         data.put(COLUMN_PASSWORD, this.password);

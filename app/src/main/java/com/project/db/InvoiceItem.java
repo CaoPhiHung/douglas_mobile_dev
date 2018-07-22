@@ -26,7 +26,7 @@ public class InvoiceItem {
         };
     }
 
-    public void save(){
+    public long save(){
         SQLiteDatabase db = DBHelper.getDbInstance();
         ContentValues data = new ContentValues();
         data.put(COLUMN_INVOICE_ID, invoice_id);
@@ -34,9 +34,9 @@ public class InvoiceItem {
         data.put(COLUMN_PRICE, price);
 
         if (id == 0){
-            db.insert(TABLE_NAME, null, data);
+            return db.insert(TABLE_NAME, null, data);
         } else {
-            db.update(TABLE_NAME, data, "id = ? ", new String[] {String.valueOf(id)} );
+            return db.update(TABLE_NAME, data, "id = ? ", new String[] {String.valueOf(id)} );
         }
     }
 
@@ -67,5 +67,10 @@ public class InvoiceItem {
         item.price = cursor.getLong(cursor.getColumnIndex(COLUMN_PRICE));
 
         return item;
+    }
+
+    public static InvoiceItem get(long id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        return convertFromCursor(db.query(TABLE_NAME, getColumnNames(), "id = ?", new String[] {String.valueOf(id)}, null, null, null, null));
     }
 }
