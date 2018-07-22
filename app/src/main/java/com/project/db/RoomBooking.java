@@ -43,6 +43,20 @@ public class RoomBooking {
 
     public void save(){
         SQLiteDatabase db = DBHelper.getDbInstance();
+
+        Invoice invoice = Invoice.getByUser(User.getCurrentUser().id);
+        InvoiceItem invoiceItem;
+        if (invoice_item_id == 0){
+            invoiceItem = new InvoiceItem();
+        } else {
+            invoiceItem = InvoiceItem.get(invoice_item_id);
+        }
+
+        invoiceItem.name = Room.findRoom(room_id).name;
+        invoiceItem.price = price;
+        invoiceItem.invoice_id = invoice.id;
+        invoice_item_id = invoiceItem.save();
+
         if (id == 0){ // insert
             long id = db.insert(TABLE_NAME, null, toContentValues());
             this.id = id;
