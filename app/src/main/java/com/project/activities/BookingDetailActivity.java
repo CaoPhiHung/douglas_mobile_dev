@@ -14,6 +14,7 @@ import com.project.db.RoomBooking;
 import com.project.db.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BookingDetailActivity extends AppCompatActivity {
 
@@ -25,24 +26,45 @@ public class BookingDetailActivity extends AppCompatActivity {
         setContentView(R.layout.booking2_layout);
 
         Bundle b = this.getIntent().getExtras();
+        ArrayList<String> roomsId = b.getStringArrayList("roomsId");
+        final ArrayList<RoomBooking> bookedRooms = new ArrayList<RoomBooking>();
+        for(int i = 0; i < roomsId.size(); i++){
+            RoomBooking roomBooking = new RoomBooking();
 
-        ArrayList<RoomBooking> cats = b.getParcelableArrayList("roomBookings");
-        Log.d("size: ", cats.size() + "" );
+            roomBooking.room_id = Long.parseLong(roomsId.get(i));
+            Room room = Room.findRoom(roomBooking.room_id);
+            roomBooking.number_adult = room.max_adult;
+            roomBooking.number_children = room.max_children;
+            roomBooking.user_id = User.getCurrentUser().id;
+            roomBooking.price = room.price;
 
-//        ArrayList<Room> rooms= Room.getAllAvailabelRoom();
-//        final ArrayList<RoomBooking>  roomBookings= RoomBooking.findByUserId(User.getCurrentUser().id);
-//        RoomAdapter roomAdapter = new RoomAdapter(this, 0, rooms, roomBookings);
-//        ListView roomList = (ListView) findViewById(R.id.available_room);
-//        roomList.setAdapter(roomAdapter);
-//        final Context context = this;
-//        Button btnBookNext = (Button) findViewById(R.id.btnBookNext);
-//        btnBookNext.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(context, BookingDetailActivity.class);
-//                startActivity(i);
-//            }
-//        });
+            bookedRooms.add(roomBooking);
+        }
+
+        BookRoomAdapter bookRoomAdapter = new BookRoomAdapter(this, 0, bookedRooms);
+        ListView roomList = (ListView) findViewById(R.id.roomList);
+        roomList.setAdapter(bookRoomAdapter);
+
+        final Context context = this;
+        Button btnFinish = (Button) findViewById(R.id.btnFinish);
+
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                String adult_names = bookedRooms.get(0).adult_names + "," + bookedRooms.get(0).adult_names2;
+//                String children_names = bookedRooms.get(0).children_names + "," + bookedRooms.get(0).children_names2;
+//                bookedRooms.get(0).adult_names = adult_names;
+//                bookedRooms.get(0).children_names = children_names;
+                  for(int i = 0; i < bookedRooms.size(); i++){
+                      String adult_names = bookedRooms.get(i).adult_names + "," + bookedRooms.get(i).adult_names2;
+                      String children_names = bookedRooms.get(i).children_names + "," + bookedRooms.get(i).children_names2;
+                      bookedRooms.get(i).save();
+                  }
+
+                Intent i = new Intent(context, HomeActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
 }

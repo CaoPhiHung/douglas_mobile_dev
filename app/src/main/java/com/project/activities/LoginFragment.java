@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.db.Invoice;
+import com.project.db.RoomBooking;
 import com.project.db.User;
 import com.project.objects.ProjectException;
 
@@ -55,9 +56,14 @@ public class LoginFragment extends Fragment {
                 if (!Invoice.hasInvoice(currentUser.id)){
                     Invoice.generate(currentUser.id);
                 }
+                Intent i;
+                if(RoomBooking.hasBooked(currentUser.id)){
+                     i = new Intent(context, HomeActivity.class);
+                }else{
+                     i = new Intent(context, BookingActivity.class);
+                }
 
-//                Intent i = new Intent(context, BookingActivity.class);
-                Intent i = new Intent(context, HomeActivity.class);
+
                 startActivity(i);
             } catch (ProjectException ex){
                 Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();

@@ -17,7 +17,10 @@
     <ListView
         android:id="@+id/roomList"
         android:layout_width="match_parent"
-        android:layout_height="391dp"></ListView>
+        android:layout_height="391dp">
+
+
+    </ListView>
 
     <Button
         android:id="@+id/btnFinish"

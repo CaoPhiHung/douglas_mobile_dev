@@ -10,7 +10,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RoomBooking implements Parcelable {
+public class RoomBooking {
 
     static public String TABLE_NAME = "room_booking";
     static public String COLUMN_ID = "id";
@@ -23,9 +23,6 @@ public class RoomBooking implements Parcelable {
     static public String COLUMN_NO_CHILDREN = "number_children";
     static public String COLUMN_CHILDREN_NAMES = "children_names";
     static public String COLUMN_BOOKING_DATE = "booking_date";
-
-    private int mData;
-
 
     public Room room;
 
@@ -42,7 +39,17 @@ public class RoomBooking implements Parcelable {
     public long invoice_item_id;
     public double price;
     public String adult_names, children_names;
+    public String adult_names2, children_names2;
 
+    public void save(){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        if (id == 0){ // insert
+            long id = db.insert(TABLE_NAME, null, toContentValues());
+            this.id = id;
+        } else {
+            db.update(TABLE_NAME, toContentValues(), "id = ?", new String[] {String.valueOf(id)} );
+        }
+    }
 
     public ContentValues toContentValues() {
         
@@ -98,13 +105,13 @@ public class RoomBooking implements Parcelable {
         SQLiteDatabase db = DBHelper.getDbInstance();
         Cursor cursor = db.query(TABLE_NAME, RoomBooking.getColumnNames(), "user_id = ?", new String[] { String.valueOf(user_id) }, null, null, null);
         cursor.moveToFirst();
-
-        do {
-            RoomBooking booking =RoomBooking.convertFromCursor(cursor);
-            booking.room = Room.findRoom(booking.room_id);
-            bookings.add(booking);
-        } while (cursor.moveToNext());
-
+        if(cursor.getCount() > 0) {
+            do {
+                RoomBooking booking = RoomBooking.convertFromCursor(cursor);
+                booking.room = Room.findRoom(booking.room_id);
+                bookings.add(booking);
+            } while (cursor.moveToNext());
+        }
         return bookings;
     }
 
@@ -171,29 +178,12 @@ public class RoomBooking implements Parcelable {
         db.insert(TABLE_NAME, null, b2Values);
     }
 
-    public int describeContents() {
-        return 0;
+    static public boolean hasBooked(long user_id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        Cursor cursor = db.query(TABLE_NAME, getColumnNames(), "user_id = ?", new String[] { String.valueOf(user_id) }, null, null, null, null);
+
+        // return null if there is no invoice
+        return cursor.getCount() > 0 ? true : false;
     }
-
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeInt(mData);
-    }
-
-    public RoomBooking(Parcel in) {
-        mData = in.readInt();
-    }
-
-    public RoomBooking() {
-    }
-
-    public static final Parcelable.Creator<RoomBooking> CREATOR = new Parcelable.Creator<RoomBooking>() {
-        public RoomBooking createFromParcel(Parcel in) {
-            return new RoomBooking(in);
-        }
-
-        public RoomBooking[] newArray(int size) {
-            return new RoomBooking[size];
-        }
-    };
 
 }

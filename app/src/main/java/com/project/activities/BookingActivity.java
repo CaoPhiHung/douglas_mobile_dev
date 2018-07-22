@@ -29,19 +29,27 @@ public class BookingActivity extends AppCompatActivity {
         setContentView(R.layout.room_booking_layout);
 
         ArrayList<Room> rooms= Room.getAllAvailabelRoom();
+
         final ArrayList<RoomBooking>  roomBookings= RoomBooking.findByUserId(User.getCurrentUser().id);
+
         RoomAdapter roomAdapter = new RoomAdapter(this, 0, rooms, roomBookings);
         ListView roomList = (ListView) findViewById(R.id.available_room);
         roomList.setAdapter(roomAdapter);
         final Context context = this;
+
         Button btnBookNext = (Button) findViewById(R.id.btnBookNext);
+        final ArrayList<String> roomsId = new ArrayList<String>();
+
 
         btnBookNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, BookingDetailActivity.class);
                 Bundle b = new Bundle();
-                b.putParcelableArrayList("roomBookings", roomBookings);
+                for(int j = 0 ; j < roomBookings.size(); j++){
+                    roomsId.add(roomBookings.get(j).room_id + "" );
+                }
+                b.putStringArrayList("roomsId", roomsId);
                 i.putExtras(b);
                 startActivity(i);
             }

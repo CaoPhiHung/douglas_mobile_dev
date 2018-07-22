@@ -42,15 +42,12 @@ public class RoomAdapter extends ArrayAdapter<Room> {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.custom_row, null);
 
-//        ImageView img = (ImageView) v.findViewById(R.id.pictureId);
-//        img.setImageResource(imgSource[i]);
-//
         TextView roomNo = (TextView) v.findViewById(R.id.txtTitle);
         roomNo.setText(this.items.get(i).name);
-//
+
         TextView roomDesc = (TextView) v.findViewById(R.id.txtDesc);
         roomDesc.setText(descText[i]);
-//
+
         TextView roomPrice = (TextView) v.findViewById(R.id.txtPrice);
         roomPrice.setText("$" + Double.toString(this.items.get(i).price));
 
@@ -69,6 +66,7 @@ public class RoomAdapter extends ArrayAdapter<Room> {
                 }
             }
         }
+
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
