@@ -2,6 +2,7 @@ package com.project.objects;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.project.activities.PortActivity;
 
@@ -18,9 +19,13 @@ public class PortItem extends ListItem {
         return new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), PortActivity.class);
-                i.putExtra("id", id);
-                v.getContext().startActivity(i);
+                if (!enabled){
+                    Toast.makeText(v.getContext(), "You have already booked this event!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent i = new Intent(v.getContext(), PortActivity.class);
+                    i.putExtra("id", id);
+                    v.getContext().startActivity(i);
+                }
             }
         };
     }

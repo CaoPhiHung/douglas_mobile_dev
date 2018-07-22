@@ -28,6 +28,11 @@ public class ListItemAdapter extends ArrayAdapter<ListItem> {
         this.items = objects;
     }
 
+    @Override
+    public boolean isEnabled(int position) {
+        return items.get(position).enabled;
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

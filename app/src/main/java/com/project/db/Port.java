@@ -76,16 +76,14 @@ public class Port {
         return port;
     }
 
-    public static Port[] getPorts(){
+    public static ArrayList<Port> getPorts(){
         SQLiteDatabase db = DBHelper.getDbInstance();
         Cursor cursor = db.query(Port.TABLE_NAME, Port.getColumnNames(), null, null, null, null, null);
         cursor.moveToFirst();
 
-        Port[] ports = new Port[cursor.getCount()];
-        int i = 0;
+        ArrayList<Port> ports = new ArrayList<Port>();
         do {
-            ports[i] = Port.convertFromCursor(cursor);
-            i++;
+            ports.add(convertFromCursor(cursor));
         } while (cursor.moveToNext());
 
         return ports;
