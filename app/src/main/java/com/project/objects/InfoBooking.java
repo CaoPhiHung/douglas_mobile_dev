@@ -9,6 +9,8 @@ public class InfoBooking extends Info {
 
     public int bookingType;
     public long bookingId;
+    public long activityId, userId;
+
 
     public InfoBooking() {
         super();
@@ -21,6 +23,15 @@ public class InfoBooking extends Info {
         this.value = desc;
         this.bookingType = bookingType;
         this.bookingId = bookingId;
+    }
+
+    public InfoBooking(String heading, String desc, int bookingType, long activityId, long userId) {
+        this.heading = heading;
+        this.type = Info.TYPE_BOOKING;
+        this.value = desc;
+        this.bookingType = bookingType;
+        this.activityId = activityId;
+        this.userId = userId;
     }
 
     public void cancel() {

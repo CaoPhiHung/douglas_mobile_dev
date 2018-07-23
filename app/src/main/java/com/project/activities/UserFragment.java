@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.project.db.ActivityBooking;
 import com.project.db.Invoice;
 import com.project.db.PortBooking;
 import com.project.db.RoomBooking;
@@ -17,8 +18,11 @@ import com.project.db.User;
 import com.project.objects.Info;
 import com.project.objects.InfoBooking;
 import com.project.objects.InfoUser;
+import com.project.objects.Utilities;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by 300284134 on 6/25/2018.
@@ -70,6 +74,15 @@ public class UserFragment extends Fragment{
         mainList.add(new Info("Services"));
         mainList.add(new InfoBooking("Service sample 1", "sample description", InfoBooking.BOOKING_SERVICE, 1));
         mainList.add(new InfoBooking("Service sample 1", "sample description", InfoBooking.BOOKING_SERVICE, 1));
+
+        /**
+         * List Activity
+         */
+        ArrayList<ActivityBooking> actBookings = ActivityBooking.getByUserId(currentUser.id);
+        mainList.add(new Info("Activities Reservation"));
+        for (ActivityBooking ab : actBookings){
+            mainList.add(new InfoBooking(ab.activity.name, Utilities.dateFormat(ab.booking_date), InfoBooking.BOOKING_ROOM, ab.activity_id, ab.user_id));
+        }
 
         /**
          * list ported of call booked

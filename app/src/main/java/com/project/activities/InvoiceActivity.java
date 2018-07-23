@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.project.db.Invoice;
 import com.project.db.InvoiceItem;
 import com.project.db.User;
+import com.project.objects.Utilities;
 
 import org.w3c.dom.Text;
 
@@ -40,7 +41,7 @@ public class InvoiceActivity extends AppCompatActivity {
         TextView tvdate = findViewById(R.id.cellDate);
         tvName.setText(currentUser.name);
         tvPhone.setText(currentUser.phone);
-        tvdate.setText(df.format(new Date(invoice.date)));
+        tvdate.setText(Utilities.dateFormat(invoice.date));
 
         // set table
         TableLayout tb = findViewById(R.id.tablePurchases);

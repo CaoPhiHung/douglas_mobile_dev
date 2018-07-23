@@ -82,7 +82,7 @@ public class ListInfoAdapter extends ArrayAdapter<Info> {
 
     public View initUserInfo(LayoutInflater li, int position){
         InfoUser infoUser = (InfoUser)items.get(position);
-        View view = li.inflate(R.layout.layout_user_info, null);
+        final View view = li.inflate(R.layout.layout_user_info, null);
 
         TextView textName = view.findViewById(R.id.textUser);
         textName.setText(infoUser.name);
@@ -99,6 +99,14 @@ public class ListInfoAdapter extends ArrayAdapter<Info> {
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), InvoiceActivity.class);
                 view.getContext().startActivity(i);
+            }
+        });
+
+        Button btnLogout = view.findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeActivity.instance.finish();
             }
         });
 

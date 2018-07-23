@@ -79,7 +79,7 @@ public class OnboardActivity {
     public static OnboardActivity get(long id){
         SQLiteDatabase db = DBHelper.getDbInstance();
 
-        Cursor cursor = db.query(TABLE_NAME, getColumnNames(), null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, getColumnNames(), "id = ? ", new String[] {String.valueOf(id)}, null, null, null);
         cursor.moveToFirst();
 
         return convertFromCursor(cursor);

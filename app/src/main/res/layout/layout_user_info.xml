@@ -67,7 +67,16 @@
             android:id="@+id/btnViewInvoice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View Invoice" />
+            android:background="@color/colorPrimary"
+            android:text="View Invoice"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="Log Out" />
     </LinearLayout>
 
 </LinearLayout>

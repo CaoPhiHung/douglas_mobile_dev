@@ -136,6 +136,13 @@ public class User {
         currentUser = user;
     }
 
+    /**
+     * Log a user out
+     */
+    public static void logout(){
+        currentUser = null;
+    }
+
     public ArrayList<Info> getInfoArray(){
         ArrayList<Info> list = new ArrayList<Info>();
         list.add(new Info("Name", this.name));

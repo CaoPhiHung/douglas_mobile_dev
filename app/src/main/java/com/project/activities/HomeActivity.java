@@ -22,11 +22,16 @@ public class HomeActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private Toolbar toolbar;
 
+    public static HomeActivity instance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Log.d(TAG, "onCreate: Starting.");
+
+        instance = this;
+
+//        Log.d(TAG, "onCreate: Starting.");
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("My Cruise");
         mSectionsPageAdapter = new SectionAdapter(getSupportFragmentManager());

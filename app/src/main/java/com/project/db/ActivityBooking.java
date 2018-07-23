@@ -1,5 +1,6 @@
 package com.project.db;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +14,7 @@ public class ActivityBooking {
     static public String COLUMN_BOOKING_DATE = "booking_date";
 
     public long user_id, activity_id, booking_date;
+    public OnboardActivity activity;
 
 
     /**
@@ -35,8 +37,8 @@ public class ActivityBooking {
     public static ActivityBooking convertFromCursor(Cursor cursor) {
         ActivityBooking booking = new ActivityBooking();
 
-        booking.activity_id = cursor.getLong(cursor.getColumnIndex(COLUMN_ACTIVITY_ID));
         booking.user_id = cursor.getLong(cursor.getColumnIndex(COLUMN_USER_ID));
+        booking.activity_id = cursor.getLong(cursor.getColumnIndex(COLUMN_ACTIVITY_ID));
         booking.booking_date = cursor.getLong(cursor.getColumnIndex(COLUMN_BOOKING_DATE));
 
         return booking;
@@ -64,5 +66,26 @@ public class ActivityBooking {
         cursor.moveToFirst();
         int count = cursor.getInt( 0 );
         return count;
+    }
+
+    /**
+     * Retrieve all booking from a single user
+     * @param user_id
+     * @return Array of bookings
+     */
+    public static ArrayList<ActivityBooking> getByUserId(long user_id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        Cursor cursor = db.query(TABLE_NAME, getColumnNames(), "user_id = ?", new String[] {String.valueOf(user_id)}, null, null, null, null);
+        cursor.moveToFirst();
+
+        ArrayList<ActivityBooking> list = new ArrayList<>();
+        do {
+            ActivityBooking booking = convertFromCursor(cursor);
+            OnboardActivity activity = OnboardActivity.get(booking.activity_id);
+            booking.activity = activity;
+            list.add(booking);
+        } while (cursor.moveToNext());
+
+        return list;
     }
 }
