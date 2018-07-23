@@ -79,6 +79,7 @@ public class ActivityBooking {
         cursor.moveToFirst();
 
         ArrayList<ActivityBooking> list = new ArrayList<>();
+        if (cursor.getCount() == 0 ) return list;
         do {
             ActivityBooking booking = convertFromCursor(cursor);
             OnboardActivity activity = OnboardActivity.get(booking.activity_id);
