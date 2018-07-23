@@ -242,6 +242,8 @@ public class PortBooking {
 
         ArrayList<PortBooking> list = new ArrayList<PortBooking>();
 
+        if (cursor.getCount() == 0) return list;
+
         do {
             PortBooking pb = PortBooking.convertFromCursor(cursor);
             pb.port = new Port();
