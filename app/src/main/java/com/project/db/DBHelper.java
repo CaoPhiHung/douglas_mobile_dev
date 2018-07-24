@@ -45,6 +45,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 TablesDefinitions.ROOM_BOOKING,
                 TablesDefinitions.PORT,
                 TablesDefinitions.PORT_BOOKING,
+                TablesDefinitions.SERVICE,
+                TablesDefinitions.SERVICE_BOOKING,
                 TablesDefinitions.ACTIVITY,
                 TablesDefinitions.ACTIVITY_BOOKING,
         };
@@ -62,6 +64,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 TablesDefinitions.DROP_PORT_BOOKING,
                 TablesDefinitions.DROP_ACTIVITY_BOOKING,
                 TablesDefinitions.DROP_ACTIVITY,
+                TablesDefinitions.DROP_SERVICE_BOOKING,
+                TablesDefinitions.DROP_SERVICE,
                 TablesDefinitions.DROP_INVOICE_ITEM,
                 TablesDefinitions.DROP_INVOICE,
                 TablesDefinitions.DROP_USER,
@@ -94,6 +98,9 @@ public class DBHelper extends SQLiteOpenHelper {
         // add port
         Port.seed(db);
         PortBooking.seed(db);
+
+        //
+        Service.seed(db);
 
         // add activities
         OnboardActivity.seed(db);
