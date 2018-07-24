@@ -88,8 +88,10 @@ public class Invoice {
         save();
     }
 
-    public void generateInvoiceItem(String name, double price){
-        invoiceItems.add(InvoiceItem.createNewInvoiceItem(id, name, price));
+    public InvoiceItem generateInvoiceItem(String name, double price){
+        InvoiceItem item = InvoiceItem.createNewInvoiceItem(id, name, price);
+        invoiceItems.add(item);
+        return item;
     }
 
     static public Invoice generate(long user_id){

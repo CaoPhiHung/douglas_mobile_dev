@@ -87,6 +87,7 @@ public class TablesDefinitions {
             "user_id INTEGER," +
             "service_id INTEGER," +
             "room_id INTEGER," +
+            "invoice_item_id INTEGER," +
             "booking_date INTEGER," +
             "price REAL)";
 

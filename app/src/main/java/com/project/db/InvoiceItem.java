@@ -17,6 +17,15 @@ public class InvoiceItem {
     public String name;
     public double price;
 
+    public InvoiceItem() {
+    }
+
+    public InvoiceItem(long invoice_id, String name, double price) {
+        this.invoice_id = invoice_id;
+        this.name = name;
+        this.price = price;
+    }
+
     public static String[] getColumnNames(){
         return new String[] {
             COLUMN_ID,
@@ -34,9 +43,11 @@ public class InvoiceItem {
         data.put(COLUMN_PRICE, price);
 
         if (id == 0){
-            return db.insert(TABLE_NAME, null, data);
+            id = db.insert(TABLE_NAME, null, data);
+            return id;
         } else {
-            return db.update(TABLE_NAME, data, "id = ? ", new String[] {String.valueOf(id)} );
+            id = db.update(TABLE_NAME, data, "id = ? ", new String[] {String.valueOf(id)} );
+            return id;
         }
     }
 
