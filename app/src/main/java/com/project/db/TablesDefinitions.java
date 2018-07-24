@@ -78,6 +78,19 @@ public class TablesDefinitions {
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE," +
             "FOREIGN KEY (activity_id) REFERENCES activity(id) ON DELETE CASCADE)";
 
+
+    static final String SERVICE = "CREATE TABLE service (id INTEGER PRIMARY KEY, " +
+            "name TEXT," +
+            "description TEXT," +
+            "price REAL)";
+
+    static final String SERVICE_BOOKING = "CREATE TABLE service_booking (id INTEGER PRIMARY KEY, " +
+            "user_id INTEGER," +
+            "service_id INTEGER," +
+            "room_id INTEGER," +
+            "booking_date INTEGER," +
+            "price REAL)";
+
     static final String INVOICE = "CREATE TABLE invoice " +
             "(id INTEGER PRIMARY KEY," +
             "user_id INTEGER," +
@@ -101,6 +114,8 @@ public class TablesDefinitions {
     static final String DROP_USER = "DROP TABLE IF EXISTS user";
     static final String DROP_ACTIVITY = "DROP TABLE IF EXISTS activity";
     static final String DROP_ACTIVITY_BOOKING = "DROP TABLE IF EXISTS activity_booking";
+    static final String DROP_SERVICE = "DROP TABLE IF EXISTS service";
+    static final String DROP_SERVICE_BOOKING = "DROP TABLE IF EXISTS service_booking";
     static final String DROP_INVOICE_ITEM = "DROP TABLE IF EXISTS invoice_item";
     static final String DROP_INVOICE = "DROP TABLE IF EXISTS invoice";
 
