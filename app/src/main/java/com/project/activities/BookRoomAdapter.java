@@ -72,15 +72,19 @@ public class BookRoomAdapter extends ArrayAdapter<RoomBooking> {
             switch (type){
                 case 1:
                     items.get(index).adult_names = edt.getText().toString();
+
                     break;
                 case 2:
                     items.get(index).adult_names2 = edt.getText().toString();
+
                     break;
                 case 3:
                     items.get(index).children_names = edt.getText().toString();
+
                     break;
                 case 4:
                     items.get(index).children_names2 = edt.getText().toString();
+
                     break;
             }
         }

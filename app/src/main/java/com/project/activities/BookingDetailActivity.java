@@ -51,13 +51,23 @@ public class BookingDetailActivity extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String adult_names = bookedRooms.get(0).adult_names + "," + bookedRooms.get(0).adult_names2;
-//                String children_names = bookedRooms.get(0).children_names + "," + bookedRooms.get(0).children_names2;
-//                bookedRooms.get(0).adult_names = adult_names;
-//                bookedRooms.get(0).children_names = children_names;
+
                   for(int i = 0; i < bookedRooms.size(); i++){
                       String adult_names = bookedRooms.get(i).adult_names + "," + bookedRooms.get(i).adult_names2;
                       String children_names = bookedRooms.get(i).children_names + "," + bookedRooms.get(i).children_names2;
+                      if(bookedRooms.get(i).adult_names != null && !bookedRooms.get(i).adult_names.equals("")){
+                          bookedRooms.get(i).number_adult += 1;
+                      }
+                      if(bookedRooms.get(i).adult_names2 != null && !bookedRooms.get(i).adult_names2.equals("")){
+                          bookedRooms.get(i).number_adult += 1;
+                      }
+                      if(bookedRooms.get(i).children_names != null && !bookedRooms.get(i).children_names.equals("")){
+                          bookedRooms.get(i).number_children += 1;
+                      }
+                      if(bookedRooms.get(i).children_names2 != null && !bookedRooms.get(i).children_names2.equals("")){
+                          bookedRooms.get(i).number_children += 1;
+                      }
+                      bookedRooms.get(i).booking_date = new Date().getTime();
                       bookedRooms.get(i).save();
                   }
 
