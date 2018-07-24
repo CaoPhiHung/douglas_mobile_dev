@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.project.db.Room;
 import com.project.db.RoomBooking;
@@ -44,14 +45,19 @@ public class BookingActivity extends AppCompatActivity {
         btnBookNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, BookingDetailActivity.class);
-                Bundle b = new Bundle();
-                for(int j = 0 ; j < roomBookings.size(); j++){
-                    roomsId.add(roomBookings.get(j).room_id + "" );
+                if(roomBookings.size() > 0){
+                    Intent i = new Intent(context, BookingDetailActivity.class);
+                    Bundle b = new Bundle();
+                    for(int j = 0 ; j < roomBookings.size(); j++){
+                        roomsId.add(roomBookings.get(j).room_id + "" );
+                    }
+                    b.putStringArrayList("roomsId", roomsId);
+                    i.putExtras(b);
+                    startActivity(i);
+                }else {
+                    Toast.makeText(view.getContext(), "Please book room", Toast.LENGTH_LONG).show();
                 }
-                b.putStringArrayList("roomsId", roomsId);
-                i.putExtras(b);
-                startActivity(i);
+
             }
         });
     }

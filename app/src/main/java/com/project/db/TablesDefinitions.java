@@ -48,6 +48,7 @@ public class TablesDefinitions {
             "description TEXT," +
             "max_adult INTEGER," +
             "max_children INTEGER," +
+            "booked INTEGER," +
             "price REAL)";
 
     static final String ROOM_BOOKING = "CREATE TABLE room_booking (id INTEGER PRIMARY KEY, " +

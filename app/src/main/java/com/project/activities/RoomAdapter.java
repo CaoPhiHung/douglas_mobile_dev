@@ -53,19 +53,23 @@ public class RoomAdapter extends ArrayAdapter<Room> {
 
         final Button bookButton = (Button) v.findViewById(R.id.btnBook);
         final int index = i;
-        for(int j = 0; j < roomBookings.size(); j++){
-//            Log.d("heere",items.get(index).id + "");
-//            Log.d("checkRoomID",roomBookings.get(j).room_id+ "");
-            if(this.items.get(index).id == roomBookings.get(j).room_id){
-
-                if(User.getCurrentUser().id != roomBookings.get(j).user_id) {
-                    bookButton.setEnabled(false);
-                    bookButton.setText("Not Available");
-                }else{
-                    bookButton.setText("Booked");
-                }
-            }
+        Room room = this.items.get(index);
+        if(room.booked == 1){
+            bookButton.setEnabled(false);
+            bookButton.setText("Not Available");
         }
+//        for(int j = 0; j < roomBookings.size(); j++){
+//
+//            if(this.items.get(index).id == roomBookings.get(j).room_id){
+//
+//                if(User.getCurrentUser().id != roomBookings.get(j).user_id || this.items.get(index).booked == 1) {
+//                    bookButton.setEnabled(false);
+//                    bookButton.setText("Not Available");
+//                }else{
+//                    bookButton.setText("Booked");
+//                }
+//            }
+//        }
 
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
