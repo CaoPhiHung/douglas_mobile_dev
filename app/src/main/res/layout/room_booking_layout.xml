@@ -42,23 +42,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txtRoomTypeLabel"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10sp"
-                android:layout_marginTop="10dp"
-                android:text="Room Type" />
-
-            <Spinner
-                android:id="@+id/roomTypeSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:entries="@array/room_type" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -78,7 +61,7 @@
             <ListView
                 android:id="@+id/available_room"
                 android:layout_width="match_parent"
-                android:layout_height="350dp">
+                android:layout_height="400dp">
 
 
             </ListView>

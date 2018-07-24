@@ -97,11 +97,23 @@ public class Room {
 
     public static  void seed(SQLiteDatabase db){
 
-        db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, price) VALUES " +
-                "('OCEAN 01', " + Room.TYPE_OCEAN_VIEW + ", 500), " +
-                "('CONCIERGE 01', " + Room.TYPE_CONCIERGE + ", 300), " +
-                "('INSIDE 01', " + Room.TYPE_INSIDE + ", 200), " +
-                "('VERANDAH 01', " + Room.TYPE_VERANDAH+ ", 100) ");
+        db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, deck, price) VALUES " +
+                "('OCEAN 01', " + Room.TYPE_OCEAN_VIEW + ", 1, 500), " +
+                "('CONCIERGE 01', " + Room.TYPE_CONCIERGE + ", 1, 300), " +
+                "('INSIDE 01', " + Room.TYPE_INSIDE + ", 1, 200), " +
+                "('VERANDAH 01', " + Room.TYPE_VERANDAH+ ", 1, 100) ");
+
+        db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, deck, price) VALUES " +
+                "('OCEAN 02', " + Room.TYPE_OCEAN_VIEW + ", 2, 500), " +
+                "('CONCIERGE 02', " + Room.TYPE_CONCIERGE + ", 2, 300), " +
+                "('INSIDE 02', " + Room.TYPE_INSIDE + ", 2, 200), " +
+                "('VERANDAH 02', " + Room.TYPE_VERANDAH+ ", 2, 100) ");
+
+        db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, deck, price) VALUES " +
+                "('OCEAN 03', " + Room.TYPE_OCEAN_VIEW + ", 3, 500), " +
+                "('CONCIERGE 03', " + Room.TYPE_CONCIERGE + ", 3, 300), " +
+                "('INSIDE 03', " + Room.TYPE_INSIDE + ", 3, 200), " +
+                "('VERANDAH 03', " + Room.TYPE_VERANDAH+ ", 3, 100) ");
 
     }
 

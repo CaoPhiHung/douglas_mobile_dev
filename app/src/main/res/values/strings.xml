@@ -4,6 +4,7 @@
     <string name="title_dashboard">Dashboard 2</string>
     <string name="title_notifications">Notifications</string>
     <string-array name="room_type">
+        <item>All</item>
         <item>Ocean View</item>
         <item>Concierge</item>
         <item>Inside</item>
@@ -11,11 +12,13 @@
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ashore">Ashore \n6:00am</string>
+
     <string-array name="port_booking_type">
         <item>Regular Tour</item>
         <item>Group Tour</item>
         <item>Private Tour</item>
     </string-array>
+
     <string-array name="quantity">
         <item>0</item>
         <item>1</item>
@@ -23,6 +26,7 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+
     <string-array name="room_size">
         <item>Single</item>
         <item>Double</item>
@@ -34,6 +38,7 @@
         <item>Deck #2</item>
         <item>Deck #3</item>
     </string-array>
+
     <string-array name="room_capality">
         <item>1</item>
         <item>2</item>

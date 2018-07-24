@@ -10,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.project.db.Room;
@@ -29,17 +31,50 @@ public class BookingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.room_booking_layout);
 
-        ArrayList<Room> rooms= Room.getAllAvailabelRoom();
+        final ArrayList<Room> rooms = Room.getAllAvailabelRoom();
 
         final ArrayList<RoomBooking>  roomBookings= RoomBooking.findByUserId(User.getCurrentUser().id);
-
-        RoomAdapter roomAdapter = new RoomAdapter(this, 0, rooms, roomBookings);
+        ArrayList<Room> filtered_rooms = new ArrayList<Room>();
+        for( Room a : rooms) {
+            if (a.deck == 1) {
+                filtered_rooms.add(a);
+            }
+        }
+        final RoomAdapter roomAdapter = new RoomAdapter(this, 0, filtered_rooms, roomBookings);
         ListView roomList = (ListView) findViewById(R.id.available_room);
         roomList.setAdapter(roomAdapter);
+
+        Spinner deck = (Spinner) findViewById(R.id.deckSpinner);
+        deck.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, final int position, long id) {
+                // your code here
+//                Toast.makeText(selectedItemView.getContext(), "" + position, Toast.LENGTH_LONG).show();
+                ArrayList<Room> filtered_rooms = new ArrayList<Room>();
+                for( Room a : rooms) {
+                    if (a.deck == position + 1) {
+                        filtered_rooms.add(a);
+                    }
+                }
+                roomAdapter.items = filtered_rooms;
+
+//                Toast.makeText(selectedItemView.getContext(), "Size : " + filtered_rooms.size(), Toast.LENGTH_LONG).show();
+                roomAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
         final Context context = this;
 
         Button btnBookNext = (Button) findViewById(R.id.btnBookNext);
         final ArrayList<String> roomsId = new ArrayList<String>();
+
 
 
         btnBookNext.setOnClickListener(new View.OnClickListener() {

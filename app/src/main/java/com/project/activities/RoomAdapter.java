@@ -22,10 +22,7 @@ import java.util.ListIterator;
 
 public class RoomAdapter extends ArrayAdapter<Room> {
 
-    int [] imgSource = {R.drawable.landscape0, R.drawable.landscape1, R.drawable.landscape2};
-    String [] roomNoText = {"Room #1", "Room #2", "Room #3", "aaaaaa"};
-    String [] descText = {"Room #1 desc", "Room #2 desc", "Room #3 desc", "aaaa"};
-    private ArrayList<Room> items;
+    public ArrayList<Room> items;
     private ArrayList<RoomBooking> roomBookings;
     private Context context;
 
@@ -35,18 +32,21 @@ public class RoomAdapter extends ArrayAdapter<Room> {
         this.items= items;
         this.roomBookings = roomBookings;
         this.context = context;
+
     }
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.custom_row, null);
-
+//        Log.d("size: ",this.items.size()+ "");
+//        Log.d("I: ",i + "");
         TextView roomNo = (TextView) v.findViewById(R.id.txtTitle);
         roomNo.setText(this.items.get(i).name);
 
         TextView roomDesc = (TextView) v.findViewById(R.id.txtDesc);
-        roomDesc.setText(descText[i]);
+        roomDesc.setText(this.items.get(i).desc);
 
         TextView roomPrice = (TextView) v.findViewById(R.id.txtPrice);
         roomPrice.setText("$" + Double.toString(this.items.get(i).price));
@@ -58,18 +58,6 @@ public class RoomAdapter extends ArrayAdapter<Room> {
             bookButton.setEnabled(false);
             bookButton.setText("Not Available");
         }
-//        for(int j = 0; j < roomBookings.size(); j++){
-//
-//            if(this.items.get(index).id == roomBookings.get(j).room_id){
-//
-//                if(User.getCurrentUser().id != roomBookings.get(j).user_id || this.items.get(index).booked == 1) {
-//                    bookButton.setEnabled(false);
-//                    bookButton.setText("Not Available");
-//                }else{
-//                    bookButton.setText("Booked");
-//                }
-//            }
-//        }
 
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
