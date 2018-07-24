@@ -17,6 +17,7 @@ public class Room {
     static public String COLUMN_DESC = "desc";
     static public String COLUMN_TYPE = "type";
     static public String COLUMN_PRICE = "price";
+    static public String COLUMN_BOOKED = "booked";
 
     static public int TYPE_OCEAN_VIEW = 1;
     static public int TYPE_CONCIERGE = 2;
@@ -33,6 +34,19 @@ public class Room {
     public int max_children;
     public int type;
     public double price;
+    public int booked;
+
+    public long save(SQLiteDatabase db){
+
+        if (id == 0){ // insert
+            long id = db.insert(TABLE_NAME, null, toContentValues());
+            this.id = id;
+            return id;
+        } else {
+            db.update(TABLE_NAME, toContentValues(), "id = ?", new String[] {String.valueOf(id)} );
+            return id;
+        }
+    }
 
     public ContentValues toContentValues() {
         ContentValues data = new ContentValues();
@@ -44,6 +58,7 @@ public class Room {
         data.put(COLUMN_DESC, this.desc);
         data.put(COLUMN_MAX_ADULT, this.max_adult);
         data.put(COLUMN_MAX_CHILDREN, this.max_children);
+        data.put(COLUMN_BOOKED, this.booked);
         return data;
     }
 
@@ -62,6 +77,7 @@ public class Room {
         room.deck = cursor.getInt(cursor.getColumnIndex(COLUMN_DECK));
         room.max_adult = cursor.getInt(cursor.getColumnIndex(COLUMN_MAX_ADULT));
         room.max_children = cursor.getInt(cursor.getColumnIndex(COLUMN_MAX_CHILDREN));
+        room.booked = cursor.getInt(cursor.getColumnIndex(COLUMN_BOOKED));
         return room;
     }
 
@@ -74,17 +90,30 @@ public class Room {
             COLUMN_PRICE,
             COLUMN_DECK,
             COLUMN_MAX_ADULT,
-            COLUMN_MAX_CHILDREN
+            COLUMN_MAX_CHILDREN,
+            COLUMN_BOOKED
         };
     }
 
     public static  void seed(SQLiteDatabase db){
 
-        db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, price) VALUES " +
-                "('OCEAN 01', " + Room.TYPE_OCEAN_VIEW + ", 500), " +
-                "('CONCIERGE 01', " + Room.TYPE_CONCIERGE + ", 300), " +
-                "('INSIDE 01', " + Room.TYPE_INSIDE + ", 200), " +
-                "('VERANDAH 01', " + Room.TYPE_VERANDAH+ ", 100) ");
+        db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, deck, price) VALUES " +
+                "('OCEAN 01', " + Room.TYPE_OCEAN_VIEW + ", 1, 500), " +
+                "('CONCIERGE 01', " + Room.TYPE_CONCIERGE + ", 1, 300), " +
+                "('INSIDE 01', " + Room.TYPE_INSIDE + ", 1, 200), " +
+                "('VERANDAH 01', " + Room.TYPE_VERANDAH+ ", 1, 100) ");
+
+        db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, deck, price) VALUES " +
+                "('OCEAN 02', " + Room.TYPE_OCEAN_VIEW + ", 2, 500), " +
+                "('CONCIERGE 02', " + Room.TYPE_CONCIERGE + ", 2, 300), " +
+                "('INSIDE 02', " + Room.TYPE_INSIDE + ", 2, 200), " +
+                "('VERANDAH 02', " + Room.TYPE_VERANDAH+ ", 2, 100) ");
+
+        db.execSQL("INSERT INTO " + Room.TABLE_NAME + " (name, type, deck, price) VALUES " +
+                "('OCEAN 03', " + Room.TYPE_OCEAN_VIEW + ", 3, 500), " +
+                "('CONCIERGE 03', " + Room.TYPE_CONCIERGE + ", 3, 300), " +
+                "('INSIDE 03', " + Room.TYPE_INSIDE + ", 3, 200), " +
+                "('VERANDAH 03', " + Room.TYPE_VERANDAH+ ", 3, 100) ");
 
     }
 

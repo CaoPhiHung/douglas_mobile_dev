@@ -154,7 +154,8 @@ public class RoomBooking {
         b1.booking_date = new Date().getTime();
         b1.number_adult = 2;
         b1.number_children = 0;
-//        b1.room = Room.findRoom(b1.room_id);
+        r1.booked = 1;
+        r1.save(db);
 
         //
         InvoiceItem ii1 = new InvoiceItem();
@@ -178,7 +179,8 @@ public class RoomBooking {
         b2.number_children = 0;
         b2.adult_names = "";
         b2.children_names = "";
-//        b2.room = Room.findRoom(b2.room_id);
+        r2.booked = 1;
+        r2.save(db);
 
         InvoiceItem ii2 = new InvoiceItem();
         ii2.invoice_id = invoice.id;
