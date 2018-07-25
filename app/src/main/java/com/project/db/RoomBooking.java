@@ -112,7 +112,6 @@ public class RoomBooking {
         };
     }
 
-    // TODO: implement body of this method
     public static ArrayList<RoomBooking> findByUserId(long user_id){
         ArrayList<RoomBooking> bookings = new ArrayList<RoomBooking>();
 

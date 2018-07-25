@@ -15,9 +15,9 @@ public class Service {
     static public String COLUMN_DESCRIPTION = "description";
     static public String COLUMN_PRICE = "price";
 
-    long id;
-    double price;
-    String name, description;
+    public long id;
+    public double price;
+    public String name, description;
 
     public ContentValues toContentValues(){
         ContentValues content = new ContentValues();
@@ -84,6 +84,17 @@ public class Service {
         } while (cursor.moveToNext());
 
         return services;
+    }
+
+    public static Service findServiceByName(ArrayList<Service> services, String name){
+        Service service = new Service();
+        for(int i = 0; i < services.size(); i++){
+            if(services.get(i).name.equalsIgnoreCase(name)){
+                return services.get(i);
+            }
+        }
+
+        return service;
     }
 
 

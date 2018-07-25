@@ -28,20 +28,19 @@
 
             <TextView
                 android:id="@+id/txtRoomTypeLabel"
-                android:layout_width="80dp"
+                android:layout_width="97dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10sp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10sp"
                 android:layout_marginTop="10dp"
-                android:text="Room Type" />
+                android:text="My Room" />
 
             <Spinner
-                android:id="@+id/roomTypeSpinner"
+                android:id="@+id/roomList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:entries="@array/room_type" />
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
 
@@ -49,27 +48,68 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-        <TextView
-            android:id="@+id/txtRoomSizeLabel"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10sp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Room Size" />
 
-        <Spinner
-            android:id="@+id/txtRoomSize"
+            <TextView
+                android:id="@+id/txtserviceList"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10sp"
+                android:layout_marginTop="10dp"
+                android:text="Room Service" />
+
+            <Spinner
+                android:id="@+id/serviceList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp" />
+
+
+    </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:entries="@array/room_size" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/act2" />
+
+            <TextView
+                android:id="@+id/txtRoomServiceTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Service 1" />
+
+            <TextView
+                android:id="@+id/txtServiceDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
         </LinearLayout>
     </LinearLayout>
 
-        <ListView
-            android:id="@+id/roomList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Add Service" />
+
 </LinearLayout>
