@@ -36,7 +36,8 @@ public class OnboardFragment extends Fragment{
         ArrayList<ActivityItem> activities = new ArrayList<>();
         
         for (OnboardActivity value: onboardActivitiesList){
-            activities.add(new ActivityItem(images[index%3], value.description, value.id));
+            int count = value.getBookCount();
+            activities.add(new ActivityItem(images[index%3], value.name, String.format("Max %d people. %d booked", value.max_people, count), value.id));
             index++;
         }
 

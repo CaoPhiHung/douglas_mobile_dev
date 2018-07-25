@@ -99,6 +99,17 @@ public class OnboardActivity {
         return convertFromCursor(cursor);
     }
 
+
+    public int getBookCount(){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+
+        Cursor cursor = db.rawQuery("SELECT count(*) as count from " + ActivityBooking.TABLE_NAME + " where activity_id = ? ", new String[] { String.valueOf(id) });
+
+        cursor.moveToFirst();
+
+        return cursor.getInt(cursor.getColumnIndex("count"));
+    }
+
     public  void save(){
         SQLiteDatabase db = DBHelper.getDbInstance();
         db.insert(TABLE_NAME, null, toContentValues());
