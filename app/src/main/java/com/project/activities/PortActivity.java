@@ -17,6 +17,7 @@ import com.project.db.InvoiceItem;
 import com.project.db.Port;
 import com.project.db.PortBooking;
 import com.project.db.User;
+import com.project.objects.ProjectException;
 
 import org.w3c.dom.Text;
 
@@ -117,13 +118,29 @@ public class PortActivity extends AppCompatActivity {
                 booking.price_group = port.price_group;
                 booking.price_private = port.price_private;
 
-                long booking_id = booking.save();
+                try {
+                    if (booking.type == PortBooking.TYPE_REGULAR &&
+                            booking.quantity_adult == 0 && booking.quantity_children == 0){
+                        throw new ProjectException("Quantity of Adult and Children can not be zero");
+                    } else if (booking.type == PortBooking.TYPE_PRIVATE &&
+                            booking.quantity_private == 0) {
+                        throw new ProjectException("Quantity cannot be zero");
+                    } else if (booking.type == PortBooking.TYPE_GROUP &&
+                            booking.quantity_group == 0) {
+                        throw new ProjectException("Quantity cannot be zero");
+                    }
 
-                if (booking_id == -1){
-                    Toast.makeText(PortActivity.this, "Cannot book, please try again", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(PortActivity.this, "You have successfully booked", Toast.LENGTH_LONG).show();
-                    finish();
+                    long booking_id = booking.save();
+
+                    if (booking_id == -1){
+                        Toast.makeText(PortActivity.this, "Cannot book, please try again", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(PortActivity.this, "You have successfully booked", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+
+                } catch (ProjectException e){
+                    Toast.makeText(PortActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
