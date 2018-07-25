@@ -20,6 +20,8 @@ public class ServiceBooking {
 
     public long id, user_id, room_id, service_id, booking_date, invoice_item_id;
     public double price;
+    public Service service;
+    public Room room;
 
     public ContentValues toContentValues(){
         ContentValues content = new ContentValues();
@@ -93,6 +95,11 @@ public class ServiceBooking {
         if(cursor.getCount() > 0) {
             do {
                 ServiceBooking booking = ServiceBooking.convertFromCursor(cursor);
+                //get service name
+                Service service = Service.get(booking.service_id);
+                booking.service = service;
+                // get room
+                booking.room = Room.findRoom(booking.room_id);
                 bookings.add(booking);
             } while (cursor.moveToNext());
         }

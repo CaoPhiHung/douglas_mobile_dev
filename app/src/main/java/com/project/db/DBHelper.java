@@ -12,7 +12,7 @@ import java.sql.Date;
 public class DBHelper extends SQLiteOpenHelper {
 
     static final String DATABASE_NAME = "groupproject";
-    static final int DATABASE_VERSION = 1;
+    static final int DATABASE_VERSION = 4;
 
     static DBHelper instance;
 
@@ -79,7 +79,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public void seed(SQLiteDatabase db){
 
         // add user
-        db.execSQL("INSERT INTO " + User.TABLE_NAME + " (name, username, password, phone) VALUES ('Sample User', 'toan', '123456', '123-456-7890')");
+        db.execSQL("INSERT INTO " + User.TABLE_NAME + " (name, username, password, phone) VALUES " +
+                "('Toan Nguyen', 'toan', '123456', '123-456-7890')," +
+                "('Thao Truong', 'thao', '123456', '456-789-1230')," +
+                "('Hung Cao', 'hung', '123456', '778-123-5235')");
 
         // add rooms
         Room.seed(db);

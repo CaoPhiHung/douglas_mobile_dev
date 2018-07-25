@@ -64,7 +64,10 @@ public class Service {
         Cursor cursor = db.query(TABLE_NAME, getColumnNames(), "id = ?", new String[] { String.valueOf(id) }, null, null, null, null);
         cursor.moveToFirst();
 
-        return convertFromCursor(cursor);
+        if (cursor.getCount() > 0)
+            return convertFromCursor(cursor);
+
+        return null;
     }
 
 
@@ -112,13 +115,13 @@ public class Service {
         b1.service_id = s1.id;
         b1.room_id = 1;
         b1.price = s1.price;
-        b1.id = db.insert(TABLE_NAME, null, b1.toContentValues());
+        b1.id = db.insert(ServiceBooking.TABLE_NAME, null, b1.toContentValues());
 
         Service s2 = new Service();
         s2.name = "Luxury Dinner";
         s2.description = "Dinner for two";
         s2.price = 120;
-        db.insert(TABLE_NAME, null, s2.toContentValues());
+        s2.id = db.insert(TABLE_NAME, null, s2.toContentValues());
 
         // service booking
         ServiceBooking b2 = new ServiceBooking();
@@ -127,12 +130,12 @@ public class Service {
         b2.service_id = s2.id;
         b2.room_id = 1;
         b2.price = s2.price;
-        b2.id = db.insert(TABLE_NAME, null, b2.toContentValues());
+        b2.id = db.insert(ServiceBooking.TABLE_NAME, null, b2.toContentValues());
 
         Service s3 = new Service();
         s3.name = "Breakfast";
         s3.description = "breakfast";
         s3.price = 60;
-        db.insert(TABLE_NAME, null, s3.toContentValues());
+        s3.id = db.insert(TABLE_NAME, null, s3.toContentValues());
     }
 }

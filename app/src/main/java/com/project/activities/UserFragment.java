@@ -14,6 +14,7 @@ import com.project.db.ActivityBooking;
 import com.project.db.Invoice;
 import com.project.db.PortBooking;
 import com.project.db.RoomBooking;
+import com.project.db.ServiceBooking;
 import com.project.db.User;
 import com.project.objects.Info;
 import com.project.objects.InfoBooking;
@@ -72,8 +73,12 @@ public class UserFragment extends Fragment{
          * List room services
          */
         mainList.add(new Info("Services"));
-        mainList.add(new InfoBooking("Service sample 1", "sample description", InfoBooking.BOOKING_SERVICE, 1));
-        mainList.add(new InfoBooking("Service sample 1", "sample description", InfoBooking.BOOKING_SERVICE, 1));
+        ArrayList<ServiceBooking> serviceBookings = ServiceBooking.findByUserId(currentUser.id);
+        for (ServiceBooking sb : serviceBookings){
+            mainList.add(new InfoBooking(sb.service.name, sb.room.name, InfoBooking.BOOKING_SERVICE, sb.id));
+        }
+//        mainList.add(new InfoBooking("Service sample 1", "sample description", InfoBooking.BOOKING_SERVICE, 1));
+//        mainList.add(new InfoBooking("Service sample 1", "sample description", InfoBooking.BOOKING_SERVICE, 1));
 
         /**
          * List Activity
