@@ -63,9 +63,9 @@ public class ListActivityAdapter extends ArrayAdapter {
                         actBooking.user_id = currentUser.id;
                         actBooking.booking_date = new Date().getTime();
                         long id = actBooking.save();
-                        Toast.makeText(rowView.getContext(), "Success", Toast.LENGTH_LONG).show();
+                        Toast.makeText(rowView.getContext(), "Booking success", Toast.LENGTH_LONG).show();
                     } catch (Exception ex){
-                        Toast.makeText(rowView.getContext(), "Failed!!!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(rowView.getContext(), "Book fail!!!", Toast.LENGTH_LONG).show();
                     }
                 }
                 else Toast.makeText(rowView.getContext(), "Activity is full", Toast.LENGTH_LONG).show();
