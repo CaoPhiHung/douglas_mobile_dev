@@ -99,7 +99,6 @@ public class OnboardActivity {
         return convertFromCursor(cursor);
     }
 
-
     public int getBookCount(){
         SQLiteDatabase db = DBHelper.getDbInstance();
 

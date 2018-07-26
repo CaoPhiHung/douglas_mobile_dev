@@ -193,12 +193,28 @@ public class RoomBooking {
         db.insert(TABLE_NAME, null, b2Values);
     }
 
+    public static RoomBooking get(long id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        Cursor cursor = db.query(TABLE_NAME, getColumnNames(), "id = ? ", new String[] {String.valueOf(id)}, null, null, null, null);
+        cursor.moveToFirst();
+        return convertFromCursor(cursor);
+    }
+
     static public boolean hasBooked(long user_id){
         SQLiteDatabase db = DBHelper.getDbInstance();
         Cursor cursor = db.query(TABLE_NAME, getColumnNames(), "user_id = ?", new String[] { String.valueOf(user_id) }, null, null, null, null);
 
         // return null if there is no invoice
         return cursor.getCount() > 0 ? true : false;
+    }
+
+    public static void delete(long id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+
+        RoomBooking booking = get(id);
+
+        db.delete(InvoiceItem.TABLE_NAME, "id = ?", new String[] {String.valueOf(booking.invoice_item_id)});
+        int result = db.delete(TABLE_NAME, "id = ?", new String[] {String.valueOf(booking.id)});
     }
 
 }

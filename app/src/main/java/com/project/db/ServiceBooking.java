@@ -86,6 +86,15 @@ public class ServiceBooking {
         return convertFromCursor(cursor);
     }
 
+    public static void delete(long id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+
+        ServiceBooking booking = get(id);
+
+        db.delete(InvoiceItem.TABLE_NAME, "id = ?", new String[] {String.valueOf(booking.invoice_item_id)});
+        int result = db.delete(TABLE_NAME, "id = ?", new String[] {String.valueOf(booking.id)});
+    }
+
     public static ArrayList<ServiceBooking> findByUserId(long user_id){
         ArrayList<ServiceBooking> bookings = new ArrayList<ServiceBooking>();
 
