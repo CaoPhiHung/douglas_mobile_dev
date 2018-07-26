@@ -89,6 +89,7 @@ public class BookingActivity extends AppCompatActivity {
                     b.putStringArrayList("roomsId", roomsId);
                     i.putExtras(b);
                     startActivity(i);
+                    finish();
                 }else {
                     Toast.makeText(view.getContext(), "Please book room", Toast.LENGTH_LONG).show();
                 }

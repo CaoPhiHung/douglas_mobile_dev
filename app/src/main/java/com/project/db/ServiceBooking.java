@@ -4,9 +4,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class ServiceBooking {
 
-    static public String TABLE_NAME = "service";
+    static public String TABLE_NAME = "service_booking";
     static public String COLUMN_ID = "id";
     static public String COLUMN_USER_ID = "user_id";
     static public String COLUMN_ROOM_ID = "room_id";
@@ -16,8 +18,10 @@ public class ServiceBooking {
     static public String COLUMN_BOOKING_DATE = "booking_date";
 
 
-    long id, user_id, room_id, service_id, booking_date, invoice_item_id;
-    double price;
+    public long id, user_id, room_id, service_id, booking_date, invoice_item_id;
+    public double price;
+    public Service service;
+    public Room room;
 
     public ContentValues toContentValues(){
         ContentValues content = new ContentValues();
@@ -80,6 +84,26 @@ public class ServiceBooking {
         cursor.moveToFirst();
 
         return convertFromCursor(cursor);
+    }
+
+    public static ArrayList<ServiceBooking> findByUserId(long user_id){
+        ArrayList<ServiceBooking> bookings = new ArrayList<ServiceBooking>();
+
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        Cursor cursor = db.query(TABLE_NAME, ServiceBooking.getColumnNames(), "user_id = ?", new String[] { String.valueOf(user_id) }, null, null, null);
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0) {
+            do {
+                ServiceBooking booking = ServiceBooking.convertFromCursor(cursor);
+                //get service name
+                Service service = Service.get(booking.service_id);
+                booking.service = service;
+                // get room
+                booking.room = Room.findRoom(booking.room_id);
+                bookings.add(booking);
+            } while (cursor.moveToNext());
+        }
+        return bookings;
     }
 
 }

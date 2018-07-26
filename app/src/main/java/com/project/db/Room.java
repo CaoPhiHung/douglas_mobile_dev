@@ -127,6 +127,17 @@ public class Room {
         return convertFromCursor(cursor);
     }
 
+    public static Room findRoomByName(ArrayList<Room> rooms, String name){
+        Room room = new Room();
+        for(int i = 0; i < rooms.size(); i++){
+            if(rooms.get(i).name.equalsIgnoreCase(name)){
+                return rooms.get(i);
+            }
+        }
+
+        return room;
+    }
+
     static public ArrayList<Room> getAllAvailabelRoom() {
         SQLiteDatabase db = DBHelper.getDbInstance();
         ArrayList<Room> availabel_rooms = new ArrayList<Room>();

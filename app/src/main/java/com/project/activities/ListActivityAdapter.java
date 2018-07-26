@@ -50,6 +50,7 @@ public class ListActivityAdapter extends ArrayAdapter {
         TextView txtDesc = rowView.findViewById(R.id.actDesc);
         txtDesc.setText(item.desc);
         imgView.setImageResource(item.image);
+        ((TextView)rowView.findViewById(R.id.actSubDesc)).setText(item.subdesc); // add number of people
 
         Button btnReserve = rowView.findViewById(R.id.btnReserve);
         btnReserve.setOnClickListener(new View.OnClickListener() {

@@ -73,6 +73,7 @@ public class BookingDetailActivity extends AppCompatActivity {
 
                 Intent i = new Intent(context, HomeActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }
