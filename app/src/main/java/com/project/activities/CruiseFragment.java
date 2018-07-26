@@ -41,7 +41,6 @@ public class CruiseFragment extends Fragment{
                 ImageSpan.ALIGN_BOTTOM), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         title.setText(label);
 
-//        title.setCompoundDrawablesWithIntrinsicBounds(R.drawable.schedule, 0, 0, 0);
 
         listView = (ExpandableListView)view.findViewById(R.id.lvExp);
         initData();

@@ -115,15 +115,15 @@ public class Port {
     public static void seed(SQLiteDatabase db){
         long date = Date.valueOf("2018-09-20").getTime();
 
-        String desc1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in lectus aliquam, suscipit sem nec, imperdiet nisi. Proin nec vulputate nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
-        String desc2 = "Curabitur sed ornare magna. Quisque consequat metus in orci porta sagittis ut in mauris. Sed ultricies sapien luctus dictum vestibulum. Quisque et mauris interdum, condimentum est et, ornare orci. Suspendisse sodales quis sem sit amet ornare. ";
-        String desc3 = "Fusce at nibh enim. Sed ac tortor ac magna ornare porttitor et sed nisi. Aliquam libero velit, posuere eu lacus in, lobortis interdum metus. Integer nec neque nisi.";
-        String desc4 = "Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque vel molestie nunc. Ut id velit et eros vulputate semper. Nullam scelerisque nibh quis magna imperdiet commodo";
+        String desc1 = "Soak up the sights and sounds of wildlife as you drift through Disenchantment Bay, gazing in awe at a 600-foot natural wonder, a colossal tidewater glacier.";
+        String desc2 = "The only private cruise ship destination in America is home to the worlds largest Tlingit village, rugged beauty and an authentic Alaskan experience for travelers.";
+        String desc3 = "Rich in Russian and indigenous Tlingit culture, this capital city and former Gold Rush town thrills nature lovers with its rugged mountains, sweeping glaciers and temperate rainforests.";
+        String desc4 = "Known as the Salmon Capital of the World, this frontier town boasts spawning salmon, historic totem poles, a proud Native American tradition and incomparable natural beauty.";
 
         db.execSQL("INSERT INTO " + Port.TABLE_NAME + " (name, description, price_children, price_adult, price_group, price_private, date, max_people) VALUES " +
                 "('Hubbard Glacier, Alaska', '" + desc1 + "', 40, 80, 100, 120, "+date+", 50), " +
                 "('Icy Strait Point, Alaska', '" +desc2 + "', 45, 85, 105, 125, "+date+", 50), " +
                 "('Juneau, Alaska', '" + desc3 + "', 45, 85, 105, 125, "+date+", 50)," +
-                "('Hubbard Glacier, Alaska', '" + desc4 + "', 45, 85, 105, 125, "+date+", 50)");
+                "('Ketchikan, Alaska', '" + desc4 + "', 45, 85, 105, 125, "+date+", 50)");
     }
 }

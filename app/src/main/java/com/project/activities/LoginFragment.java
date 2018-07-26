@@ -43,8 +43,6 @@ public class LoginFragment extends Fragment {
         final LoginActivity loginActivity = ((LoginActivity)getActivity());
         final EditText textUsername = (EditText)view.findViewById(R.id.txtUserName);
         final EditText textPassword = (EditText)view.findViewById(R.id.txtPassword);
-        textUsername.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_user_login, 0, 0, 0);
-        textPassword.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_password, 0, 0, 0);
 
         Button btn = view.findViewById(R.id.btnLogin);
         btn.setOnClickListener(new View.OnClickListener() {
