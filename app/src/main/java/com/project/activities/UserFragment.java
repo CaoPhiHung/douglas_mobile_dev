@@ -86,7 +86,7 @@ public class UserFragment extends Fragment{
         ArrayList<ActivityBooking> actBookings = ActivityBooking.getByUserId(currentUser.id);
         mainList.add(new Info("Activities Reservation"));
         for (ActivityBooking ab : actBookings){
-            mainList.add(new InfoBooking(ab.activity.name, Utilities.dateFormat(ab.booking_date), InfoBooking.BOOKING_ROOM, ab.activity_id, ab.user_id));
+            mainList.add(new InfoBooking(ab.activity.name, Utilities.dateFormat(ab.booking_date), InfoBooking.BOOKING_ACTIVITTY, ab.activity_id, ab.user_id));
         }
 
         /**

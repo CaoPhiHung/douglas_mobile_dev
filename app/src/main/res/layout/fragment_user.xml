@@ -9,7 +9,6 @@
         android:id="@+id/listUserInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="55sp"
         android:layout_weight="1"
         android:isScrollContainer="false">
 

@@ -89,4 +89,12 @@ public class ActivityBooking {
 
         return list;
     }
+
+    /**
+     *
+     */
+    public static void delete(long user_id, long activity_id){
+        SQLiteDatabase db = DBHelper.getDbInstance();
+        db.delete(TABLE_NAME, "user_id = ? AND activity_id = ? ", new String[] {String.valueOf(user_id), String.valueOf(activity_id)}  );
+    }
 }

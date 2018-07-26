@@ -1,25 +1,20 @@
 package com.project.activities;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.project.db.Invoice;
-import com.project.db.InvoiceItem;
 import com.project.db.Port;
 import com.project.db.PortBooking;
 import com.project.db.User;
 import com.project.objects.ProjectException;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
