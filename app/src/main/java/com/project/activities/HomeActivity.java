@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.project.db.DBHelper;
@@ -31,7 +33,6 @@ public class HomeActivity extends AppCompatActivity {
 
         instance = this;
 
-//        Log.d(TAG, "onCreate: Starting.");
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("My Cruise");
         mSectionsPageAdapter = new SectionAdapter(getSupportFragmentManager());
@@ -82,6 +83,16 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
+        // set height
+        mViewPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mViewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                int height = mViewPager.getHeight();
+                mViewPager.getLayoutParams().height = height - toolbar.getHeight();
+            }
+        });
     }
 
     private void setupViewPager(final ViewPager viewPager) {
@@ -90,6 +101,10 @@ public class HomeActivity extends AppCompatActivity {
         adapter.addFragment(new DestinationsFragment(), "Ports");
         adapter.addFragment(new OnboardFragment(), "Onboard");
         adapter.addFragment(new RoomFragment(), "Room");
+
+        ViewGroup.LayoutParams containerParams = mViewPager.getLayoutParams();
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        ViewGroup.LayoutParams tabParams = tabLayout.getLayoutParams();
 
         final UserFragment userFragment = new UserFragment();
         adapter.addFragment(userFragment, "User");

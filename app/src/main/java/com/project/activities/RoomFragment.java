@@ -55,10 +55,6 @@ public class RoomFragment extends Fragment{
         adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roomList.setAdapter(adp1);
 
-
-
-
-
         Spinner roomService = (Spinner) view.findViewById(R.id.serviceList);
         final ArrayList<Service>  roomServices= Service.getALl();
         final List<String> service_list = new ArrayList<String>();
