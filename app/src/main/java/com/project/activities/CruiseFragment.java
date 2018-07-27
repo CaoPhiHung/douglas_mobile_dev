@@ -47,6 +47,16 @@ public class CruiseFragment extends Fragment{
         listAdapter = new ExpandableListAdapter(view.getContext(),listDataHeader,listHash);
         listView.setAdapter(listAdapter);
 
+        //Adjust listView height to fit scrollView
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                setListViewHeight(parent, groupPosition);
+                return false;
+            }
+        });
+
         return view;
     }
 
@@ -54,14 +64,14 @@ public class CruiseFragment extends Fragment{
         listDataHeader = new ArrayList<>();
         listHash = new HashMap<>();
 
-        listDataHeader.add("Day 1:\nVancouver (BC), Canada");
-        listDataHeader.add("Day 2:\nAt sea");
-        listDataHeader.add("Day 3:\nHubbard Glacier, Alaska");
-        listDataHeader.add("Day 4:\nIcy Strait Point, Alaska");
-        listDataHeader.add("Day 5:\nJuneau, Alaska");
-        listDataHeader.add("Day 6:\nKetchikan, Alaska");
-        listDataHeader.add("Day 7:\nAt sea");
-        listDataHeader.add("Day 8:\nVancouver (BC), Canada");
+        listDataHeader.add("Day 1 - Jul 23:\nVancouver (BC), Canada");
+        listDataHeader.add("Day 2 - Jul 24:\nAt sea");
+        listDataHeader.add("Day 3 - Jul 25:\nHubbard Glacier, Alaska");
+        listDataHeader.add("Day 4 - Jul 26:\nIcy Strait Point, Alaska");
+        listDataHeader.add("Day 5 - Jul 27:\nJuneau, Alaska");
+        listDataHeader.add("Day 6 - Jul 28:\nKetchikan, Alaska");
+        listDataHeader.add("Day 7 - Jul 29:\nAt sea");
+        listDataHeader.add("Day 8 - Jul 30:\nVancouver (BC), Canada");
 
         List<String> day1 = new ArrayList<>();
         day1.add("Guest Onboard 4:00pm");
@@ -102,5 +112,41 @@ public class CruiseFragment extends Fragment{
         listHash.put(listDataHeader.get(5),day6);
         listHash.put(listDataHeader.get(6),day7);
         listHash.put(listDataHeader.get(7),day8);
+    }
+
+    private void setListViewHeight(ExpandableListView listView,
+                                   int group) {
+        ExpandableListAdapter listAdapter = (ExpandableListAdapter) listView.getExpandableListAdapter();
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
+                View.MeasureSpec.EXACTLY);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            View groupItem = listAdapter.getGroupView(i, false, null, listView);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((listView.isGroupExpanded(i)) && (i != group))
+                    || ((!listView.isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                    View listItem = listAdapter.getChildView(i, j, false, null,
+                            listView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+                    totalHeight += listItem.getMeasuredHeight();
+
+                }
+            }
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+        params.height = height;
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
     }
 }
