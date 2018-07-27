@@ -16,7 +16,7 @@ public class InfoBooking extends Info {
     public int bookingType;
     public long bookingId;
     public long activityId, userId;
-
+    public boolean cancelable;
 
     public InfoBooking() {
         super();
@@ -29,8 +29,18 @@ public class InfoBooking extends Info {
         this.value = desc;
         this.bookingType = bookingType;
         this.bookingId = bookingId;
+        this.cancelable = true;
     }
 
+    /**
+     * booking info for activity only
+     *
+     * @param heading
+     * @param desc
+     * @param bookingType
+     * @param activityId
+     * @param userId
+     */
     public InfoBooking(String heading, String desc, int bookingType, long activityId, long userId) {
         this.heading = heading;
         this.type = Info.TYPE_BOOKING;
@@ -38,6 +48,7 @@ public class InfoBooking extends Info {
         this.bookingType = bookingType;
         this.activityId = activityId;
         this.userId = userId;
+        this.cancelable = true;
     }
 
     public void cancel() {

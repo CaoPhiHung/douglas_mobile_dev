@@ -1,5 +1,7 @@
 package com.project.activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +30,7 @@ public class PortActivity extends AppCompatActivity {
         setContentView(R.layout.activity_port);
 
         Bundle b = getIntent().getExtras();
-        int id = b.getInt("id");
+        long id = b.getLong("id");
 
         // get from database
         final Port port = Port.get(id);
@@ -131,6 +133,8 @@ public class PortActivity extends AppCompatActivity {
                         Toast.makeText(PortActivity.this, "Cannot book, please try again", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(PortActivity.this, "You have successfully booked", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent();
+                        setResult(Activity.RESULT_OK, i);
                         finish();
                     }
 

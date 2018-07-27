@@ -1,15 +1,20 @@
 package com.project.objects;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.project.activities.PortActivity;
+import com.project.events.StartActivityForResultListener;
 
 public class PortItem extends ListItem {
 
+    StartActivityForResultListener listener;
+
     public PortItem(int id, String title, int image) {
         super(id, title, image);
+    }
+
+    public void setListener(StartActivityForResultListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -22,9 +27,7 @@ public class PortItem extends ListItem {
                 if (!enabled){
                     Toast.makeText(v.getContext(), "You have already booked this event!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent i = new Intent(v.getContext(), PortActivity.class);
-                    i.putExtra("id", id);
-                    v.getContext().startActivity(i);
+                    listener.startActivity(id);
                 }
             }
         };

@@ -56,6 +56,9 @@ public class ListInfoAdapter extends ArrayAdapter<Info> {
 
             // event
             Button btn = view.findViewById(R.id.btnCancel);
+            if (!infoBooking.cancelable){
+                btn.setVisibility(View.GONE);
+            }
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
