@@ -30,14 +30,14 @@ public class OnboardFragment extends Fragment{
 
 
         ArrayList<OnboardActivity> onboardActivitiesList = OnboardActivity.getAll();
-        int[] images = {R.drawable.act1, R.drawable.act2,R.drawable.act3};
+        int[] images = {R.drawable.act2,R.drawable.act3,R.drawable.act6,R.drawable.act5,R.drawable.act4};
         int index=0;
 
         ArrayList<ActivityItem> activities = new ArrayList<>();
         
         for (OnboardActivity value: onboardActivitiesList){
             int count = value.getBookCount();
-            activities.add(new ActivityItem(images[index%3], value.name, String.format("Max %d people. %d booked", value.max_people, count), value.id));
+            activities.add(new ActivityItem(images[index%5], value.name, String.format("Max %d people. %d booked", value.max_people, count),value.description, value.id));
             index++;
         }
 

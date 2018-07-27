@@ -50,6 +50,7 @@ public class ListActivityAdapter extends ArrayAdapter {
         TextView txtDesc = rowView.findViewById(R.id.actDesc);
         txtDesc.setText(item.desc);
         imgView.setImageResource(item.image);
+        ((TextView)rowView.findViewById(R.id.actTime)).setText(item.time); // activities timing
         ((TextView)rowView.findViewById(R.id.actSubDesc)).setText(item.subdesc); // add number of people
 
         Button btnReserve = rowView.findViewById(R.id.btnReserve);
@@ -66,7 +67,7 @@ public class ListActivityAdapter extends ArrayAdapter {
                         long id = actBooking.save();
                         Toast.makeText(rowView.getContext(), "Booking success", Toast.LENGTH_LONG).show();
                     } catch (Exception ex){
-                        Toast.makeText(rowView.getContext(), "Book fail!!!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(rowView.getContext(), "Booking fail!!!", Toast.LENGTH_LONG).show();
                     }
                 }
                 else Toast.makeText(rowView.getContext(), "Activity is full", Toast.LENGTH_LONG).show();

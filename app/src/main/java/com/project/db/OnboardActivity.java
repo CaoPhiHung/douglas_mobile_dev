@@ -51,24 +51,32 @@ public class OnboardActivity {
     public static void seed(SQLiteDatabase db){
 
         db.execSQL("INSERT INTO " + TABLE_NAME + " (name, description, max_people) VALUES " +
-                "('SkyDrive', 'SkyRide is a bit like riding a bike — you’ll never forget it. But SkyRide is also completely unlike riding a bike, because when was the last time you biked around a ship, high above the deck and even higher above the sparkling blue sea? Zip safely around our two-lane suspended course in a pedal-powered go-mobile, in search of your biggest racing victory, a lower-body workout… or simply the greatest view.', 2), " +
-                "('IMAX', 'To compare the IMAX experience to \"just seeing a movie\" is like calling a Carnival cruise \"just a vacation.\" It sounds about right... but experienced folks know better. That''s why stepping into the IMAX Theatre you''ll find on a Carnival cruise is more like taking a brief escape from life. On the other side of the amazing screen you''ll find a world of first\u00AD-run Hollywood blockbusters, recent hit films and IMAX documentaries, all in a huge format that makes normal theaters look like your smartphone screen. And the very first IMAX Theatre at sea? Nowhere else but Carnival Vista.', 100), " +
-                "('Spa Carnival', 'When it comes to complete relaxation from the inside out, nothing beats a trip to the spa. From the minute you step inside, the soothing ambiance begins to work its magic. Renew yourself with premium beauty and wellness therapies, like hot stone massages, aromatherapy or full-body wraps. This is your time to be spoiled, indulged and even beautified. Lie back, close your eyes, and feel the stress sail away as your body and mind experience total tranquility. (Oh yeah, and this feel-good stuff isn''t just for the ladies — dudes, there are plenty of treatments on our menu for you too.)', 200), " +
-                "('WATERWORKS', 'Wanna splish — and splash — the day away? Head on over to WaterWorks, Carnival''s onboard waterpark. First up, there''s the Twister Waterslide, hundreds of feet of spiraling awesomeness that starts you off high in the air and gets you down low with one of the fastest, wettest rides you''ll find anywhere. Select ships have side-by-side racing slides, which make serious competition seriously fun. Wear your speed suit for Speedway Splash, which features hundreds of feet of racing action, plus special lighting effects you''ll experience on the road to victory. DrainPipe ends with one major swirl of a finish, while PowerDrencher takes soaking seriously — imagine the biggest bucket of water you''ve ever seen, raining down on you from above. And this isn''t just kids'' stuff — the young at heart are encouraged to zoom and splash around too! (WaterWorks configurations vary by ship.)', 100) ");
+                "('WINE TASTING', 'Discover libation tastings that take you from Amari to Whiskey\nTime: Everyday from 4:00pm - 7:00pm', 100), " +
+                "('QUIET COVE POOL', 'Splash it up in freshwater pool, aqua play areas and waterslides designed for kids, and adults.\nTime: Everyday from 7:00am - 21:00pm', 500), " +
+                "('PIRATE NIGHT', 'Feast on a pirate-themed dinner followed by a “Pirates in the Caribbean” show and deck party.\nTime: Day 2 (Jul 24) || Day 7 (Jul 29)', 2000), " +
+                "('VIBE', 'Chill out, listen to music, watch TV, play group games and more with cruisers your age.Maximum 2 hours for each group booking.\nTime: Everyday from 9:00am - 10:00pm ', 20)," +
+                "('SENSES SPA & SALON', 'Experience high-end salon services and treatments inside an elegant spa boasting an ocean view.\nTime: Everyday from 10:00am - 16:00pm', 3) ");
 
-        // create booking for activity 1
+        // create booking for activity 5
         ActivityBooking b1 = new ActivityBooking();
         b1.user_id = 2;
-        b1.activity_id = 1;
+        b1.activity_id = 5;
         b1.booking_date = new Date().getTime();
         db.insert(ActivityBooking.TABLE_NAME, null, b1.toContentValues());
 
-        // create booking for activity 2
+        // create booking for activity 5
         ActivityBooking b2 = new ActivityBooking();
         b2.user_id = 3;
-        b2.activity_id = 1;
+        b2.activity_id = 5;
         b2.booking_date = new Date().getTime();
         db.insert(ActivityBooking.TABLE_NAME, null, b2.toContentValues());
+
+        // create booking for activity 5
+        ActivityBooking b3 = new ActivityBooking();
+        b3.user_id = 4;
+        b3.activity_id = 5;
+        b3.booking_date = new Date().getTime();
+        db.insert(ActivityBooking.TABLE_NAME, null, b3.toContentValues());
     }
 
     /**

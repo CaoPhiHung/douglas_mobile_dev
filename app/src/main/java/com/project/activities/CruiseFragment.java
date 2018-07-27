@@ -59,15 +59,16 @@ public class CruiseFragment extends Fragment{
         listDataHeader.add("Day 3:\nHubbard Glacier, Alaska");
         listDataHeader.add("Day 4:\nIcy Strait Point, Alaska");
         listDataHeader.add("Day 5:\nJuneau, Alaska");
-        listDataHeader.add("Day 6:\nIcy Strait Point, Alaska");
+        listDataHeader.add("Day 6:\nKetchikan, Alaska");
         listDataHeader.add("Day 7:\nAt sea");
         listDataHeader.add("Day 8:\nVancouver (BC), Canada");
 
         List<String> day1 = new ArrayList<>();
         day1.add("Guest Onboard 4:00pm");
+        day1.add("Sail-Away celebration activity");
 
         List<String> day2 = new ArrayList<>();
-
+        day2.add("Pirate Night event - 18:00pm");
 
         List<String> day3 = new ArrayList<>();
         day3.add("Guest Ashore 7:00am");
@@ -87,9 +88,10 @@ public class CruiseFragment extends Fragment{
         day6.add("Guest Onboard 7:45pm");
 
         List<String> day7 = new ArrayList<>();
+        day7.add("Pirate Night event - 18:00pm");
 
         List<String> day8 = new ArrayList<>();
-        day8.add("Guest Ashore 8:00am");
+        day8.add("Guest Ashore 8:30pm");
 
 
         listHash.put(listDataHeader.get(0),day1);
