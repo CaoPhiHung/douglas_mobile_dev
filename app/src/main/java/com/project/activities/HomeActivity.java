@@ -1,19 +1,14 @@
 package com.project.activities;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Toast;
 
-import com.project.db.DBHelper;
 
 public class HomeActivity extends AppCompatActivity {
 
