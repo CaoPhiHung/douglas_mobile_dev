@@ -46,10 +46,8 @@ public class ListActivityAdapter extends ArrayAdapter {
         final ActivityItem item = items.get(position);
         final User currentUser = User.getCurrentUser();
 
-        ImageView imgView =  rowView.findViewById(R.id.actImg);
-        TextView txtDesc = rowView.findViewById(R.id.actDesc);
-        txtDesc.setText(item.desc);
-        imgView.setImageResource(item.image);
+        ((TextView)rowView.findViewById(R.id.actDesc)).setText(item.desc);
+        ((ImageView)rowView.findViewById(R.id.actImg)).setImageResource(item.image);
         ((TextView)rowView.findViewById(R.id.actTime)).setText(item.time); // activities timing
         ((TextView)rowView.findViewById(R.id.actSubDesc)).setText(item.subdesc); // add number of people
 
@@ -57,22 +55,31 @@ public class ListActivityAdapter extends ArrayAdapter {
         btnReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 OnboardActivity activity = OnboardActivity.get(item.id);
-                if (ActivityBooking.getCountByActivityId(item.id) < activity.max_people){
-                    try{
-                        ActivityBooking actBooking = new ActivityBooking();
-                        actBooking.activity_id = item.id;
-                        actBooking.user_id = currentUser.id;
-                        actBooking.booking_date = new Date().getTime();
-                        long id = actBooking.save();
-                        Toast.makeText(rowView.getContext(), "Booking success", Toast.LENGTH_LONG).show();
-                    } catch (Exception ex){
-                        Toast.makeText(rowView.getContext(), "Booking fail!!!", Toast.LENGTH_LONG).show();
+                ArrayList<ActivityBooking> bookedActivities = ActivityBooking.getByUserId(User.getCurrentUser().id);
+                for (ActivityBooking bookedVal : bookedActivities){
+                    if(bookedVal.activity_id == item.id) {
+                        item.booked = true;
                     }
                 }
-                else Toast.makeText(rowView.getContext(), "Activity is full", Toast.LENGTH_LONG).show();
-
-
+                if(!item.booked){
+                    if (ActivityBooking.getCountByActivityId(item.id) < activity.max_people){
+                        try{
+                            ActivityBooking actBooking = new ActivityBooking();
+                            actBooking.activity_id = item.id;
+                            actBooking.user_id = currentUser.id;
+                            actBooking.booking_date = new Date().getTime();
+                            actBooking.save();
+                            Toast.makeText(rowView.getContext(), "You have successfully booked activity " + activity.name, Toast.LENGTH_LONG).show();
+                        } catch (Exception ex){
+                            Toast.makeText(rowView.getContext(), "Booking fail!!!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else Toast.makeText(rowView.getContext(), "Sorry, this activity is full", Toast.LENGTH_LONG).show();
+                }
+                else
+                    Toast.makeText(rowView.getContext(),"You have already booked this activity", Toast.LENGTH_LONG).show();
             }
 
         });

@@ -46,9 +46,6 @@ public class OnboardFragment extends Fragment{
         ListView listView = view.findViewById(R.id.listActivities100);
         listView.setAdapter(adapter);
 
-//        OnboardActivity oa = new OnboardActivity();
-//        oa.save();
-
         return view;
 
     }

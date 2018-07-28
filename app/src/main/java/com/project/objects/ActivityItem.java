@@ -6,6 +6,7 @@ public class ActivityItem {
     public String subdesc;
     public String time;
     public long id;
+    public boolean booked;
 
     public ActivityItem(int image, String desc, String subdesc, String time, long id) {
         this.image = image;
@@ -13,5 +14,7 @@ public class ActivityItem {
         this.subdesc = subdesc;
         this.time = time;
         this.id = id;
+        this.booked = false;
+
     }
 }
