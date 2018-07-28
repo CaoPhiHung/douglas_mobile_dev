@@ -66,7 +66,9 @@ public class UserFragment extends Fragment{
         ArrayList<RoomBooking> roomBookings = RoomBooking.findByUserId(currentUser.id);
         mainList.add(new Info("Rooms"));
         for (RoomBooking rb : roomBookings){
-            mainList.add(new InfoBooking(rb.room.name, rb.number_adult + " Adults, " + rb.number_children + " Children", InfoBooking.BOOKING_ROOM, rb.id));
+            InfoBooking booking = new InfoBooking(rb.room.name, rb.number_adult + " Adults, " + rb.number_children + " Children", InfoBooking.BOOKING_ROOM, rb.id);
+            booking.cancelable = false;
+            mainList.add(booking);
         }
 
         /**

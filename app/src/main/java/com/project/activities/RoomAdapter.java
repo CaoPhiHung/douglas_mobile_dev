@@ -40,8 +40,7 @@ public class RoomAdapter extends ArrayAdapter<Room> {
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.custom_row, null);
-//        Log.d("size: ",this.items.size()+ "");
-//        Log.d("I: ",i + "");
+
         TextView roomNo = (TextView) v.findViewById(R.id.txtTitle);
         roomNo.setText(this.items.get(i).name);
 
@@ -68,14 +67,13 @@ public class RoomAdapter extends ArrayAdapter<Room> {
                     RoomBooking roomBooking = new RoomBooking();
                     roomBooking.room_id = items.get(index).id;
                     roomBookings.add(roomBooking);
-//                    Log.d("size",roomBookings.size()+ "");
+
                 }else{
                     bookButton.setText("Book");
                     for (int i = 0; i < roomBookings.size(); i++){
                         RoomBooking selectRoom = roomBookings.get(i);
                         if(selectRoom.room_id == items.get(index).id) {
                             roomBookings.remove(selectRoom);
-//                            Log.d("size2", roomBookings.size() + "");
                         }
                     }
                 }

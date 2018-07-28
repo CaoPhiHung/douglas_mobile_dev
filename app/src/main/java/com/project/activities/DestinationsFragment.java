@@ -1,5 +1,6 @@
 package com.project.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,20 +10,22 @@ import android.widget.ListView;
 
 import com.project.db.Port;
 import com.project.db.PortBooking;
-import com.project.db.Room;
 import com.project.db.User;
+import com.project.events.StartActivityForResultListener;
 import com.project.objects.ListItem;
 import com.project.objects.PortItem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * Created by 300284134 on 6/25/2018.
  */
 
-public class DestinationsFragment extends android.support.v4.app.Fragment{
+public class DestinationsFragment extends android.support.v4.app.Fragment implements StartActivityForResultListener {
     private static final String TAG = "DestinationsFragment";
+
+    ArrayList<ListItem> items;
+    ListItemAdapter adapter;
 
     @Nullable
     @Override
@@ -33,7 +36,38 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
         ArrayList<PortBooking> bookings = PortBooking.getAllByUser(User.getCurrentUser().id);
 
         // view
-        ArrayList<ListItem> items = new ArrayList<ListItem>();
+        items = new ArrayList<ListItem>();
+        int[] images = {R.drawable.port_1, R.drawable.port_2};
+        int count = 0;
+
+        for (Port port : ports){
+            PortItem item = new PortItem((int)port.id ,port.name, images[count % 2]);
+
+            // set refresh listener for port item
+            item.setListener(this);
+
+            for (PortBooking booking : bookings){
+                if (booking.port_id == port.id){
+                    item.enabled = false;
+                    break;
+                }
+            }
+            items.add(item);
+            count++;
+        }
+
+        adapter = new ListItemAdapter(view.getContext(), 0, items);
+
+        ListView lv = view.findViewById(R.id.listPorts);
+        lv.setAdapter(adapter);
+        return view;
+    }
+
+    public void refresh() {
+        ArrayList<Port> ports = Port.getPorts();
+        ArrayList<PortBooking> bookings = PortBooking.getAllByUser(User.getCurrentUser().id);
+
+        items = new ArrayList<>();
         int[] images = {R.drawable.port_1, R.drawable.port_2};
         int count = 0;
 
@@ -50,10 +84,22 @@ public class DestinationsFragment extends android.support.v4.app.Fragment{
             count++;
         }
 
-        ListItemAdapter adapter = new ListItemAdapter(view.getContext(), 0, items);
+        adapter.clear();
+        adapter.addAll(items);
+        adapter.notifyDataSetChanged();
+    }
 
-        ListView lv = view.findViewById(R.id.listPorts);
-        lv.setAdapter(adapter);
-        return view;
+    @Override
+    public void startActivity(long id) {
+        Intent i = new Intent(this.getActivity(), PortActivity.class);
+        i.putExtra("id", id);
+
+        startActivityForResult(i, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
     }
 }
