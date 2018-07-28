@@ -32,34 +32,15 @@ public class DestinationsFragment extends android.support.v4.app.Fragment implem
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_destinations,container,false);
 
-        ArrayList<Port> ports = Port.getPorts();
-        ArrayList<PortBooking> bookings = PortBooking.getAllByUser(User.getCurrentUser().id);
-
         // view
         items = new ArrayList<ListItem>();
-        int[] images = {R.drawable.port_1, R.drawable.port_2};
-        int count = 0;
-
-        for (Port port : ports){
-            PortItem item = new PortItem((int)port.id ,port.name, images[count % 2]);
-
-            // set refresh listener for port item
-            item.setListener(this);
-
-            for (PortBooking booking : bookings){
-                if (booking.port_id == port.id){
-                    item.enabled = false;
-                    break;
-                }
-            }
-            items.add(item);
-            count++;
-        }
-
         adapter = new ListItemAdapter(view.getContext(), 0, items);
 
         ListView lv = view.findViewById(R.id.listPorts);
         lv.setAdapter(adapter);
+
+        refresh(); // refresh port of call items
+
         return view;
     }
 
@@ -73,6 +54,9 @@ public class DestinationsFragment extends android.support.v4.app.Fragment implem
 
         for (Port port : ports){
             PortItem item = new PortItem((int)port.id ,port.name, images[count % 2]);
+
+            // set refresh listener for port item
+            item.setListener(this);
 
             for (PortBooking booking : bookings){
                 if (booking.port_id == port.id){
