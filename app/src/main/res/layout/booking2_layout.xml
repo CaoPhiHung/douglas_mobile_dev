@@ -17,7 +17,7 @@
     <ListView
         android:id="@+id/roomList"
         android:layout_width="match_parent"
-        android:layout_height="391dp">
+        android:layout_height="491dp">
 
 
     </ListView>

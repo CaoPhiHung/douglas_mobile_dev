@@ -82,6 +82,10 @@ public class InvoiceItem {
 
     public static InvoiceItem get(long id){
         SQLiteDatabase db = DBHelper.getDbInstance();
-        return convertFromCursor(db.query(TABLE_NAME, getColumnNames(), "id = ?", new String[] {String.valueOf(id)}, null, null, null, null));
+        Cursor cursor = db.query(TABLE_NAME, getColumnNames(), "id = ?", new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor.getCount() == 0)
+            return new InvoiceItem();
+        cursor.moveToFirst();
+        return convertFromCursor(cursor);
     }
 }
