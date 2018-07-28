@@ -25,6 +25,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.project.objects.Utilities.dateTimeFormat;
+
 /**
  * Created by 300284134 on 6/25/2018.
  */
@@ -114,6 +116,8 @@ public class UserFragment extends Fragment{
                     desc += "Regular Tour";
                     break;
             }
+
+            desc += ", " + dateTimeFormat(pb.booking_date);
 
             mainList.add(new InfoBooking(name, desc, InfoBooking.BOOKING_PORT, pb.id));
         }

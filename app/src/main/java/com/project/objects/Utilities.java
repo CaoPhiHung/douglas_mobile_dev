@@ -9,7 +9,7 @@ public class Utilities {
         return df.format(new Date(date));
     }
     public static String dateTimeFormat(long date){
-        SimpleDateFormat df = new SimpleDateFormat("MMMM d, YYYY   H:m:s");
+        SimpleDateFormat df = new SimpleDateFormat("MMMM d, YYYY  H:m:s");
         return df.format(new Date(date));
     }
 }
