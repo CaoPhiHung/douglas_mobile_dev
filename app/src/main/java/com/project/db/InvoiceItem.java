@@ -64,7 +64,7 @@ public class InvoiceItem {
         item.invoice_id = invoice_id;
         item.name = name;
         item.price = price;
-        item.save();
+        item.id = item.save();
 
         return item;
     }

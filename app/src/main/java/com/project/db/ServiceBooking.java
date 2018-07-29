@@ -66,10 +66,10 @@ public class ServiceBooking {
         Invoice invoice = Invoice.getByUser(user_id);
 
         if (id == 0){
-            id = db.insert(TABLE_NAME, null, toContentValues());
             InvoiceItem invoiceItem = invoice.generateInvoiceItem(service.name, price);
-            invoiceItem.save();
             invoice_item_id = invoiceItem.id;
+
+            id = db.insert(TABLE_NAME, null, toContentValues());
             return id;
         } else {
             db.update(TABLE_NAME, toContentValues(), "id =? ", new String[] { String.valueOf(id)} );
@@ -91,8 +91,9 @@ public class ServiceBooking {
 
         ServiceBooking booking = get(id);
 
-        db.delete(InvoiceItem.TABLE_NAME, "id = ?", new String[] {String.valueOf(booking.invoice_item_id)});
-        int result = db.delete(TABLE_NAME, "id = ?", new String[] {String.valueOf(booking.id)});
+        int result = db.delete(InvoiceItem.TABLE_NAME, "id = ?", new String[] {String.valueOf(booking.invoice_item_id)});
+
+        result = db.delete(TABLE_NAME, "id = ?", new String[] {String.valueOf(booking.id)});
     }
 
     public static ArrayList<ServiceBooking> findByUserId(long user_id){
