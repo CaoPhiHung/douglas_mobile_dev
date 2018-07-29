@@ -59,7 +59,7 @@ public class ListActivityAdapter extends ArrayAdapter {
                 OnboardActivity activity = OnboardActivity.get(item.id);
                 ArrayList<ActivityBooking> bookedActivities = ActivityBooking.getByUserId(User.getCurrentUser().id);
                 for (ActivityBooking bookedVal : bookedActivities){
-                    if(bookedVal.activity_id == item.id && bookedVal.booking_date != new Date().getTime()) {
+                    if(bookedVal.activity_id == item.id) {
                         item.booked = true;
                     }
                 }
