@@ -61,6 +61,7 @@ public class ListActivityAdapter extends ArrayAdapter {
                 for (ActivityBooking bookedVal : bookedActivities){
                     if(bookedVal.activity_id == item.id) {
                         item.booked = true;
+                        break;
                     }
                 }
                 if(!item.booked){
